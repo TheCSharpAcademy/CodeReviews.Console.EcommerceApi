@@ -5,12 +5,12 @@ namespace ExerciseTracker.KroksasC.Controllers
 {
     internal class ExerciseController
     {
-        private readonly ExerciseService exerciseService;
+        private readonly ExerciseService _exerciseService;
 
         // Constructor injection for ExerciseService
         public ExerciseController(ExerciseService exerciseService)
         {
-            this.exerciseService = exerciseService;
+            _exerciseService = exerciseService;
         }
         public async Task Run()
         {
@@ -28,16 +28,16 @@ namespace ExerciseTracker.KroksasC.Controllers
                 switch (option)
                 {
                     case "Create exercise":
-                        await exerciseService.AddExercise();
+                        await _exerciseService.AddExercise();
                         break;
                     case "View exercises":
-                        await exerciseService.ShowAllExercises();
+                        await _exerciseService.ShowAllExercises();
                         break;
                     case "Delete exercise":
-                        await exerciseService.DeleteExercise();
+                        await _exerciseService.DeleteExercise();
                         break;
                     case "Update exercise":
-                        await exerciseService.UpdateExercise();
+                        await _exerciseService.UpdateExercise();
                         break;
                     case "Exit":
                         Console.Clear();

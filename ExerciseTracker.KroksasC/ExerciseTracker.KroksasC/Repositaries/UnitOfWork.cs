@@ -15,7 +15,15 @@ namespace ExerciseTracker.KroksasC.Repositaries
 
         public async Task<int> CompleteAsync()
         {
-            return await _context.SaveChangesAsync();
+            try
+            {
+                return await _context.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                return -1;
+            }
         }
 
         public void Dispose()

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ExerciseTracker.KroksasC.Repositaries;
+using ExerciseTracker.KroksasC.Controllers;
 
 namespace ExerciseTracker.KroksasC.UI
 {
@@ -24,11 +25,20 @@ namespace ExerciseTracker.KroksasC.UI
         public async Task<Exercise> GetDeleteInput()
         {
             var exercise = await GetExerciseById("delete");
+            if (exercise == null)
+            {
+                return null;
+            }
             return exercise;
         }
         public async Task<Exercise> GetUpdateInput()
         {
             var Exercise = await GetExerciseById("update");
+
+            if(Exercise == null)
+            {
+                return null;
+            }
 
             var options = new[] {"Update Start Time", "Update End Time", "Update Comment" };
 
@@ -113,8 +123,6 @@ namespace ExerciseTracker.KroksasC.UI
             {
                 Console.WriteLine("Id that you choose doesn't exist! Press any key to return");
                 Console.ReadLine();
-
-
                 return null;
             }
             else

@@ -30,7 +30,7 @@ namespace ExerciseTracker.KroksasC.Services
                 }
                 else
                 {
-                    Console.WriteLine("Invalid time format. Please use hh:mm:ss. Enter again:" +
+                    Console.WriteLine("Invalid time format. Please use yyyy-MM-dd HH:mm:ss. Enter again:" +
                         "");
                     date = Console.ReadLine();
                 }
@@ -39,9 +39,10 @@ namespace ExerciseTracker.KroksasC.Services
         public static int ValidateNumber(string? number)
         {
             int result;
-            while (!int.TryParse(number, out result))
+            
+            while (!int.TryParse(number, out result) || result <= 0)
             {
-                Console.WriteLine("Only number is allowed! Try again");
+                Console.WriteLine("Only postive number is allowed! Try again");
                 number = Console.ReadLine();
             }
             return result;

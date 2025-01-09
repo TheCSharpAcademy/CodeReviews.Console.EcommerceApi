@@ -32,6 +32,10 @@ namespace ExerciseTracker.KroksasC.Services
         {
             var userInput = new UserInput(this);
             var exercise = await userInput.GetDeleteInput();
+            if (exercise == null)
+            {
+                return;
+            }
             unitOfWork.Exercises.Delete(exercise);
             await unitOfWork.CompleteAsync();
         }
@@ -39,6 +43,10 @@ namespace ExerciseTracker.KroksasC.Services
         {
             var userInput = new UserInput(this);
             var exercise = await userInput.GetUpdateInput();
+            if (exercise == null) 
+            {
+                return;
+            }
             unitOfWork.Exercises.Update(exercise);
             await unitOfWork.CompleteAsync();
         }
