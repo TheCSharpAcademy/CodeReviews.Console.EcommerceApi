@@ -1,4 +1,4 @@
-﻿using ExerciseTracker;
+﻿using ExerciseTracker.Services;
 using Spectre.Console;
 using System.ComponentModel;
 
@@ -36,19 +36,19 @@ while (isAppRunning)
 		switch (selectedOption)
 		{
 			case MenuOptions.AddData:
-				ExerciseService.AddInput();
+				ExerciseServices.Add();
 				break;
 			case MenuOptions.RemoveData:
-				ExerciseService.DeleteInput();
+				ExerciseServices.Remove();
 				break;
 			case MenuOptions.ShowAllData:
-				ExerciseService.GetExercises();
+				ExerciseServices.GetAll();
 				break;
 			case MenuOptions.ShowData:
-				ExerciseService.GetExerciseInput();
+				ExerciseServices.GetById();
 				break;
 			case MenuOptions.UpdateData:
-				ExerciseService.UpdateInput();
+				ExerciseServices.Update();
 				break;
 			case MenuOptions.Exit:
 				AnsiConsole.MarkupLine("[green]Exiting the application. Goodbye![/]");
