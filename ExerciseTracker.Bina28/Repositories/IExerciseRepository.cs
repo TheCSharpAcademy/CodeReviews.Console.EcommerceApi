@@ -1,6 +1,4 @@
-﻿using ExerciseTracker.Models;
-
-namespace ExerciseTracker.Repositories;
+﻿namespace ExerciseTracker.Repositories;
 
 internal interface IExerciseRepository<T> where T : class
 {

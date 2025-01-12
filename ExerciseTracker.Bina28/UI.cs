@@ -1,16 +1,7 @@
-﻿using ExerciseTracker.Controller;
-using ExerciseTracker.Controllers;
-using ExerciseTracker.Models;
-using ExerciseTracker.Services;
+﻿using ExerciseTracker.Models;
 using Spectre.Console;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExerciseTracker;
-
 internal class UI
 {
 	internal static void ShowExercise(ExerciseModel exerciseModel)
@@ -25,8 +16,7 @@ Duration: {exerciseModel.Duration}");
 
 		AnsiConsole.Write(panel);
 
-		Console.WriteLine("Press any key to continue");
-		Console.ReadLine();
+		UserInput.AwaitKeyPress();
 		Console.Clear();
 
 	}
@@ -47,10 +37,8 @@ Duration: {exerciseModel.Duration}");
 
 		AnsiConsole.Write(table);
 
-		Console.WriteLine("Press any key to continue");
-		Console.ReadLine();
+		UserInput.AwaitKeyPress();
 		Console.Clear();
 	}
 
-	
 }

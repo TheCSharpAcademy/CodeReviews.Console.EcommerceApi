@@ -1,6 +1,4 @@
-﻿
-using ExerciseTracker.Data;
-using ExerciseTracker.Models;
+﻿using ExerciseTracker.Data;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExerciseTracker.Repositories;
@@ -38,7 +36,17 @@ internal class ExerciseRepository<T> : IExerciseRepository<T> where T : class
 
 	public void Update(T model)
 	{
+		var existingEntity = _context.Set<T>().Find(model.GetType().GetProperty("Id").GetValue(model));
+
+		if (existingEntity != null)
+		{
+			// Detach the existing entity if it's being tracked by the context
+			_context.Entry(existingEntity).State = EntityState.Detached;
+		}
+
 		_context.Set<T>().Update(model);
 		_context.SaveChanges();
 	}
+
+
 }

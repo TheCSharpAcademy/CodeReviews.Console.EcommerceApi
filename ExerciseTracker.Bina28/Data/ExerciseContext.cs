@@ -1,28 +1,26 @@
 ﻿using ExerciseTracker.Models;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-
 
 namespace ExerciseTracker.Data;
 
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 internal class ExerciseContext : DbContext
 {
-    string _connectionString = string.Empty;
+	private readonly string _connectionString;
 
-    public ExerciseContext()
-    {
-        var config = new ConfigurationBuilder()
-            .AddJsonFile("appsettings.json", false, true)
-            .Build();
+	// Inject IConfiguration through the constructor
+	public ExerciseContext(IConfiguration configuration)
+	{
+		_connectionString = configuration.GetConnectionString("DefaultConnection") ??
+							throw new InvalidOperationException("Connection string 'DefaultConnection' not found");
+	}
 
-        _connectionString = config.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found");
-    }
+	public DbSet<ExerciseModel> Exercise { get; set; }
 
-    public DbSet<ExerciseModel> Exercise { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlServer(_connectionString);
-    }
-
+	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+	{
+		optionsBuilder.UseSqlServer(_connectionString);
+	}
 }
+
+

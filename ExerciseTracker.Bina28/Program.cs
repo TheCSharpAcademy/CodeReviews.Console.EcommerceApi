@@ -1,6 +1,12 @@
-﻿using ExerciseTracker.Services;
+﻿using ExerciseTracker;
+using ExerciseTracker.Controller;
+using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console;
 using System.ComponentModel;
+
+
+var serviceProvider = Starter.InitializeServices();  // Initialize services
+var controller = serviceProvider.GetService<ExerciseController>();
 
 var isAppRunning = true;
 
@@ -8,6 +14,7 @@ while (isAppRunning)
 {
 	Console.Clear();
 
+	// Map enum to descriptions
 	var enumToDescription = Enum.GetValues(typeof(MenuOptions))
 		.Cast<MenuOptions>()
 		.ToDictionary(option => GetDescription(option), option => option);
@@ -19,7 +26,7 @@ while (isAppRunning)
 		// Generate a list of descriptions based on enum
 		var menuChoices = enumToDescription.Keys.ToList();
 
-		// Now use the description list in the SelectionPrompt
+		// Use the description list in the SelectionPrompt
 		var options = AnsiConsole.Prompt(
 			new SelectionPrompt<string>()
 				.Title("Select an option")
@@ -33,49 +40,50 @@ while (isAppRunning)
 			continue;
 		}
 
+		// Call methods through ExerciseController
 		switch (selectedOption)
 		{
 			case MenuOptions.AddData:
-				ExerciseServices.Add();
+				controller.Add(); 
 				break;
 			case MenuOptions.RemoveData:
-				ExerciseServices.Remove();
+				controller.Remove(); 
 				break;
 			case MenuOptions.ShowAllData:
-				ExerciseServices.GetAll();
+				controller.GetAll(); 
 				break;
 			case MenuOptions.ShowData:
-				ExerciseServices.GetById();
+				controller.GetById(); 
 				break;
 			case MenuOptions.UpdateData:
-				ExerciseServices.Update();
+				controller.Update();  
 				break;
 			case MenuOptions.Exit:
 				AnsiConsole.MarkupLine("[green]Exiting the application. Goodbye![/]");
-				isAppRunning = false;
+				isAppRunning = false;  
 				break;
 		}
 	}
-	// The method for getting the description of an enum
-	static string GetDescription(Enum value)
+}
+
+// The method for getting the description of an enum
+static string GetDescription(Enum value)
+{
+	Type type = value.GetType();
+	string name = Enum.GetName(type, value);
+	if (name != null)
 	{
-		Type type = value.GetType();
-		string name = Enum.GetName(type, value);
-		if (name != null)
+		var field = type.GetField(name);
+		if (field != null)
 		{
-			var field = type.GetField(name);
-			if (field != null)
+			var attr = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));
+			if (attr != null)
 			{
-				var attr = (DescriptionAttribute)Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute));
-				if (attr != null)
-				{
-					return attr.Description;
-				}
+				return attr.Description;
 			}
 		}
-		return value.ToString(); // Return the enum name if no description is found
 	}
-
+	return value.ToString(); // Return the enum name if no description is found
 }
 
 enum MenuOptions
@@ -89,7 +97,7 @@ enum MenuOptions
 	[Description("Show all exercises")]
 	ShowAllData,
 
-	[Description("Show exdercise by Id")]
+	[Description("Show exercise by Id")]
 	ShowData,
 
 	[Description("Update")]

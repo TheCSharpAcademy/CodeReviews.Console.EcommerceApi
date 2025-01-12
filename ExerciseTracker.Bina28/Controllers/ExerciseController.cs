@@ -1,48 +1,95 @@
-﻿using ExerciseTracker.Models;
-using ExerciseTracker.Repositories;
+﻿using ExerciseTracker.Services;
 using Spectre.Console;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
 
 namespace ExerciseTracker.Controller;
 
 internal class ExerciseController
 {
-    private readonly IExerciseRepository<ExerciseModel> _exerciseRepository;
+	private readonly ExerciseServices _services;
+	private readonly UserInput _input;
 
-    public ExerciseController(IExerciseRepository<ExerciseModel> exerciseRepository)
-    {
-        _exerciseRepository = exerciseRepository;
-    }
-
-	public ExerciseController()
+	// Constructor injection of both controller and input
+	public ExerciseController(ExerciseServices services, UserInput input)
 	{
+		_services = services;
+		_input = input;
 	}
 
-	public ExerciseModel GetById(int id)
-    {
-        return _exerciseRepository.GetById(id);
-    }
+	internal void Add()
+	{
+		var exercise = _input.AddInput();
+		if (exercise != null)
+		{
+			_services.Add(exercise);
+			AnsiConsole.MarkupLine("[green]Exercise added successfully![/]");
+		}
+		else
+		{
+			AnsiConsole.MarkupLine("[red]Exercise addition failed due to invalid input![/]");
+		}
+		UserInput.AwaitKeyPress(); 
+	}
 
-    public IEnumerable<ExerciseModel> GetAll() 
-    {
-        return _exerciseRepository.GetAll(); 
-    }
+	internal void GetAll()
+	{
+		var exercises = _services.GetAll();
+		UI.ShowTable(exercises);
+	}
 
-    public void Add(ExerciseModel model)
-    {
-        _exerciseRepository.Add(model);
+	internal void GetById()
+	{
+		var exercise = _input.GetSingleInput();
+		if (exercise != null)
+		{
+			UI.ShowExercise(exercise);
+		}
+		else
+		{
+			AnsiConsole.MarkupLine("[red]Exercise not found![/]");
+		}
+		UserInput.AwaitKeyPress();
+	}
 
-    }
+	internal void Remove()
+	{
+		var exercise = _input.GetSingleInput();
+		if (exercise != null)
+		{
+			_services.Delete(exercise);
+			AnsiConsole.MarkupLine("[green]Exercise removed successfully![/]");
+		}
+		else
+		{
+			AnsiConsole.MarkupLine("[red]Exercise removal failed![/]");
+		}
+		UserInput.AwaitKeyPress();
+	}
+	internal void Update()
+	{
+		var exercise = _input.GetSingleInput();
+		if (exercise != null)
+		{
+			UI.ShowExercise(exercise);
 
-    public void Update(ExerciseModel model)
-    {
-        _exerciseRepository.Update(model);
+			var updatedExercise = _input.CollectUpdatedExerciseInput();
 
-    }
-    public void Delete(ExerciseModel model)
-    {
-        _exerciseRepository.Delete(model);
-
-    }
+			if (updatedExercise != null)
+			{
+				_services.Update(updatedExercise);
+				AnsiConsole.MarkupLine("[green]Exercise updated successfully![/]");
+			}
+			else
+			{
+				AnsiConsole.MarkupLine("[red]Exercise update failed due to invalid input![/]");
+			}
+		}
+		else
+		{
+			AnsiConsole.MarkupLine("[red]Exercise not found for update![/]");
+		}
+		UserInput.AwaitKeyPress();
+	}
 
 }
+
+

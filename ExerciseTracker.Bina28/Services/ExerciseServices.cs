@@ -1,90 +1,79 @@
-﻿using ExerciseTracker.Controller;
-using ExerciseTracker.Models;
-using Spectre.Console;
+﻿using ExerciseTracker.Models;
+using ExerciseTracker.Repositories;
 
 namespace ExerciseTracker.Services;
 
 internal class ExerciseServices
 {
-	private readonly ExerciseController _controller;
-	private readonly UserInput input;
+	private readonly IExerciseRepository<ExerciseModel> _exerciseRepository;
 
-	// Constructor injection of both controller and input
-	public ExerciseServices(ExerciseController controller, UserInput input)
+	public ExerciseServices(IExerciseRepository<ExerciseModel> exerciseRepository)
 	{
-		_controller = controller;
-		_input = input;
+		_exerciseRepository = exerciseRepository;
 	}
 
-	// Example of Add with validation or business logic
-	internal void Add()
+	public ExerciseModel GetById(int id)
 	{
-		// Validate or add business logic here
-		var exercise = _input.AddInput();
-		if (exercise != null)
+		try
 		{
-			_controller.Add(exercise);
-			AnsiConsole.MarkupLine("[green]Exercise added successfully![/]");
+			return _exerciseRepository.GetById(id);
 		}
-		else
+		catch (Exception ex)
 		{
-			AnsiConsole.MarkupLine("[red]Exercise addition failed![/]");
+			Console.WriteLine($"Error in GetById: {ex.Message}");
+			return null;
 		}
 	}
 
-	internal void GetAll()
+	public IEnumerable<ExerciseModel> GetAll()
 	{
-		var exercises = _controller.GetAll();
-		UI.ShowTable(exercises);
-	}
-
-	internal void GetById()
-	{
-		var exercise = input.GetSingleInput();
-		if (exercise != null)
+		try
 		{
-			UI.ShowExercise(exercise);
+			return _exerciseRepository.GetAll();
 		}
-		else
+		catch (Exception ex)
 		{
-			AnsiConsole.MarkupLine("[red]Exercise not found![/]");
+			Console.WriteLine($"Error in GetAll: {ex.Message}");
+			return Enumerable.Empty<ExerciseModel>();
 		}
 	}
 
-	internal void Remove()
+	public void Add(ExerciseModel model)
 	{
-		var exercise = input.GetSingleInput();
-		if (exercise != null)
+		try
 		{
-			_controller.Delete(exercise);
-			AnsiConsole.MarkupLine("[green]Exercise removed successfully![/]");
+			_exerciseRepository.Add(model);
 		}
-		else
+
+		catch (Exception ex)
 		{
-			AnsiConsole.MarkupLine("[red]Exercise removal failed![/]");
+			Console.WriteLine($"Error in Add: {ex.Message}");
+		}
+	}
+	public void Update(ExerciseModel model)
+	{
+		try
+		{
+			_exerciseRepository.Update(model);
+		}
+		catch (Exception ex)
+		{
+			Console.WriteLine($"Error in Update: {ex.Message}");
 		}
 	}
 
-	internal void Update()
+	public void Delete(ExerciseModel model)
 	{
-		var exercise = input.GetSingleInput();
-		if (exercise != null)
+		try
 		{
-			// Example of updating with validation
-			var updatedExercise = input.CollectUpdatedExerciseInput(exercise);
-			if (updatedExercise != null)
-			{
-				_controller.Update(updatedExercise);
-				AnsiConsole.MarkupLine("[green]Exercise updated successfully![/]");
-			}
-			else
-			{
-				AnsiConsole.MarkupLine("[red]Exercise update failed![/]");
-			}
+			_exerciseRepository.Delete(model);
 		}
-		else
+		catch (Exception ex)
 		{
-			AnsiConsole.MarkupLine("[red]Exercise not found for update![/]");
+
+			Console.WriteLine($"Error in Delete: {ex.Message}");
 		}
 	}
 }
+
+
