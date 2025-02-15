@@ -82,7 +82,6 @@ public class ExerciseController : IController
         }
 
         string comments = _userInput.GetString("Input a comment.");
-        string message = "";
 
         Exercise exercise = new Exercise
         {
@@ -105,7 +104,6 @@ public class ExerciseController : IController
 
     public void Delete()
     {
-        string message;
         bool confirmation = _userInput.Choice("You can only delete the last record, continue?");
         if (!confirmation)
         {
