@@ -1,17 +1,22 @@
 ﻿using ExerciseTracker.DTO;
+using ExerciseTracker.Models;
+using ExerciseTracker.Services;
 using ExerciseTracker.UI;
+using ExerciseTracker.Validators;
 
 namespace ExerciseTracker.Controllers;
 
-public class ExerciseController:IController
+public class ExerciseController : IController
 {
     private List<string> mainOptions = new List<string> { "Add", "Delete", "Update", "View", "Exit Menu" };
     private UserInput _userInput;
-    public ExerciseController(UserInput userInput)
+    private IService _exerciseService;
+    public ExerciseController(UserInput userInput, IService exerciseService)
     {
         _userInput = userInput;
+        _exerciseService = exerciseService;
     }
-   
+
     public void Menu()
     {
         string option;
@@ -51,72 +56,77 @@ public class ExerciseController:IController
         do
         {
             startString = _userInput.GetString("Start Time in format yy/MM/dd HH:mm:ss");
-            startTime = _validator.DateTimeValidator(startString);
+            startTime = ExerciseValidator.DateTimeValidator(startString);
         } while (startTime == DateTime.MinValue);
 
         do
         {
-            endString = _consoleController.GetString("End Time in format yy/MM/dd HH:mm:ss");
-            endTime = _validator.DateTimeValidator(endString);
+            endString = _userInput.GetString("End Time in format yy/MM/dd HH:mm:ss");
+            endTime = ExerciseValidator.DateTimeValidator(endString);
         } while (endTime == DateTime.MinValue);
 
-        if (!_validator.IntervalValidator(startTime, endTime))
+        if (!ExerciseValidator.IntervalValidator(startTime, endTime))
         {
-            _consoleController.MessageAndPressKey("The shift interval does not meet the requested requirements.", "red");
+            _userInput.MessageAndPressKey("The shift interval does not meet the requested requirements.", "red");
             return;
         }
 
-        var last10Shift = _shiftsService.GetLast10Shifts(employee.Id);
-        var lastShift = last10Shift.FirstOrDefault();
+        var last10Exercises = _exerciseService.GetLast10();
+        var lastExercise = last10Exercises.FirstOrDefault();
 
 
-        if (lastShift != null && !_validator.OrderValidator(lastShift, startTime))
+        if (lastExercise != null && !ExerciseValidator.OrderValidator(lastExercise, startTime))
         {
-            _consoleController.MessageAndPressKey("The time slot is already used", "red");
+            _userInput.MessageAndPressKey("The time slot is already used", "red");
             return;
         }
 
-        ShiftDto shiftDto = new ShiftDto
+        string comments = _userInput.GetString("Input a comment.");
+        string message = "";
+
+        Exercise exercise = new Exercise
         {
             Id = 0,
-            StartTime = startTime,
-            EndTime = endTime,
-            EmployeeId = employee.Id,
+            DateStart = startTime,
+            DateEnd = endTime,
+            Duration = endTime - startTime,
+            Comments = comments
         };
-        var response = _shiftsService.AddShift(shiftDto);
-        _consoleController.MessageAndPressKey(response, "orange1");
+        try
+        {
+            _exerciseService.Add(exercise);
+            _userInput.MessageAndPressKey("Successfully created exercise.", "orange1");
+        }
+        catch (Exception ex)
+        {
+            _userInput.MessageAndPressKey("The exercise could not be created", "orange1");
+        }
     }
 
     public void Delete()
     {
-        bool confirmation = _consoleController.Choice("You can only delete the last record, continue?");
+        string message;
+        bool confirmation = _userInput.Choice("You can only delete the last record, continue?");
         if (!confirmation)
         {
             return;
         }
 
-        EmployeeDto employee = _employeesController.GetEmployeeFromMenu("Select an employee");
-        if (employee == null)
+        var exercises = _exerciseService.GetLast10();
+        Exercise exercise = exercises.FirstOrDefault();
+        if (exercise == null)
         {
+            _userInput.MessageAndPressKey("There is no exercise to delete", "red");
             return;
         }
-
-        var shifts = _shiftsService.GetLast10Shifts(employee.Id);
-        ShiftDto shift = shifts.FirstOrDefault();
-        if (shift == null)
+        try
         {
-            _consoleController.MessageAndPressKey("There is no Shift to delete", "red");
-            return;
+            _exerciseService.Delete(exercise);
+            _userInput.MessageAndPressKey("Successfully deleted exercise.", "orange1");
         }
-
-        string message = _shiftsService.RemoveShift(shift.Id);
-        if (message == null)
+        catch (Exception ex)
         {
-            _consoleController.MessageAndPressKey("The shift couldn't be deleted", "red");
-        }
-        else
-        {
-            _consoleController.MessageAndPressKey(message, "green");
+            _userInput.MessageAndPressKey("The exercise couldn't be deleted", "red");
         }
     }
 
@@ -126,130 +136,119 @@ public class ExerciseController:IController
         DateTime startTime;
         string endString;
         DateTime endTime;
-        bool confirmation = _consoleController.Choice("You can only update the last record, continue?");
+        string message;
+        bool confirmation = _userInput.Choice("You can only update the last record, continue?");
         if (!confirmation)
         {
             return;
         }
 
-        EmployeeDto employee = _employeesController.GetEmployeeFromMenu("Select an employee");
-        if (employee == null)
+        var exercises = _exerciseService.GetLast10().ToList();
+        Exercise exercise = exercises.FirstOrDefault();
+        if (exercise == null)
         {
-            return;
-        }
-
-        var shifts = _shiftsService.GetLast10Shifts(employee.Id);
-        ShiftDto shift = shifts.FirstOrDefault();
-        if (shift == null)
-        {
-            _consoleController.MessageAndPressKey("There is no Shift to update", "red");
+            _userInput.MessageAndPressKey("There is no exercise to update", "red");
             return;
         }
 
         do
         {
-            startString = _consoleController.GetString("Start Time in format yy/MM/dd HH:mm:ss");
-            startTime = _validator.DateTimeValidator(startString);
+            startString = _userInput.GetString("Start Time in format yy/MM/dd HH:mm:ss");
+            startTime = ExerciseValidator.DateTimeValidator(startString);
         } while (startTime == DateTime.MinValue);
 
         do
         {
-            endString = _consoleController.GetString("End Time in format yy/MM/dd HH:mm:ss");
-            endTime = _validator.DateTimeValidator(endString);
+            endString = _userInput.GetString("End Time in format yy/MM/dd HH:mm:ss");
+            endTime = ExerciseValidator.DateTimeValidator(endString);
         } while (endTime == DateTime.MinValue);
 
-        if (!_validator.IntervalValidator(startTime, endTime))
+        if (!ExerciseValidator.IntervalValidator(startTime, endTime))
         {
-            _consoleController.MessageAndPressKey("The shift interval does not meet the requested requirements.", "red");
+            _userInput.MessageAndPressKey("The shift interval does not meet the requested requirements.", "red");
             return;
         }
 
-        shifts.RemoveAt(0);
-        if (!_validator.OrderValidator(shifts.FirstOrDefault(), startTime))
+        exercises.RemoveAt(0);
+        if (!ExerciseValidator.OrderValidator(exercises.FirstOrDefault(), startTime))
         {
-            _consoleController.MessageAndPressKey("The time slot is already used", "red");
+            _userInput.MessageAndPressKey("The time slot is already used", "red");
         }
 
-        shift.StartTime = startTime;
-        shift.EndTime = endTime;
-        string message = _shiftsService.UpdateShift(shift);
-        if (message == null)
+        string comments = _userInput.GetString("Input a comment.");
+        exercise.DateStart = startTime;
+        exercise.DateEnd = endTime;
+        exercise.CalculateDuration();
+        exercise.Comments = comments;
+        try
         {
-            _consoleController.MessageAndPressKey("The shift couldn't be updated", "red");
+            _exerciseService.Update(exercise);
+            _userInput.MessageAndPressKey("Successfully updated exercise.", "orange1");
         }
-        else
+        catch (Exception ex)
         {
-            _consoleController.MessageAndPressKey(message, "green");
+            _userInput.MessageAndPressKey("The exercise couldn't be updated", "red");
         }
     }
 
     public void View()
     {
         int order;
-        EmployeeDto employee = _employeesController.GetEmployeeFromMenu("Select an employee");
-        if (employee == null)
+
+        var exercises = _exerciseService.GetLast10().ToList();
+        if (exercises.Count == 0)
         {
-            _consoleController.MessageAndPressKey("There is no employee to select ", "red");
+            _userInput.MessageAndPressKey("There is no exercise to select ", "red");
             return;
         }
 
-        List<ShiftDto> shifts = _shiftsService.GetLast10Shifts(employee.Id);
-        if (shifts.Count == 0)
-        {
-            _consoleController.MessageAndPressKey("There is no shift to select ", "red");
-            return;
-        }
-
-        var orderedShifts = shifts.OrderBy(sh => sh.Id).ToList();
-        List<string> stringShifts = ShiftToString(orderedShifts);
-        string stringShift = GetShiftFromMenu("Select a shift to view details", stringShifts);
-        if (stringShift == "Exit Menu")
+        var orderedExercises = exercises.OrderBy(sh => sh.Id).ToList();
+        List<string> stringExercises = ExerciseToString(orderedExercises);
+        string stringExercise = GetExerciseFromMenu("Select a exercise to view details", stringExercises);
+        if (stringExercise == "Exit Menu")
         {
             return;
         }
 
-        int.TryParse(stringShift.Split('#')[1], out order);
+        int.TryParse(stringExercise.Split('#')[1], out order);
 
         string[] columns = { "Property", "Value" };
 
-        var shiftDto = orderedShifts.ElementAt(order - 1);
-        var shift = ShiftService.Dto2Model(shiftDto);
+        var exercise = orderedExercises.ElementAt(order - 1);
 
-        shift.Employee = EmployeeService.Dto2Model(employee);
-        var recordShift = ShiftToProperties(shift);
+        var recordExercise = ExerciseToProperties(exercise);
 
-        _consoleController.ShowTable("Shift", columns, recordShift);
-        _consoleController.PressKey("Press a key to continue.");
+        _userInput.ShowTable("Exercise", columns, recordExercise);
+        _userInput.PressKey("Press a key to continue.");
     }
 
     public void ViewAll()
     {
-        EmployeeDto employee = _employeesController.GetEmployeeFromMenu("Select an employee");
-
-        if (employee == null)
+        var exercises = _exerciseService.GetLast10().ToList();
+        if (exercises.Count == 0)
         {
+            _userInput.MessageAndPressKey("There is no exercises to view ", "red");
             return;
         }
 
-        List<ShiftDto> shifts = _shiftsService.GetLast10Shifts(employee.Id);
-        if (shifts.Count == 0)
+        foreach (Exercise exercise in exercises)
         {
-            _consoleController.MessageAndPressKey("There is no shift to view ", "red");
-            return;
+
+            exercise.CalculateDuration();
+            _userInput.ShowMessage($"Exercise Date: {exercise.DateStart.Year}/{exercise.DateStart.Month}/{exercise.DateStart.Day} Duration: {exercise.Duration.Hours} hours, {exercise.Duration.Minutes} minutes, {exercise.Duration.Seconds} seconds", "green");
         }
 
-        foreach (ShiftDto shiftDto in shifts)
-        {
-            var shift = new Shift
-            {
-                StartTime = shiftDto.StartTime,
-                EndTime = shiftDto.EndTime
-            };
-            TimeSpan duration = shift.CalculateDuration();
-            _consoleController.ShowMessage($"Shift Date: {shift.StartTime.Year}/{shift.StartTime.Month}/{shift.StartTime.Day} Duration: {duration.Hours} hours, {duration.Minutes} minutes, {duration.Seconds} seconds", "green");
-        }
+        _userInput.PressKey("Press a key to continue.");
+    }
+    public List<string> ExerciseToString(List<Exercise> exercises)
+    {
+        var tableRecord = new List<string>();
 
-        _consoleController.PressKey("Press a key to continue.");
+        for (int i = 1; i <= exercises.Count; i++)
+        {
+            tableRecord.Add($"Exercise #{i}");
+        }
+        return tableRecord;
     }
 
     public int GetOrderFromList(List<string> stringShifts, string stringShift)
@@ -277,46 +276,22 @@ public class ExerciseController:IController
         return stringExercise;
     }
 
-    public List<string> ShiftToString(List<ShiftDto> shifts)
-    {
-        var tableRecord = new List<string>();
-
-        for (int i = 1; i <= shifts.Count; i++)
-        {
-            tableRecord.Add($"Shitf #{i}");
-        }
-        return tableRecord;
-    }
-
-    public List<RecordDto> ShiftToProperties(Shift shift)
+    public List<RecordDto> ExerciseToProperties(Exercise exercise)
     {
         var tableRecord = new List<RecordDto>();
         RecordDto record = null;
-        foreach (var property in shift.GetType().GetProperties())
+        foreach (var property in exercise.GetType().GetProperties())
         {
-            if (property.GetValue(shift) != null)
+            if (property.GetValue(exercise) != null)
             {
                 string value = "";
+                value = property.GetValue(exercise).ToString();
 
-                if (property.Name == "Employee")
-                {
-                    value = shift.Employee.Name;
-                }
-                else if (property.Name == "EmployeeId")
-                {
-                    continue;
-                }
-                else
-                {
-                    value = property.GetValue(shift).ToString();
-                }
                 record = new RecordDto { Column1 = property.Name, Column2 = value };
                 tableRecord.Add(record);
             }
         }
 
-        record = new RecordDto { Column1 = "Duration", Column2 = shift.CalculateDuration().ToString() };
-        tableRecord.Add(record);
         return tableRecord;
     }
 }

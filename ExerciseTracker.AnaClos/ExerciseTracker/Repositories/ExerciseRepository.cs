@@ -6,6 +6,11 @@ namespace ExerciseTracker.Repositories;
 public class ExerciseRepository : IRepository
 {
     private ExerciseDbContext _context;
+    public ExerciseRepository(ExerciseDbContext context)
+    {
+        _context = context;
+    }
+
     void IRepository.Add(Exercise exercise)
     {
         try
@@ -40,7 +45,7 @@ public class ExerciseRepository : IRepository
         }
         catch (Exception ex)
         {
-            throw;
+            return null;
         }
     }
 

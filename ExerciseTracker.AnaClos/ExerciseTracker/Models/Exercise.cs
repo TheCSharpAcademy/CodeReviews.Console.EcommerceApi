@@ -13,9 +13,8 @@ public class Exercise
     public TimeSpan Duration { get; set; }
     public string? Comments { get; set; }
 
-    public TimeSpan SetDuration()
+    public void CalculateDuration()
     {
-        return DateEnd - DateStart;
+        Duration = DateEnd - DateStart;
     }
 }
-

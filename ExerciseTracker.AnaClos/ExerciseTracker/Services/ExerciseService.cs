@@ -3,7 +3,7 @@ using ExerciseTracker.Repositories;
 
 namespace ExerciseTracker.Services;
 
-public class ExerciseService
+public class ExerciseService : IService
 {
     public IRepository _exerciseRepository;
     public ExerciseService(IRepository exerciseRepository)
@@ -26,13 +26,22 @@ public class ExerciseService
         _exerciseRepository.Delete(exercise);
     }
 
-    Exercise GetById(int id)
+    public Exercise GetById(int id)
     {
         return _exerciseRepository.GetById(id);
     }
 
-    IEnumerable<Exercise> GetAll()
+    public IEnumerable<Exercise> GetAll()
     {
+
         return _exerciseRepository.GetAll();
+    }
+
+    public IEnumerable<Exercise> GetLast10()
+    {
+        return GetAll()
+            .OrderByDescending(x => x.Id)
+            .Take(10)
+            .ToList();
     }
 }
