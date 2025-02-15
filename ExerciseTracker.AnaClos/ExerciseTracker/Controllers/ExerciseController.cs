@@ -134,7 +134,6 @@ public class ExerciseController : IController
         DateTime startTime;
         string endString;
         DateTime endTime;
-        string message;
         bool confirmation = _userInput.Choice("You can only update the last record, continue?");
         if (!confirmation)
         {
