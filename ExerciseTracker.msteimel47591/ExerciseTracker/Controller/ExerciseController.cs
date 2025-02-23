@@ -121,7 +121,6 @@ internal class ExerciseController
     internal static void ViewExercises()
     {
         ExerciseService service = new ExerciseService();
-        Exercise exercise = new Exercise();
 
         List<Exercise> exercises = service.GetExercises();
 
