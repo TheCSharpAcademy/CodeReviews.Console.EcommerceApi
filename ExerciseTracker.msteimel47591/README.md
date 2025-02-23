@@ -1,5 +1,6 @@
 # Exercise Tracker
-This is a C# application for The C# Academy roadmap. It utilizes the repository 
+
+This is a C# application for The C# Academy roadmap. It utilizes the repository
 pattern with dependency injection to run a service that performs CRUD
 operations against a SQLite database.
 
