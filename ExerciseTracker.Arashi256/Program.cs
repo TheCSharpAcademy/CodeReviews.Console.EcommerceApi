@@ -1,0 +1,25 @@
+﻿using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using ExerciseTracker.Arashi256.Models;
+using ExerciseTracker.Arashi256.Repositories;
+using ExerciseTracker.Arashi256.Services;
+using ExerciseTracker.Arashi256.Controllers;
+using ExerciseTracker.Arashi256.Config;
+using ExerciseTracker.Arashi256.Views;
+
+var builder = Host.CreateApplicationBuilder();
+builder.Services.AddSingleton<AppSettings>();
+builder.Services.AddDbContext<ExerciseDbContext>();
+builder.Services.AddScoped<ExerciseSessionRepository>();
+builder.Services.AddScoped<ExerciseSessionRepositoryDapper>();
+builder.Services.AddScoped<ExerciseSessionService>();
+builder.Services.AddScoped<ExerciseSessionController>();
+builder.Logging.ClearProviders();
+var app = builder.Build();
+var scope = app.Services.CreateScope();
+var exerciseService = scope.ServiceProvider;
+var exerciseController = exerciseService.GetRequiredService<ExerciseSessionController>();
+var appSettings = exerciseService.GetRequiredService<AppSettings>();
+MainView mainView = new MainView(exerciseController, appSettings);
+mainView.DisplayView();
