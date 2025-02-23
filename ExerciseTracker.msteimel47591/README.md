@@ -1,16 +1,13 @@
-# ExerciseTracker
-
-This is a C# application for The C# Academy roadmap. It utilizes the repository pattern
-with dependency injection to run a service that performs CRUD operations against a
-SQLite database.
+This is a C# application for The C# Academy roadmap. It utilizes the repository 
+pattern with dependency injection to run a service that performs CRUD
+operations against a SQLite database.
 
 ## Project Requirements
 
 To meet the requirements specified by The C# Academy, the project must do the following:
 
 - Record exercise data.
-- Choose one type of exercise only to keep the app simple and focused on the 
-  subject you're learning.
+- Choose one type of exercise only to keep the app simple.
 - Use either raw SQL or Entity Framework for data persistence.
 - The model for your exercise class should have at least the following properties:
   - `Id` (INT)
