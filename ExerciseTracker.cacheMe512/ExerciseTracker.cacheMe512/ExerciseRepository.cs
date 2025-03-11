@@ -33,7 +33,13 @@ internal class ExerciseRepository : IExerciseRepository
 
     public void Update(Exercise exercise)
     {
-        _context.Exercises.Update(exercise);
+        var existingExercise = _context.Exercises.Find(exercise.Id);
+        if (existingExercise == null)
+        {
+            throw new InvalidOperationException("Exercise not found.");
+        }
+
+        _context.Entry(existingExercise).CurrentValues.SetValues(exercise);
         _context.SaveChanges();
     }
 
