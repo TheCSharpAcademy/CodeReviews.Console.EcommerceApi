@@ -16,6 +16,8 @@ namespace ExerciseTracker.cacheMe512
             bool isAppRunning = true;
             while (isAppRunning)
             {
+                Console.Clear();
+
                 var option = AnsiConsole.Prompt(
                     new SelectionPrompt<MainMenuOptions>()
                         .Title("[bold yellow]What would you like to do?[/]")
@@ -48,14 +50,22 @@ namespace ExerciseTracker.cacheMe512
 
         private void AddExercise()
         {
+            Console.Clear();
+
             AnsiConsole.MarkupLine("[green]=== Add a New Exercise ===[/]");
             Exercise newExercise = UserInput.GetExerciseInput();
             _controller.CreateExercise(newExercise);
             AnsiConsole.MarkupLine("[green]Exercise created successfully![/]");
+
+            AnsiConsole.MarkupLine("\nPress any key to continue.");
+            Console.ReadLine();
         }
 
         private void GetAllExercises()
         {
+
+            Console.Clear ();
+
             AnsiConsole.MarkupLine("[blue]=== List of All Exercises ===[/]");
             var exercises = _controller.GetExercises().ToList();
 
@@ -87,17 +97,17 @@ namespace ExerciseTracker.cacheMe512
             }
 
             AnsiConsole.Write(table);
+
+            AnsiConsole.MarkupLine("\nPress any key to continue.");
+            Console.ReadLine();
         }
 
         private void GetExercise()
         {
-            int id = AnsiConsole.Ask<int>("Enter the [green]ID[/] of the exercise to view:");
-            var exercise = _controller.GetExercise(id);
-            if (exercise == null)
-            {
-                AnsiConsole.MarkupLine("[red]Exercise not found.[/]");
-                return;
-            }
+            Console.Clear();
+
+            var exercise = UserInput.GetExerciseOptionInput(_controller);
+            if (exercise == null) return;
 
             var details = $"[bold]ID:[/] {exercise.Id}\n" +
                           $"[bold]Start Date:[/] {exercise.DateStart:yyyy-MM-dd HH:mm}\n" +
@@ -106,38 +116,43 @@ namespace ExerciseTracker.cacheMe512
                           $"[bold]Sets:[/] {exercise.Sets}\n" +
                           $"[bold]Reps:[/] {exercise.Reps}\n" +
                           $"[bold]Weight:[/] {exercise.Weight}";
+
             var panel = new Panel(details).Header("Exercise Details", Justify.Center);
             AnsiConsole.Write(panel);
+
+            AnsiConsole.MarkupLine("\nPress any key to continue.");
+            Console.ReadLine();
         }
 
         private void UpdateExercise()
         {
-            int id = AnsiConsole.Ask<int>("Enter the [green]ID[/] of the exercise to update:");
-            var exercise = _controller.GetExercise(id);
-            if (exercise == null)
-            {
-                AnsiConsole.MarkupLine("[red]Exercise not found.[/]");
-                return;
-            }
+            Console.Clear();
+
+            var exercise = UserInput.GetExerciseOptionInput(_controller);
+            if (exercise == null) return;
 
             AnsiConsole.MarkupLine("[yellow]Enter new details for the exercise:[/]");
             Exercise updatedExercise = UserInput.GetExerciseInput();
-            updatedExercise.Id = id;
+            updatedExercise.Id = exercise.Id; // Preserve ID
             _controller.UpdateExercise(updatedExercise);
             AnsiConsole.MarkupLine("[green]Exercise updated successfully![/]");
+
+            AnsiConsole.MarkupLine("\nPress any key to continue.");
+            Console.ReadLine();
         }
 
         private void DeleteExercise()
         {
-            int id = AnsiConsole.Ask<int>("Enter the [green]ID[/] of the exercise to delete:");
-            var exercise = _controller.GetExercise(id);
-            if (exercise == null)
-            {
-                AnsiConsole.MarkupLine("[red]Exercise not found.[/]");
-                return;
-            }
+            Console.Clear();
+
+            var exercise = UserInput.GetExerciseOptionInput(_controller);
+            if (exercise == null) return;
+
             _controller.DeleteExercise(exercise);
             AnsiConsole.MarkupLine("[green]Exercise deleted successfully![/]");
+
+            AnsiConsole.MarkupLine("\nPress any key to continue.");
+            Console.ReadLine();
         }
     }
 

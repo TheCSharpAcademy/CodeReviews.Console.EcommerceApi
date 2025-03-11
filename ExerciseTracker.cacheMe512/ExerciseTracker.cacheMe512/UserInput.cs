@@ -1,4 +1,5 @@
-﻿using System.Globalization;
+﻿using Spectre.Console;
+using System.Globalization;
 
 namespace ExerciseTracker.cacheMe512;
 
@@ -100,6 +101,25 @@ internal static class UserInput
                 Console.WriteLine("Invalid number. Please try again.");
             }
         }
+    }
+
+    public static Exercise GetExerciseOptionInput(ExerciseController controller)
+    {
+        var exercises = controller.GetExercises().ToList();
+
+        if (!exercises.Any())
+        {
+            AnsiConsole.MarkupLine("[red]No exercises available. Cannot proceed.[/]");
+            Console.ReadKey();
+            return null;
+        }
+
+        return AnsiConsole.Prompt(
+            new SelectionPrompt<Exercise>()
+                .Title("[blue]Select an exercise:[/]")
+                .AddChoices(exercises)
+                .UseConverter(e => $"ID: {e.Id} | Start: {e.DateStart:yyyy-MM-dd HH:mm} | Duration: {e.Duration}")
+        );
     }
 }
 
