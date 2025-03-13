@@ -68,14 +68,14 @@ public class ExerciseService : IExerciseService
         return _exerciseRepository.GetById(id);
     }
 
-    private void ValidateExercise(Exercise exercise)
+    private static void ValidateExercise(Exercise exercise)
     {
         if (exercise.EndDate < exercise.StartDate)
         {
             throw new ArgumentException("End date cannot be before start date.");
         }
 
-        if (exercise.Comments != null && exercise.Comments.Length > 500)
+        if (exercise.Comments != null && exercise.Comments.Length > 400)
         {
             throw new ArgumentException("Comments cannot exceed 400 characters.");
         }

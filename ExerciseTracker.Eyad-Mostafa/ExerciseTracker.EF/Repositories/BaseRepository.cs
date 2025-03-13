@@ -16,7 +16,7 @@ public class BaseRepository<T> : IBaseRepository<T> where T : class
 
     public T Add(T entity)
     {
-        _context.Set<T>().Add(entity);
+        _dbSet.Add(entity);
         _context.SaveChanges();
 
         return entity;
