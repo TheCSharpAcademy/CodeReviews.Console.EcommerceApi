@@ -13,20 +13,6 @@
 
 * The controller of the application is made lean by using dependency injection to access the Exercise Service. The Exercise Service also uses DI to access the Exercise Repository.
 
-* Following screenshots show some app functionalities.
-* Option Menu
-
-    ![Screenshot](/images/Menu.png)
-* Create Workout
-
-    ![Screenshot](/images/CreateWorkout.png)
-* Edit Workout
-    ![Screenshot](/images/EditWorkout1.png)
-
-    ![Screenshot](/images/EditWorkout2.png)
-* View Past Workouts
-    ![Screenshot](/images/PastWorkouts.png)
-
 
 ## To run create a .env file in the root directory of the Database project(ExerciseTracker.ASV.Db) and add the following properties
 * CONNECTION_STRING=Connection string to your database
@@ -36,4 +22,4 @@ To create database locally run the below command in your NuGet Package Manager C
 * dotnet ef database update
 
 Now start the  Web API(ExerciseTracker.ASV.DB) project and the console app(ExerciseTracker.ASV) separately.
-    ![Screenshot](/images/Start.png)
+   
