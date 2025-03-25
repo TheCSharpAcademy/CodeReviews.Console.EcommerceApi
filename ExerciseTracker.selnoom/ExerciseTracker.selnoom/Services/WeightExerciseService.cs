@@ -29,6 +29,21 @@ public class WeightExerciseService
             throw new ArgumentException("Start date must be before the end date.");
         }
 
+        if (exercise.Weight <= 0)
+        {
+            throw new ArgumentException("Weight must be greater than 0.");
+        }
+
+        if (exercise.Sets <= 0)
+        {
+            throw new ArgumentException("Sets must be greater than 0.");
+        }
+
+        if (exercise.Repetitions <= 0)
+        {
+            throw new ArgumentException("Repetitions must be greater than 0.");
+        }
+
         return await _weightExerciseRepository.CreateExerciseAsync(exercise);
     }
 
@@ -37,6 +52,21 @@ public class WeightExerciseService
         if (exercise.DateEnd < exercise.DateStart)
         {
             throw new ArgumentException("Start date must be before the end date.");
+        }
+
+        if (exercise.Weight <= 0)
+        {
+            throw new ArgumentException("Weight must be greater than 0.");
+        }
+
+        if (exercise.Sets <= 0)
+        {
+            throw new ArgumentException("Sets must be greater than 0.");
+        }
+
+        if (exercise.Repetitions <= 0)
+        {
+            throw new ArgumentException("Repetitions must be greater than 0.");
         }
 
         return await _weightExerciseRepository.UpdateExerciseAsync(exercise);

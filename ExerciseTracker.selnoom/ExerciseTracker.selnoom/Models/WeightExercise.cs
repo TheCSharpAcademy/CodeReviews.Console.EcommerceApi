@@ -10,5 +10,4 @@ public class WeightExercise
     public double Weight { get; set; }
     public int Sets { get; set; }
     public int Repetitions { get; set; }
-    public string Comments { get; set; } = string.Empty;
 }

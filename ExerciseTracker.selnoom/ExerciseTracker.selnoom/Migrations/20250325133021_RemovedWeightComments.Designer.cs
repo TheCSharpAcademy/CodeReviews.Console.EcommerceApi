@@ -3,6 +3,7 @@ using System;
 using ExerciseTracker.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExerciseTracker.selnoom.Migrations
 {
     [DbContext(typeof(ExerciseDbContext))]
-    partial class ExerciseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250325133021_RemovedWeightComments")]
+    partial class RemovedWeightComments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.3");
