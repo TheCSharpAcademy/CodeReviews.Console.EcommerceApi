@@ -52,9 +52,6 @@ public class Menu
         AnsiConsole.Clear();
 
         await DisplayExercises();
-
-        AnsiConsole.MarkupLine("\nPress enter to continue");
-        AnsiConsole.Prompt(new TextPrompt<string>("").AllowEmpty());
     }
 
     public async Task CreateExercise()
@@ -277,6 +274,9 @@ public class Menu
         {
             AnsiConsole.MarkupLine("[red]There was an error while retrieving the exercises! Please try again later.[/]");
         }
+
+        AnsiConsole.MarkupLine("\nPress enter to continue");
+        AnsiConsole.Prompt(new TextPrompt<string>("").AllowEmpty());
     }
 
     internal static (string?, string?) GetStartAndEndTimes()
