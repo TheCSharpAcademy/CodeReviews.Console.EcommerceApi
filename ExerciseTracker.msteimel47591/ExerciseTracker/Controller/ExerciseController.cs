@@ -2,11 +2,8 @@
 using ExerciseTracker.Service;
 using ExerciseTracker.View;
 using Spectre.Console;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ExerciseTracker.Controller;
 
@@ -46,7 +43,6 @@ internal class ExerciseController
     internal static void DeleteExercise()
     {
         ExerciseService service = new ExerciseService();
-        Exercise exercise = new Exercise();
         bool idValid = false;
 
         List<Exercise> exercises = service.GetExercises();
