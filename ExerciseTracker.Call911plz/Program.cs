@@ -1,10 +1,12 @@
-﻿namespace ExerciseTracker.Call911plz;
+﻿using System.Threading.Tasks;
+
+namespace ExerciseTracker.Call911plz;
 
 class Program
 {
-    static void Main(string[] args)
+    static async Task Main(string[] args)
     {
-        DisplayMenu displayMenu = new();
-        displayMenu.MainMenu();
+        ExerciseContext context = new();
+        ExerciseRepository exerciseRepository = new(context);
     }
 }
