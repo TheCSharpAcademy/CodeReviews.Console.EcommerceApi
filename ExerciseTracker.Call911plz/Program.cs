@@ -1,8 +1,4 @@
-﻿using System.Numerics;
-using System.Threading.Tasks;
-using Spectre.Console;
-
-namespace ExerciseTracker.Call911plz;
+﻿namespace ExerciseTracker.Call911plz;
 
 class Program
 {

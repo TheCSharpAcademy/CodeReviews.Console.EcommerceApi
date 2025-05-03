@@ -1,9 +1,9 @@
-using System.Threading.Tasks;
 using Spectre.Console;
 
 public class ExerciseController(IService service) : ControllerBase
 {
     IService _service = service;
+
     internal override void OnStartOfLoop()
     {
         Console.Clear();
@@ -39,7 +39,6 @@ public class ExerciseController(IService service) : ControllerBase
             case MenuEnums.Main.EXIT:
                 return true;
         }
-
         return false;
     }
 
@@ -88,6 +87,7 @@ public class ExerciseController(IService service) : ControllerBase
     {
         List<Exercise> exercises = _service.GetAll()
         ?? throw new Exception("No exercises to delete");
+
         Exercise exerciseToDelete = GetData.GetExerciseFromList(exercises);
         await _service.DeleteAsync(exerciseToDelete);
 

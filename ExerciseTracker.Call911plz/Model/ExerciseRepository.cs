@@ -1,5 +1,3 @@
-using System.Threading.Tasks;
-
 public interface IRepository
 {
     public Task<Exercise> AddAsync(Exercise log);

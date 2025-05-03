@@ -1,10 +1,10 @@
-using System.Threading.Tasks;
 using Spectre.Console;
 
 public class ControllerBase
 {
     internal virtual void OnStartOfLoop(){ Console.Clear(); }
     internal virtual Task<bool> HandleUserInputAsync() { return Task.FromResult(false); } 
+    
     public async Task StartAsync()
     {
         bool exit = false;
