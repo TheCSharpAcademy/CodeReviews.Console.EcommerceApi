@@ -89,7 +89,7 @@ public static class GetMenu
                 .UseConverter((input) => input switch
                 {
                     MenuEnums.Main.CREATE => "Create new exercise log",
-                    MenuEnums.Main.READ => "Find specific exercise log ",
+                    MenuEnums.Main.READ => "Find specific exercise log",
                     MenuEnums.Main.READALL => "Find all exercise logs",
                     MenuEnums.Main.UPDATE => "Update exercise log",
                     MenuEnums.Main.DELETE => "Delete exercise log",
