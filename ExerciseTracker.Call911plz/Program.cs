@@ -8,8 +8,9 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        // ExerciseContext context = new();
-        // ExerciseRepository exerciseRepository = new(context);
+        ExerciseContext context = new();
+        ExerciseRepository exerciseRepository = new(context);
 
+        ExerciseService exerciseService = new(exerciseRepository);
     }
 }
