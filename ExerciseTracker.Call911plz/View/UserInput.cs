@@ -2,6 +2,24 @@ using Spectre.Console;
 
 public static class GetData
 {
+    public static int GetId()
+    {
+        TextPrompt<int> prompt = new("[bold grey]Enter id[/]");
+        return AnsiConsole.Prompt(prompt);
+    }
+
+    public static Exercise GetExerciseFromList(List<Exercise> exercises)
+    {
+        SelectionPrompt<Exercise> prompt = new();
+        prompt.Title("[bold grey]Select from below[/]");
+        prompt.AddChoices(exercises);
+        prompt.UseConverter((selection) => {
+            return $"{selection.Id} {selection.Start} {selection.End}";
+        });
+
+        return AnsiConsole.Prompt(prompt);
+    }
+
     public static Exercise GetExercise()
     {
         Exercise exercise = new()
@@ -61,9 +79,9 @@ public static class GetData
     }
 }
 
-public class GetMenu
+public static class GetMenu
 {
-    public MenuEnums.Main MainMenu()
+    public static MenuEnums.Main MainMenu()
     {
         return AnsiConsole.Prompt(
             new SelectionPrompt<MenuEnums.Main>()
@@ -71,8 +89,8 @@ public class GetMenu
                 .UseConverter((input) => input switch
                 {
                     MenuEnums.Main.CREATE => "Create new exercise log",
-                    MenuEnums.Main.READ => "Find all exercise logs",
-                    MenuEnums.Main.READALL => "Find specific exercise log",
+                    MenuEnums.Main.READ => "Find specific exercise log ",
+                    MenuEnums.Main.READALL => "Find all exercise logs",
                     MenuEnums.Main.UPDATE => "Update exercise log",
                     MenuEnums.Main.DELETE => "Delete exercise log",
                     MenuEnums.Main.EXIT => "Exit program",

@@ -10,7 +10,9 @@ class Program
     {
         ExerciseContext context = new();
         ExerciseRepository exerciseRepository = new(context);
-
         ExerciseService exerciseService = new(exerciseRepository);
+        ExerciseController exerciseController = new(exerciseService);
+        
+        await exerciseController.StartAsync();
     }
 }
