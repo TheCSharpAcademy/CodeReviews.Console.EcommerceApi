@@ -40,11 +40,11 @@ public class ExerciseRepository : IRepository
     {
         Exercise logInDb = await _exerciseContext.Exercises.FindAsync(log.Id)
         ?? throw new Exception("Could not find log to update");
-        logInDb = log;
 
-        var savedResult = await _exerciseContext.Exercises.AddAsync(logInDb);
+        _exerciseContext.Entry(logInDb).CurrentValues.SetValues(log);
+
         await _exerciseContext.SaveChangesAsync();
-        return savedResult.Entity;
+        return _exerciseContext.Entry(logInDb).Entity;
     }
 
     public async Task<Exercise> DeleteAsync(Exercise log)

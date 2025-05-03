@@ -55,7 +55,8 @@ public class ExerciseController(IService service) : ControllerBase
     private async Task ReadByIdAsync()
     {
         int id = GetData.GetId();
-        Exercise? exercise = await _service.GetByIdAsync(id);
+        Exercise exercise = await _service.GetByIdAsync(id)
+        ?? throw new Exception("[bold red]Could not find exercise with id[/]");
 
         DisplayData.DisplayExercise([exercise]);
     }
@@ -72,14 +73,15 @@ public class ExerciseController(IService service) : ControllerBase
         List<Exercise> exercises = _service.GetAll() 
         ?? throw new Exception("No exercises to update");
         Exercise exerciseToUpdate = GetData.GetExerciseFromList(exercises);
-        Exercise updateExercise = GetData.UpdateExercise(exerciseToUpdate);
 
-        Exercise exerciseUpdated = await _service.UpdateAsync(updateExercise);
-        
         AnsiConsole.MarkupLine("[bold grey]Original: [/]");
         DisplayData.DisplayExercise([exerciseToUpdate]);
+
+        Exercise updatedExercise = GetData.UpdateExercise(exerciseToUpdate);
+        Exercise updatedExerciseInDb = await _service.UpdateAsync(updatedExercise);
+        
         AnsiConsole.MarkupLine("[bold grey]Updated: [/]");
-        DisplayData.DisplayExercise([exerciseUpdated]);
+        DisplayData.DisplayExercise([updatedExerciseInDb]);
     }
 
     private async Task DeleteAsync()
