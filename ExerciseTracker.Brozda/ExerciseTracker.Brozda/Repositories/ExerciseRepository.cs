@@ -1,21 +1,20 @@
 ﻿using ExerciseTracker.Brozda.Data;
 using ExerciseTracker.Brozda.Models;
+using ExerciseTracker.Brozda.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace ExerciseTracker.Brozda.Repositories
 {
-    internal class ExerciseTracker
+    internal class ExerciseRepository : IExerciseRepository
     {
         private readonly ExcerciseTrackerContext _dbContext;
 
-        public ExerciseTracker(ExcerciseTrackerContext dbContext)
+        public ExerciseRepository(ExcerciseTrackerContext dbContext)
         {
             _dbContext = dbContext;
         }
         public async Task<Exercise> Create(Exercise entity)
         {
-            if (entity is null) { throw new ArgumentNullException(nameof(entity)); }
-
             await _dbContext.Exercises.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
             return entity;
@@ -38,7 +37,7 @@ namespace ExerciseTracker.Brozda.Repositories
             original.MapFromUpdate(updatedEntity);
 
             await _dbContext.SaveChangesAsync();
-            
+
             return original;
         }
         public async Task<bool> DeleteById(int id)
