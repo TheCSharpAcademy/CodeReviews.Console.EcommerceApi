@@ -1,4 +1,6 @@
-﻿namespace ExerciseTracker.Brozda.Models
+﻿using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+
+namespace ExerciseTracker.Brozda.Models
 {
     internal class Exercise
     {
@@ -9,7 +11,18 @@
         public DateTime DateEnd { get; set; }
         public TimeSpan Duration { get; set; }
         public string? Comments { get; set; }
+
+        public void MapFromUpdate(Exercise updated)
+        {
+            this.Name = updated.Name;
+            this.WeightLifted = updated.WeightLifted;
+            this.DateStart = updated.DateStart;
+            this.DateEnd = updated.DateEnd;
+            this.Duration = updated.Duration;
+            this.Comments = updated.Comments;
+        }
     }
+    
 }
 
 
