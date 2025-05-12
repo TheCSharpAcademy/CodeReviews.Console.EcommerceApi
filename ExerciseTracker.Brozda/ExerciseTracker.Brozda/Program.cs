@@ -19,16 +19,8 @@ namespace ExerciseTracker.Brozda
             ExerciseService svc = new ExerciseService(repo);
             ExerciseController app = new ExerciseController(ui, svc);
 
-            //app.Run();
-            var projectRoot = Environment.GetEnvironmentVariable("PROJECT_ROOT");
-
-            var path = Path.Combine(projectRoot, "Resources","SeedData.json");
-    
-            if (File.Exists(path))
-            {
-                var rawData = File.ReadAllText(path);
-                var deserialized = JsonSerializer.Deserialize<SeedData>(rawData);
-            }
+            app.Run();
+            
         }
     }
 }

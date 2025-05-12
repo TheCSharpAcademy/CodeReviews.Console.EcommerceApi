@@ -1,6 +1,7 @@
 ﻿using ExerciseTracker.Brozda.Services;
 using ExerciseTracker.Brozda.UserInteraction;
 using System.ComponentModel.Design;
+using System.Runtime.CompilerServices;
 
 namespace ExerciseTracker.Brozda
 {
@@ -16,7 +17,7 @@ namespace ExerciseTracker.Brozda
             ExitApp,
         }
 
-        private readonly Dictionary<int, string> _menuOptions = new Dictionary<int, string>();
+        private readonly Dictionary<int, (string label, Func<Task> action)> _menuOptions = new Dictionary<int, (string label, Func<Task> action)>();
 
         private readonly ExerciseService _service;
         private readonly UserInput _ui;
@@ -28,21 +29,29 @@ namespace ExerciseTracker.Brozda
         }
         private void MapMenu()
         {
-            _menuOptions.Add((int)MenuOptions.ViewAll, "View all excercises");
-            _menuOptions.Add((int)MenuOptions.ViewById, "View specific excercise using its Id");
-            _menuOptions.Add((int)MenuOptions.CreateRecord, "Create a new excercise");
-            _menuOptions.Add((int)MenuOptions.EditRecord, "Update existing excercise");
-            _menuOptions.Add((int)MenuOptions.DeleteRecord, "Delete existing excercise");
-            _menuOptions.Add((int)MenuOptions.ExitApp, "Exit the application");
+            _menuOptions.Add((int)MenuOptions.ViewAll, ("View all excercises", ProcessViewAll));
+            _menuOptions.Add((int)MenuOptions.ViewById, ("View specific excercise using its Id", ProcessById));
+            _menuOptions.Add((int)MenuOptions.CreateRecord, ("Create a new excercise", ProcessCreate));
+            _menuOptions.Add((int)MenuOptions.EditRecord, ("Update existing excercise", ProcessUpdate));
+            _menuOptions.Add((int)MenuOptions.DeleteRecord, ("Delete existing excercise", ProcessDelete));
+            _menuOptions.Add((int)MenuOptions.ExitApp, ("Exit the application", ProcessExitApp));
+
+
 
         }
-        public void Run()
+        public async void Run()
         {
-            int menuChoice = _ui.ShowMenuAndGetInput(_menuOptions);
+            int menuChoice = _ui.ShowMenuAndGetInput(_menuOptions.ToDictionary(x => x.Key, x=> x.Value.label));
 
             while(menuChoice != (int)MenuOptions.ExitApp)
             {
+                if(_menuOptions.TryGetValue(menuChoice, out var labelActionPair))
+                {
+                    await labelActionPair.action();
 
+
+                    menuChoice = _ui.ShowMenuAndGetInput(_menuOptions.ToDictionary(x => x.Key, x => x.Value.label));
+                }
             }
         }
         public async Task ProcessViewAll()
@@ -133,6 +142,11 @@ namespace ExerciseTracker.Brozda
             }
 
         }
+        private Task ProcessExitApp()
+        {
+            Environment.Exit(0);
+            return Task.CompletedTask;
+        }
 
 
         private async Task<int> GetIdFromUser()
@@ -147,5 +161,6 @@ namespace ExerciseTracker.Brozda
 
             return _ui.GetRecordId(getAllResult.Data, "Please select id of exercise you'd like to see: ");
         }
+        
     }
 }
