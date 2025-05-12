@@ -1,11 +1,12 @@
 ﻿using ExerciseTracker.Brozda.Models;
 using ExerciseTracker.Brozda.Repositories.Interfaces;
+using ExerciseTracker.Brozda.Services.Interfaces;
 
 namespace ExerciseTracker.Brozda.Services
 {
-    internal class ExerciseService
+    internal class ExerciseService : IExerciseService
     {
-        private IExerciseRepository _repository;
+        public IExerciseRepository _repository;
         public ExerciseService(IExerciseRepository repository)
         {
             _repository = repository;
@@ -19,11 +20,11 @@ namespace ExerciseTracker.Brozda.Services
 
                 return RepositoryResult<Exercise>.Success(entity);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return RepositoryResult<Exercise>.Fail($"Error occured: {ex.Message}");
             }
-            
+
         }
         public async Task<RepositoryResult<List<Exercise>>> ViewAllAsync()
         {
@@ -35,7 +36,7 @@ namespace ExerciseTracker.Brozda.Services
             catch (Exception ex)
             {
                 return RepositoryResult<List<Exercise>>.Fail($"Error occured: {ex.Message}");
-            } 
+            }
         }
         public async Task<RepositoryResult<Exercise>> GetByIdAsync(int id)
         {
@@ -58,8 +59,8 @@ namespace ExerciseTracker.Brozda.Services
             try
             {
                 if (updatedEntity.Id != id)
-                    { return RepositoryResult<Exercise>.Fail($"Error occured: argument ID and entity ID mismatch");}
-                
+                { return RepositoryResult<Exercise>.Fail($"Error occured: argument ID and entity ID mismatch"); }
+
                 var updateResult = await _repository.Edit(updatedEntity);
 
                 return updateResult is not null
