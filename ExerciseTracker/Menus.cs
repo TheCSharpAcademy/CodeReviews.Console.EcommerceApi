@@ -69,7 +69,7 @@ class Menus
         Console.ReadLine();
     }
 
-    private void FieldTourMenu(ExerciceRepository<FieldTours> tours)
+    private void FieldTourMenu()
     {
         AnsiConsole.Clear();
         ExerciceService exerciceService = new(_context, "FieldTours");
