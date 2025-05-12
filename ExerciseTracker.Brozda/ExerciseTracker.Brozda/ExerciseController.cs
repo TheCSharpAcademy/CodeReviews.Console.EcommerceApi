@@ -9,8 +9,7 @@ namespace ExerciseTracker.Brozda
     {
         private enum MenuOptions
         {
-            ViewAll = 0,
-            ViewById,
+            ViewAll = 1,
             CreateRecord,
             EditRecord,
             DeleteRecord,
@@ -30,7 +29,6 @@ namespace ExerciseTracker.Brozda
         private void MapMenu()
         {
             _menuOptions.Add((int)MenuOptions.ViewAll, ("View all excercises", ProcessViewAll));
-            _menuOptions.Add((int)MenuOptions.ViewById, ("View specific excercise using its Id", ProcessById));
             _menuOptions.Add((int)MenuOptions.CreateRecord, ("Create a new excercise", ProcessCreate));
             _menuOptions.Add((int)MenuOptions.EditRecord, ("Update existing excercise", ProcessUpdate));
             _menuOptions.Add((int)MenuOptions.DeleteRecord, ("Delete existing excercise", ProcessDelete));
@@ -39,7 +37,7 @@ namespace ExerciseTracker.Brozda
 
 
         }
-        public async void Run()
+        public async Task Run()
         {
             int menuChoice = _ui.ShowMenuAndGetInput(_menuOptions.ToDictionary(x => x.Key, x=> x.Value.label));
 
@@ -48,7 +46,7 @@ namespace ExerciseTracker.Brozda
                 if(_menuOptions.TryGetValue(menuChoice, out var labelActionPair))
                 {
                     await labelActionPair.action();
-
+                    _ui.PrintPressAnyKeyToContinue();
 
                     menuChoice = _ui.ShowMenuAndGetInput(_menuOptions.ToDictionary(x => x.Key, x => x.Value.label));
                 }
@@ -65,21 +63,6 @@ namespace ExerciseTracker.Brozda
             else
             {
                 _ui.PrintError(getAllResult.ErrorMessage ?? "Unhandled error");
-            }
-        }
-        public async Task ProcessById()
-        {
-            int id = await GetIdFromUser();
-
-            var getByIdResult = await _service.GetByIdAsync(id);
-
-            if (getByIdResult.IsSucessul && getByIdResult.Data is not null)
-            {
-                _ui.PrintExercise(getByIdResult.Data);
-            }
-            else
-            {
-                _ui.PrintError(getByIdResult.ErrorMessage ?? "Unhandled error");
             }
         }
         public async Task ProcessCreate()

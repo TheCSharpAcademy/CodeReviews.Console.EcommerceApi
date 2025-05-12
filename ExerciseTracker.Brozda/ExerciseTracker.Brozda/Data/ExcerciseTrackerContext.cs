@@ -14,9 +14,9 @@ namespace ExerciseTracker.Brozda.Data
             string connection_string = @"Data Source=(localdb)\LOCALDB;Initial Catalog=ExcerciseTracker;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
             optionsBuilder.UseSqlServer(connection_string)
-                .LogTo(Console.WriteLine, LogLevel.Information)
+                /*.LogTo(Console.WriteLine, LogLevel.Information)
                 .EnableSensitiveDataLogging()
-                .EnableDetailedErrors()
+                .EnableDetailedErrors()*/
                 .UseSeeding((dbContext, _) =>
                 {
                     var projectRoot = Environment.GetEnvironmentVariable("PROJECT_ROOT");

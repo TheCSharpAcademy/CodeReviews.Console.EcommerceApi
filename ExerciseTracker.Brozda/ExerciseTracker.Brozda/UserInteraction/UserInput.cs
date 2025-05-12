@@ -7,7 +7,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
 {
     internal class UserInput
     {
-        private string _dateFormat = "yyyy-MM-dd-hh-mm";
+        private string _dateFormat = "yyyy-MM-dd HH:mm";
 
         public UserInput()
         {
@@ -21,6 +21,16 @@ namespace ExerciseTracker.Brozda.UserInteraction
         {
             Console.WriteLine(text);
         }
+        public void PrintPressAnyKeyToContinue()
+        {
+            Console.WriteLine("Press any key to continue..");
+            Console.ReadKey();
+            Console.Clear();
+        }
+        /*public void ConsoleClear()
+        {
+            Console.Clear();
+        }*/
         public int ShowMenuAndGetInput(Dictionary<int, string> menuOptions)
         {
             var input = AnsiConsole.Prompt(
@@ -69,7 +79,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
             string name = GetString("Exercise name: ", existing?.Name);
             double lifted = GetDouble("Weight lifted: ", existing?.WeightLifted); ;
             DateTime start = GetDate("Enter start date: ", existing?.DateStart); ;
-            DateTime end = GetDate("Enter end date", existing?.DateEnd, start); ;
+            DateTime end = GetDate("Enter end date: ", existing?.DateEnd, start); ;
             long duration = (long)(end - start).TotalSeconds;
             string? comments = GetNullableString("Enter a comment (may be left empty): ", existing?.Comments); ;
 
@@ -101,19 +111,25 @@ namespace ExerciseTracker.Brozda.UserInteraction
 
    
         }
-        private bool ValidateDateTime(string dateString, DateTime? startDate)
+        private ValidationResult ValidateDateTime(string dateString, DateTime? startDate)
         {
             if (startDate is not null) 
             {
                 DateTime endDate;
 
-                return DateTime.TryParseExact(dateString, _dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out endDate)
-                    && endDate > startDate
-                    && (endDate - startDate).Value.TotalDays < 1;
+                if (!DateTime.TryParseExact(dateString, _dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out endDate))
+                    return ValidationResult.Error("Invalid date format, format needs to be yyyy-mm-dd hh:mm 24H format");
+                if(endDate < startDate)
+                    return ValidationResult.Error("End cannot be before start");
+
+                return ValidationResult.Success();
             }
             else
             {
-                return DateTime.TryParseExact(dateString, _dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
+                if (!DateTime.TryParseExact(dateString, _dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
+                    return ValidationResult.Error("Invalid date format, format needs to be yyyy-mm-dd hh:mm 24H format");
+
+                return ValidationResult.Success();
             }
 
             
@@ -168,7 +184,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
                 exercise.WeightLifted.ToString(),
                 exercise.DateStart.ToString(_dateFormat),
                 exercise.DateEnd.ToString(_dateFormat),
-                exercise.Duration.ToString()!,
+                TimeSpan.FromSeconds(exercise.Duration!.Value).ToString(),
                 exercise.Comments ?? "-"
 
             };

@@ -11,7 +11,7 @@ namespace ExerciseTracker.Brozda
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             UserInput ui = new UserInput();
             ExcerciseTrackerContext _context = new ExcerciseTrackerContext();
@@ -19,7 +19,7 @@ namespace ExerciseTracker.Brozda
             ExerciseService svc = new ExerciseService(repo);
             ExerciseController app = new ExerciseController(ui, svc);
 
-            app.Run();
+            await app.Run();
             
         }
     }
