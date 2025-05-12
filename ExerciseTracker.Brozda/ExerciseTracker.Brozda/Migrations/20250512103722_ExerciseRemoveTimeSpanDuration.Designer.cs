@@ -4,6 +4,7 @@ using ExerciseTracker.Brozda.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExerciseTracker.Brozda.Migrations
 {
     [DbContext(typeof(ExcerciseTrackerContext))]
-    partial class ExcerciseTrackerContextModelSnapshot : ModelSnapshot
+    [Migration("20250512103722_ExerciseRemoveTimeSpanDuration")]
+    partial class ExerciseRemoveTimeSpanDuration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,9 +41,6 @@ namespace ExerciseTracker.Brozda.Migrations
 
                     b.Property<DateTime>("DateStart")
                         .HasColumnType("datetime2");
-
-                    b.Property<long>("Duration")
-                        .HasColumnType("bigint");
 
                     b.Property<string>("Name")
                         .IsRequired()

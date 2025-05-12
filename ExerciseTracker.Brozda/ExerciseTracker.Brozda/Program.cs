@@ -15,7 +15,12 @@ namespace ExerciseTracker.Brozda
             ExerciseService svc = new ExerciseService(repo);
             ExerciseController app = new ExerciseController(ui, svc);
 
-            app.Run();
+            //app.Run();
+            DateTime start = DateTime.Now;
+            DateTime end = start.AddMinutes(30);
+
+            long duration = (long)(end - start).TotalSeconds;
+            Console.WriteLine($"It took: {TimeSpan.FromSeconds(duration)}");
         }
     }
 }

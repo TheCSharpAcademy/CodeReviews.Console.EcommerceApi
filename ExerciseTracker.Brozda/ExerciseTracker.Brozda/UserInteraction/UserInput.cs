@@ -70,7 +70,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
             double lifted = GetDouble("Weight lifted: ", existing?.WeightLifted); ;
             DateTime start = GetDate("Enter start date: ", existing?.DateStart); ;
             DateTime end = GetDate("Enter end date", existing?.DateEnd, start); ;
-            TimeSpan duration = end - start; ;
+            long duration = (long)(end - start).TotalSeconds;
             string? comments = GetNullableString("Enter a comment (may be left empty): ", existing?.Comments); ;
 
             return new Exercise()
@@ -108,7 +108,8 @@ namespace ExerciseTracker.Brozda.UserInteraction
                 DateTime endDate;
 
                 return DateTime.TryParseExact(dateString, _dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out endDate)
-                    && endDate > startDate;
+                    && endDate > startDate
+                    && (endDate - startDate).Value.TotalDays < 1;
             }
             else
             {
