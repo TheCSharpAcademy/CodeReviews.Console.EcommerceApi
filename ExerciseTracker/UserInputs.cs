@@ -6,8 +6,9 @@ namespace ExerciseTracker;
 
 class UserInputs
 {
-    internal static string GetComment()
+    internal static string GetComment(IExercices? exercice)
     {
+        if(exercice != null) AnsiConsole.MarkupLine($"[Blue]Current[/] comment:\n{exercice.Comment}\n");
         string comment = AnsiConsole.Ask<string>("Write a [Green]new[/] comment: ");
         return comment;
     }
@@ -61,5 +62,10 @@ class UserInputs
         }
         exercice.End = newEnd;
         return exercice;
+    }
+
+    internal static bool Validation(string message)
+    {
+        return AnsiConsole.Confirm(message, false);
     }
 }

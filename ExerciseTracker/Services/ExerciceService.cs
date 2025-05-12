@@ -44,7 +44,7 @@ class ExerciceService
             if (!valid) AnsiConsole.MarkupLine("The start must be [red]before[/] the end.");
         }
 
-        string comment = UserInputs.GetComment();
+        string comment = UserInputs.GetComment(null);
         if (string.IsNullOrWhiteSpace(comment)) comment = "";
         
         if (_type == "FieldTours")
@@ -62,10 +62,11 @@ class ExerciceService
     internal void DeleteExercice()
     {
         IExercices exercice = GetSingleExercice();
-        if (exercice.Id != 0)
+        if (exercice.Id != 0 && UserInputs.Validation("Are you sure you want to delete this exercice?"))
         {
             if (_type == "FieldTours") _fieldToursService.DeleteExercice((FieldTours)exercice);
             else _freeKicksService.DeleteExercice((FreeKicks)exercice);
+
         }
     }
 
@@ -81,20 +82,18 @@ class ExerciceService
                 {
                     case "Start":
                         exercice = UserInputs.UpdateStart(exercice);
-                        _fieldToursService.UpdateExercice((FieldTours)exercice);
                         break;
                     case "End":
                         exercice = UserInputs.UpdateEnd(exercice);
-                        _fieldToursService.UpdateExercice((FieldTours)exercice);
                         break;
                     case "Comment":
                         AnsiConsole.MarkupLine($"[Blue]Current[/] comment:\n{exercice.Comment}\n");
-                        exercice.Comment = UserInputs.GetComment();
-                        _fieldToursService.UpdateExercice((FieldTours)exercice);
+                        exercice.Comment = UserInputs.GetComment(exercice);
                         break;
                     default:
                         break;
                 }
+                if(UserInputs.Validation("Are you sure you want to update this exercice?")) _fieldToursService.UpdateExercice((FieldTours)exercice);
             }
             else
             {
@@ -102,20 +101,17 @@ class ExerciceService
                 {
                     case "Start":
                         exercice = UserInputs.UpdateStart(exercice);
-                        _freeKicksService.UpdateExercice((FreeKicks)exercice);
                         break;
                     case "End":
                         exercice = UserInputs.UpdateEnd(exercice);
-                        _freeKicksService.UpdateExercice((FreeKicks)exercice);
                         break;
                     case "Comment":
-                        AnsiConsole.MarkupLine($"[Blue]Current[/] comment:\n{exercice.Comment}\n");
-                        exercice.Comment = UserInputs.GetComment();
-                        _freeKicksService.UpdateExercice((FreeKicks)exercice);
+                        exercice.Comment = UserInputs.GetComment(exercice);
                         break;
                     default:
                         break;
                 }
+                if(UserInputs.Validation("Are you sure you want to update this exercice?")) _freeKicksService.UpdateExercice((FreeKicks)exercice);
             }
         }
     }
@@ -130,7 +126,7 @@ class ExerciceService
     {
         IExercices[] exercices;
         if (_type == "FieldTours") exercices = [.. _fieldToursService.GetExercices()];
-        else exercices = [.. _freeKicksService.GetExercices()];
+        else exercices = [.._freeKicksService.GetExercices()];
         if (exercices != null) DataOutput.PrintAllExercices(exercices);
         else AnsiConsole.WriteLine("No Data found in the database.");
     }
