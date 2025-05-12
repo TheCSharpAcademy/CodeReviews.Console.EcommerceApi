@@ -1,7 +1,11 @@
 ﻿using ExerciseTracker.Brozda.Data;
+using ExerciseTracker.Brozda.Models;
 using ExerciseTracker.Brozda.Repositories;
 using ExerciseTracker.Brozda.Services;
 using ExerciseTracker.Brozda.UserInteraction;
+using Microsoft.EntityFrameworkCore;
+using System.Resources;
+using System.Text.Json;
 
 namespace ExerciseTracker.Brozda
 {
@@ -16,11 +20,15 @@ namespace ExerciseTracker.Brozda
             ExerciseController app = new ExerciseController(ui, svc);
 
             //app.Run();
-            DateTime start = DateTime.Now;
-            DateTime end = start.AddMinutes(30);
+            var projectRoot = Environment.GetEnvironmentVariable("PROJECT_ROOT");
 
-            long duration = (long)(end - start).TotalSeconds;
-            Console.WriteLine($"It took: {TimeSpan.FromSeconds(duration)}");
+            var path = Path.Combine(projectRoot, "Resources","SeedData.json");
+    
+            if (File.Exists(path))
+            {
+                var rawData = File.ReadAllText(path);
+                var deserialized = JsonSerializer.Deserialize<SeedData>(rawData);
+            }
         }
     }
 }

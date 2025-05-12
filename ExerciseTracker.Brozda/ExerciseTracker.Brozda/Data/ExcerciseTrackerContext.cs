@@ -1,6 +1,7 @@
 ﻿using ExerciseTracker.Brozda.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace ExerciseTracker.Brozda.Data
 {
@@ -15,7 +16,33 @@ namespace ExerciseTracker.Brozda.Data
             optionsBuilder.UseSqlServer(connection_string)
                 .LogTo(Console.WriteLine, LogLevel.Information)
                 .EnableSensitiveDataLogging()
-                .EnableDetailedErrors();
+                .EnableDetailedErrors()
+                .UseSeeding((dbContext, _) =>
+                {
+                    var projectRoot = Environment.GetEnvironmentVariable("PROJECT_ROOT");
+
+                    var path = Path.Combine(projectRoot ?? Directory.GetCurrentDirectory(), "Resources", "SeedData.json");
+
+                    if (File.Exists(path))
+                    {
+                        var rawData = File.ReadAllText(path);
+                        var deserialized = JsonSerializer.Deserialize<SeedData>(rawData);
+
+                        if (deserialized is not null)
+                        {
+                            foreach(var excercise  in deserialized.Exercises)
+                            {
+                                excercise.Duration = (long)(excercise.DateEnd - excercise.DateStart).TotalSeconds;
+                            }
+
+
+                            dbContext.AddRange(deserialized.Exercises);
+                            dbContext.SaveChanges();
+                        }
+                    }
+                });
+
         }
+ 
     }
 }

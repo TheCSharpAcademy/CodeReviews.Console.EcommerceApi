@@ -10,7 +10,7 @@ namespace ExerciseTracker.Brozda.Models
         public double WeightLifted { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
-        public long Duration { get; set; }
+        public long? Duration { get; set; }
         public string? Comments { get; set; }
 
         public void MapFromUpdate(Exercise updated)

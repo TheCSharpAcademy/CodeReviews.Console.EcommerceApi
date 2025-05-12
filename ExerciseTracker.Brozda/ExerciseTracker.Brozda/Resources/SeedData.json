@@ -1,0 +1,38 @@
+{
+  "Exercises": [
+    {
+      "Name": "Bench Press",
+      "WeightLifted": 80,
+      "DateStart": "2025-05-12T10:20",
+      "DateEnd": "2025-05-12T11:20",
+      "Comments": "Incline Bench Press"
+    },
+    {
+      "Name": "DeadLift",
+      "WeightLifted": 150,
+      "DateStart": "2025-05-12T10:50",
+      "DateEnd": "2025-05-12T11:20"
+    },
+    {
+      "Name": "Overhead press",
+      "WeightLifted": 50,
+      "DateStart": "2025-05-12T10:25",
+      "DateEnd": "2025-05-12T10:40",
+      "Comments": "Strict"
+    },
+    {
+      "Name": "Squat",
+      "WeightLifted": 80,
+      "DateStart": "2025-05-13T10:00",
+      "DateEnd": "2025-05-13T10:30",
+      "Comments": "Barbell squat"
+
+    },
+    {
+      "Name": "Bicep curl",
+      "WeightLifted": 20,
+      "DateStart": "2025-05-13T10:30",
+      "DateEnd": "2025-05-13T10:40"
+    }
+  ]
+}

@@ -168,7 +168,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
                 exercise.WeightLifted.ToString(),
                 exercise.DateStart.ToString(_dateFormat),
                 exercise.DateEnd.ToString(_dateFormat),
-                exercise.Duration.ToString("c"),
+                exercise.Duration.ToString()!,
                 exercise.Comments ?? "-"
 
             };

@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "ExerciseTracker.Brozda": {
+      "commandName": "Project",
+      "workingDirectory": "E:\\Git Repos\\CodeReviews.Console.ExerciseTracker",
+      "environmentVariables": {
+        "PROJECT_ROOT": "E:\\Git Repos\\CodeReviews.Console.ExerciseTracker\\ExerciseTracker.Brozda\\ExerciseTracker.Brozda"
+      }
+    }
+  }
+}
