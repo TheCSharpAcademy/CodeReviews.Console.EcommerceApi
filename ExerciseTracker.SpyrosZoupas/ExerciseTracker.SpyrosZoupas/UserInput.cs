@@ -77,7 +77,7 @@ public class UserInput
                     exercise.ExerciseId.ToString(),
                     exercise.DateStart.ToString(),
                     exercise.DateEnd.ToString(),
-                    $"{exercise.Duration.TotalHours} hours",
+                    $"{exercise.Duration.TotalHours:F2} hours",
                     exercise.Comments);
             }
 

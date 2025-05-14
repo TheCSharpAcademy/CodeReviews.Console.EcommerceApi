@@ -10,11 +10,12 @@ public class ExerciseRepository<TEntity> : IRepository<TEntity>, IDisposable whe
     public ExerciseRepository(ExerciseTrackerDbContext dbContext)
     {
         _dbContext = dbContext;
+        _dbSet = _dbContext.Set<TEntity>();
     }
 
     public IEnumerable<TEntity> GetAll()
     {
-        return _dbContext.Set<TEntity>().ToList();
+        return _dbSet.ToList();
     }
     public TEntity GetById(int id)
     {
@@ -24,19 +25,19 @@ public class ExerciseRepository<TEntity> : IRepository<TEntity>, IDisposable whe
     public void Insert(TEntity entity)
     {
         _dbContext.Add(entity);
-        _dbContext.SaveChanges();
-    }
+        Save();
+    }   
 
     public void Delete(TEntity entity)
     {
         _dbContext.Remove(entity);
-        _dbContext.SaveChanges();
+        Save();
     }
 
     public void Update(TEntity entity)
     {
         _dbContext.Entry(entity).State = EntityState.Modified;
-        _dbContext.SaveChanges();
+        Save();
     }
 
     public void Save() =>
