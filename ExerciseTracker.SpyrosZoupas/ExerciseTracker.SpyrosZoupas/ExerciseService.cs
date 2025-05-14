@@ -20,7 +20,8 @@ public class ExerciseService
     public void InsertExercise()
     {
         DateTime startDate = InputValidation.GetDateTimeValue("Start Date:");
-        DateTime endDate = InputValidation.GetDateTimeValue("End Date:");
+        DateTime endDate = InputValidation.GetEndDateTimeValue("End Date:", startDate);
+
         string comments = AnsiConsole.Ask<string>("Comments:");
         Exercise exercise = new Exercise { DateStart = startDate, DateEnd = endDate, Comments = comments };
 
@@ -61,7 +62,7 @@ public class ExerciseService
         if (AnsiConsole.Confirm("Update start date?"))
             exercise.DateStart = InputValidation.GetDateTimeValue("Updated start date:");
         if (AnsiConsole.Confirm("Update end date?"))
-            exercise.DateEnd = InputValidation.GetDateTimeValue("Updated end date:");
+            exercise.DateEnd = InputValidation.GetEndDateTimeValue("End Date:", exercise.DateStart);
         if (AnsiConsole.Confirm("Update comments?"))
             exercise.Comments = AnsiConsole.Ask<string>("Updated comments:");
 

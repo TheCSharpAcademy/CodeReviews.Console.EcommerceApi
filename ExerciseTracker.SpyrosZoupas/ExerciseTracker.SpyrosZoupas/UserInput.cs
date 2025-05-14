@@ -68,7 +68,8 @@ public class UserInput
             table.AddColumn("Id")
                 .AddColumn("Start")
                 .AddColumn("End")
-                .AddColumn("Total hours");
+                .AddColumn("Duration")
+                .AddColumn("Comments");
 
             foreach (Exercise exercise in exercises)
             {
@@ -76,7 +77,8 @@ public class UserInput
                     exercise.ExerciseId.ToString(),
                     exercise.DateStart.ToString(),
                     exercise.DateEnd.ToString(),
-                    (exercise.Duration / 60 / 60).ToString());
+                    $"{exercise.Duration.TotalHours} hours",
+                    exercise.Comments);
             }
 
             AnsiConsole.Write(table);

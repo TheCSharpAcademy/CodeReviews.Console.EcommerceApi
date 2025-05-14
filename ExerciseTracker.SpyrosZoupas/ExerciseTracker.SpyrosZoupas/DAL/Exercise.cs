@@ -7,7 +7,7 @@ public class Exercise
     public DateTime DateEnd { get; set; }
     public TimeSpan Duration
     {
-        get => DateEnd.TimeOfDay - DateStart.TimeOfDay;
+        get => DateEnd - DateStart;
     }
     public string Comments { get; set; }
 }

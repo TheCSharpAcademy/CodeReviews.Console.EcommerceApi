@@ -27,4 +27,16 @@ public class InputValidation
 
         return result;
     }
+
+    public static DateTime GetEndDateTimeValue(string message, DateTime startDateTime)
+    {
+        DateTime endDateTime = GetDateTimeValue(message);
+        while (startDateTime > endDateTime)
+        {
+            AnsiConsole.MarkupLine("[red]End Date cannot be before Start Date![/]");
+            endDateTime = GetDateTimeValue("End Date:");
+        }
+
+        return endDateTime;
+    }
 }

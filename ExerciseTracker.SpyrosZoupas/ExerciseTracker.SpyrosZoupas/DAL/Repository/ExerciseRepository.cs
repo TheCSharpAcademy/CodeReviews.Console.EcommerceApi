@@ -24,16 +24,19 @@ public class ExerciseRepository<TEntity> : IRepository<TEntity>, IDisposable whe
     public void Insert(TEntity entity)
     {
         _dbContext.Add(entity);
+        _dbContext.SaveChanges();
     }
 
     public void Delete(TEntity entity)
     {
         _dbContext.Remove(entity);
+        _dbContext.SaveChanges();
     }
 
     public void Update(TEntity entity)
     {
         _dbContext.Entry(entity).State = EntityState.Modified;
+        _dbContext.SaveChanges();
     }
 
     public void Save() =>
