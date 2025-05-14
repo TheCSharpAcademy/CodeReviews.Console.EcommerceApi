@@ -41,7 +41,8 @@ public class ExerciseTrackerDbContext : DbContext
                     {
                         ExerciseId = 4,
                         DateStart = new DateTime(2025, 11, 10),
-                        DateEnd = new DateTime(2025, 12, 20)
+                        DateEnd = new DateTime(2025, 12, 20),
+                        Comments = ""
                     },
                     new Exercise
                     {
