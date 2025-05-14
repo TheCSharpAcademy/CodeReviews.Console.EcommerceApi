@@ -1,4 +1,4 @@
-﻿namespace ExerciseTracker.SpyrosZoupas;
+﻿namespace ExerciseTracker.SpyrosZoupas.Util;
 
 public enum ExerciseMenuOptions
 {

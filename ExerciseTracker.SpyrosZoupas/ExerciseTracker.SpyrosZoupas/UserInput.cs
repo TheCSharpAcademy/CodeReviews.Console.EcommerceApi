@@ -1,7 +1,8 @@
 ﻿using ExerciseTracker.SpyrosZoupas.DAL;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using ExerciseTracker.SpyrosZoupas.Util;
 using Microsoft.IdentityModel.Tokens;
 using Spectre.Console;
+using Table = Spectre.Console.Table;
 
 namespace ExerciseTracker.SpyrosZoupas;
 
@@ -34,19 +35,19 @@ public class UserInput
             switch (option)
             {
                 case ExerciseMenuOptions.AddExercise:
-                    await _exerciseService.InsertExercise();
+                    _exerciseService.InsertExercise();
                     break;
                 case ExerciseMenuOptions.DeleteExercise:
-                    await _exerciseService.DeleteExercise();
+                    _exerciseService.DeleteExercise();
                     break;
                 case ExerciseMenuOptions.UpdateExercise:
-                    await _exerciseService.UpdateExercise();
+                    _exerciseService.UpdateExercise();
                     break;
                 case ExerciseMenuOptions.ViewExercise:
-                    ShowExercise(await _exerciseService.GetExercise());
+                    ShowExercise(_exerciseService.GetExercise());
                     break;
                 case ExerciseMenuOptions.ViewAllExercises:
-                    ShowExerciseTable(await _exerciseService.GetAllExercises());
+                    ShowExerciseTable(_exerciseService.GetAllExercises());
                     break;
                 case ExerciseMenuOptions.Quit:
                     isContactMenuRunning = false;
@@ -73,9 +74,9 @@ public class UserInput
             {
                 table.AddRow(
                     exercise.ExerciseId.ToString(),
-                    exercise.StartDateTime.ToString(),
-                    exercise.EndDateTime.ToString(),
-                    (exercise.DurationSeconds / 60 / 60).ToString());
+                    exercise.DateStart.ToString(),
+                    exercise.DateEnd.ToString(),
+                    (exercise.Duration / 60 / 60).ToString());
             }
 
             AnsiConsole.Write(table);
@@ -95,9 +96,9 @@ public class UserInput
         else
         {
             var panel = new Panel($@"Id: {exercise.ExerciseId}
-Start: {exercise.StartDateTime}
-End: {exercise.EndDateTime}
-Total hours: {exercise.DurationSeconds / 60 / 60}");
+Start: {exercise.DateStart}
+End: {exercise.DateEnd}
+Total hours: {exercise.Duration / 60 / 60}");
             panel.Header = new PanelHeader("Exercise Info");
             panel.Padding = new Padding(2, 2, 2, 2);
 
