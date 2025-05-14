@@ -15,7 +15,7 @@ public class UserInput
         _exerciseService = exerciseService;
     }
 
-    public async Task ExercisesMenu()
+    public void ExercisesMenu()
     {
         var isContactMenuRunning = true;
         while (isContactMenuRunning)
