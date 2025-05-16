@@ -5,9 +5,9 @@ namespace ExerciseTracker.SpyrosZoupas.Controller;
 
 public class CardioExerciseController
 {
-    private IRepository<CardioExercise> _repository;
+    private IRepositoryDapper<CardioExercise> _repository;
 
-    public CardioExerciseController(IRepository<CardioExercise> repository)
+    public CardioExerciseController(IRepositoryDapper<CardioExercise> repository)
     {
         _repository = repository;
     }

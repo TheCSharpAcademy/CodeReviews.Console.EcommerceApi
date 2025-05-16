@@ -4,21 +4,31 @@ using ExerciseTracker.SpyrosZoupas.DAL;
 using ExerciseTracker.SpyrosZoupas.DAL.Model;
 using ExerciseTracker.SpyrosZoupas.DAL.Repository;
 using ExerciseTracker.SpyrosZoupas.Services;
+using Microsoft.Extensions.DependencyInjection;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Model;
 
-ExerciseTrackerDbContext dbContext = new ExerciseTrackerDbContext();
+var services = new ServiceCollection();
+
+services.AddDbContext<ExerciseTrackerDbContext>();
+services.AddSingleton<Validation>();
+services.AddScoped(typeof(IRepository<WeightExercise>), typeof(WeightExerciseRepository<WeightExercise>));
+services.AddScoped<WeightExerciseRepository<WeightExercise>>();
+services.AddScoped(typeof(IRepositoryDapper<CardioExercise>), typeof(CardioExerciseRepository<CardioExercise>));
+services.AddScoped<CardioExerciseRepository<CardioExercise>>();
+services.AddScoped<WeightExerciseController>();
+services.AddScoped<CardioExerciseController>();
+services.AddScoped<WeightExerciseService>();
+services.AddScoped<CardioExerciseService>();
+services.AddScoped<UserInput>();
+
+var serviceProvider = services.BuildServiceProvider();
+
+var dbContext = serviceProvider.GetRequiredService<ExerciseTrackerDbContext>();
 dbContext.Database.EnsureDeleted();
 dbContext.Database.EnsureCreated();
 
-IRepository<WeightExercise> weightExerciseRepository = new WeightExerciseRepository<WeightExercise>(dbContext);
-IRepositoryDapper<CardioExercise> cardioExerciseRepository = new CardioExerciseRepository<CardioExercise>();
+var cardioExerciseRepository = serviceProvider.GetRequiredService<CardioExerciseRepository<CardioExercise>>();
 cardioExerciseRepository.CreateTables();
 
-WeightExerciseController weightExerciseController = new WeightExerciseController(weightExerciseRepository);
-CardioExerciseController cardioExerciseController = new CardioExerciseController(cardioExerciseRepository);
-
-WeightExerciseService weightExerciseService = new WeightExerciseService(weightExerciseController);
-CardioExerciseService cardioExerciseService = new CardioExerciseService(cardioExerciseController);
-
-
-UserInput userInput = new UserInput(weightExerciseService, cardioExerciseService);
-userInput.MainMenu();
+var userInterface = serviceProvider.GetRequiredService<UserInput>();
+userInterface.MainMenu();
