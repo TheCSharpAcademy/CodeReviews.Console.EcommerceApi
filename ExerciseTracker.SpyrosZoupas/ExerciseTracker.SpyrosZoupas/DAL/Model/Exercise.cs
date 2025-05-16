@@ -1,8 +1,8 @@
-﻿namespace ExerciseTracker.SpyrosZoupas.DAL;
+﻿namespace ExerciseTracker.SpyrosZoupas.DAL.Model;
 
 public class Exercise
 {
-    public int ExerciseId { get; set; }
+    public int Id { get; set; }
     public DateTime DateStart { get; set; }
     public DateTime DateEnd { get; set; }
     public TimeSpan Duration

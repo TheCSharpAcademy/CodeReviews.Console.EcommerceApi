@@ -2,12 +2,12 @@
 
 namespace ExerciseTracker.SpyrosZoupas.DAL.Repository;
 
-public class ExerciseRepository<TEntity> : IRepository<TEntity>, IDisposable where TEntity : class, new()
+public class WeightExerciseRepository<TEntity> : IRepository<TEntity>, IDisposable where TEntity : class, new()
 {
     private readonly ExerciseTrackerDbContext _dbContext;
     private readonly DbSet<TEntity> _dbSet;
 
-    public ExerciseRepository(ExerciseTrackerDbContext dbContext)
+    public WeightExerciseRepository(ExerciseTrackerDbContext dbContext)
     {
         _dbContext = dbContext;
         _dbSet = _dbContext.Set<TEntity>();

@@ -1,11 +1,29 @@
 ﻿namespace ExerciseTracker.SpyrosZoupas.Util;
 
-public enum ExerciseMenuOptions
+public enum MainMenuOptions
 {
-    AddExercise,
-    DeleteExercise,
-    UpdateExercise,
-    ViewExercise,
-    ViewAllExercises,
+    WeightExercise,
+    CardioExercise,
     Quit
 }
+
+public enum WeightExerciseMenuOptions
+{
+    AddWeightExercise,
+    DeleteWeightExercise,
+    UpdateWeightExercise,
+    ViewWeightExercise,
+    ViewAllWeightExercises,
+    Quit
+}
+
+public enum CardioExerciseMenuOptions
+{
+    AddCardioExercise,
+    DeleteCardioExercise,
+    UpdateCardioExercise,
+    ViewCardioExercise,
+    ViewAllCardioExercises,
+    Quit
+}
+
