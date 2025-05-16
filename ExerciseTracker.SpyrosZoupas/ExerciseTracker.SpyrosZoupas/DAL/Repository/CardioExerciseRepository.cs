@@ -1,6 +1,8 @@
 ﻿
 using Dapper;
 using Microsoft.Data.SqlClient;
+using Spectre.Console;
+using static Dapper.SqlMapper;
 
 namespace ExerciseTracker.SpyrosZoupas.DAL.Repository;
 
@@ -32,9 +34,12 @@ public class CardioExerciseRepository<TEntity> : IRepository<TEntity>, IReposito
                         Comments NVARCHAR(MAX),
                         Speed FLOAT
                     );
-                END;";
-
+                END;"
+            ;
             tableCmd.ExecuteNonQuery();
+
+            string sql = $"INSERT INTO CardioExercises (DateStart, DateEnd, Comments, Speed) VALUES ('2025-01-01 12:00:00.0000000', '2025-02-02 12:00:00.0000000', 'Beep boop', 10)";
+            connection.Execute(sql);
 
             connection.Close();
         }
@@ -98,7 +103,7 @@ public class CardioExerciseRepository<TEntity> : IRepository<TEntity>, IReposito
         using (var connection = new SqlConnection(connectionString))
         {
             connection.Open();
-            connection.Execute(sql, new { Id = id });
+            connection.Execute(sql, entity);
             connection.Close();
         }
     }
@@ -106,7 +111,7 @@ public class CardioExerciseRepository<TEntity> : IRepository<TEntity>, IReposito
     public void Delete(TEntity entity)
     {
         string sql = $"DELETE FROM CardioExercises WHERE Id = @Id";
-        var id = typeof(TEntity).GetProperty("ExerciseId")?.GetValue(entity);
+        var id = typeof(TEntity).GetProperty("Id")?.GetValue(entity);
         using (var connection = new SqlConnection(connectionString))
         {
             connection.Open();
