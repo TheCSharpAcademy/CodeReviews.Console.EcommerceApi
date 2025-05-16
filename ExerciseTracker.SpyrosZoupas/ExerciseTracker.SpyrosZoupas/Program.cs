@@ -10,7 +10,8 @@ dbContext.Database.EnsureDeleted();
 dbContext.Database.EnsureCreated();
 
 IRepository<WeightExercise> weightExerciseRepository = new WeightExerciseRepository<WeightExercise>(dbContext);
-IRepository<CardioExercise> cardioExerciseRepository = new CardioExerciseRepository<CardioExercise>();
+IRepositoryDapper<CardioExercise> cardioExerciseRepository = new CardioExerciseRepository<CardioExercise>();
+cardioExerciseRepository.CreateTables();
 
 WeightExerciseController weightExerciseController = new WeightExerciseController(weightExerciseRepository);
 CardioExerciseController cardioExerciseController = new CardioExerciseController(cardioExerciseRepository);

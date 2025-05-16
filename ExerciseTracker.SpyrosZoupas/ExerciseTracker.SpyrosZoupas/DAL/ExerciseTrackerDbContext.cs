@@ -10,7 +10,7 @@ public class ExerciseTrackerDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) =>
         optionsBuilder.UseSqlServer(connectionString);
 
-    public DbSet<WeightExercise> Exercises { get; set; }
+    public DbSet<WeightExercise> WeightExercises { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

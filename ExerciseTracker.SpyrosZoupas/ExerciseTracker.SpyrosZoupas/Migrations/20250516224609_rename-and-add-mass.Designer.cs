@@ -4,6 +4,7 @@ using ExerciseTracker.SpyrosZoupas.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExerciseTracker.SpyrosZoupas.Migrations
 {
     [DbContext(typeof(ExerciseTrackerDbContext))]
-    partial class ExerciseTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250516224609_rename-and-add-mass")]
+    partial class renameandaddmass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

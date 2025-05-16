@@ -211,6 +211,7 @@ public class UserInput
 Start: {exercise.DateStart}
 End: {exercise.DateEnd}
 Total hours: {exercise.Duration / 60 / 60}
+Comments: {exercise.Comments}
 Mass: {exercise.Mass} kg");
             panel.Header = new PanelHeader("Exercise Info");
             panel.Padding = new Padding(2, 2, 2, 2);
@@ -235,7 +236,8 @@ Mass: {exercise.Mass} kg");
 Start: {exercise.DateStart}
 End: {exercise.DateEnd}
 Total hours: {exercise.Duration / 60 / 60}
-Mass: {exercise.Speed} km/h");
+Comments: {exercise.Comments}
+Speed: {exercise.Speed} km/h");
             panel.Header = new PanelHeader("Exercise Info");
             panel.Padding = new Padding(2, 2, 2, 2);
 
