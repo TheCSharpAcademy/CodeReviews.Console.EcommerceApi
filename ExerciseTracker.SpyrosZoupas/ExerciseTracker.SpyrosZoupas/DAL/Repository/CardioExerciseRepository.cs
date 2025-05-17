@@ -97,7 +97,6 @@ public class CardioExerciseRepository<TEntity> : IRepository<TEntity>, IReposito
             .ToArray();
 
         var setClause = string.Join(", ", properties.Select(p => $"{p.Name} = @{p.Name}"));
-        var id = typeof(TEntity).GetProperty("Id")?.GetValue(entity);
 
         string sql = $"UPDATE CardioExercises SET {setClause} WHERE Id = @Id";
         using (var connection = new SqlConnection(connectionString))

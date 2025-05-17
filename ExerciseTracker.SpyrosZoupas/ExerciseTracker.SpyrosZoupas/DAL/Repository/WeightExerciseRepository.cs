@@ -43,7 +43,7 @@ public class WeightExerciseRepository<TEntity> : IRepository<TEntity>, IDisposab
     public void Save() =>
         _dbContext.SaveChanges();
 
-    private bool disposed = false;
+    private bool disposed;
 
     protected virtual void Dispose(bool disposing)
     {
