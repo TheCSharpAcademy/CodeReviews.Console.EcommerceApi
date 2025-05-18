@@ -1,4 +1,5 @@
-﻿using ExerciseTracker.Brozda.Models;
+﻿using ExerciseTracker.Brozda.Helpers;
+using ExerciseTracker.Brozda.Models;
 using Spectre.Console;
 using System.Globalization;
 
@@ -9,8 +10,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
     /// </summary>
     internal class UserInputOutput : IUserInputOutput
     {
-        private string _dateFormat = "yyyy-MM-dd HH:mm";
-
+        private string _dateFormat = AppStrings.IoDateFormat;
         /// <summary>
         /// Prints provided text to the console
         /// </summary>
@@ -25,14 +25,14 @@ namespace ExerciseTracker.Brozda.UserInteraction
         /// <param name="errorMsg">Error message to be printed</param>
         public void PrintError(string? errorMsg)
         {
-            Console.WriteLine(errorMsg ?? "Unhandled error");
+            Console.WriteLine(errorMsg ?? AppStrings.IoUnhandledError);
         }
         /// <summary>
         /// Prints "Press any Key to continue" and awaits user input, effectively pausing the app flow
         /// </summary>
         public void PrintPressAnyKeyToContinue()
         {
-            Console.WriteLine("Press any key to continue..");
+            Console.WriteLine(AppStrings.IoPressAnyKeyToContinue);
             Console.ReadKey();
             Console.Clear();
         }
@@ -48,7 +48,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
         {
             var input = AnsiConsole.Prompt(
                 new SelectionPrompt<int>()
-                .Title("Please select your choice")
+                .Title(AppStrings.IoSelectMenu)
                 .AddChoices(menuOptions.Select(x => x.Key).ToList())
                 .UseConverter(x => menuOptions[x])
                 );
@@ -90,14 +90,14 @@ namespace ExerciseTracker.Brozda.UserInteraction
         /// <returns>A <see cref="int"/> representing valid record Id</returns>
         /// <remarks> User input is validated and only valid choice is possible
         /// </remarks>
-        public int GetRecordId(List<Exercise> exercises, string prompt)
+        public int GetRecordId(List<Exercise> exercises)
         {
             PrintExercises(exercises);
 
             var validIds = exercises.Select(x => x.Id).ToList();
 
             var selectedId = AnsiConsole.Prompt(
-                new TextPrompt<int>(prompt)
+                new TextPrompt<int>(AppStrings.IoSelectRecordId)
                 .Validate(x => validIds.Contains(x) || x == 0)
                 );
 
@@ -110,12 +110,12 @@ namespace ExerciseTracker.Brozda.UserInteraction
         /// <returns>A <see cref="Exercise"/> containing values from user input</returns>
         public Exercise GetExercise(Exercise? existing = null)
         {
-            string name = GetString("Exercise name: ", existing?.Name);
-            double lifted = GetDouble("Weight lifted: ", existing?.WeightLifted); ;
-            DateTime start = GetDate("Enter start date: ", existing?.DateStart); ;
-            DateTime end = GetDate("Enter end date: ", existing?.DateEnd, start); ;
+            string name = GetString(AppStrings.IoExerciseName, existing?.Name);
+            double lifted = GetDouble(AppStrings.IoWeightLifted, existing?.WeightLifted); ;
+            DateTime start = GetDate(AppStrings.IoDateStart, existing?.DateStart); ;
+            DateTime end = GetDate(AppStrings.IoDateEnd, existing?.DateEnd, start); ;
             long duration = (long)(end - start).TotalSeconds;
-            string? comments = GetNullableString("Enter a comment (may be left empty): ", existing?.Comments); ;
+            string? comments = GetNullableString(AppStrings.IoComment, existing?.Comments); ;
 
             return new Exercise()
             {
@@ -166,16 +166,16 @@ namespace ExerciseTracker.Brozda.UserInteraction
                 DateTime endDate;
 
                 if (!DateTime.TryParseExact(dateString, _dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out endDate))
-                    return ValidationResult.Error("Invalid date format, format needs to be yyyy-mm-dd hh:mm 24H format");
+                    return ValidationResult.Error(AppStrings.IoErrorDateFormat);
                 if (endDate < startDate)
-                    return ValidationResult.Error("End cannot be before start");
+                    return ValidationResult.Error(AppStrings.IoErrorStartBeforeEnd);
 
                 return ValidationResult.Success();
             }
             else
             {
                 if (!DateTime.TryParseExact(dateString, _dateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out _))
-                    return ValidationResult.Error("Invalid date format, format needs to be yyyy-mm-dd hh:mm 24H format");
+                    return ValidationResult.Error(AppStrings.IoErrorDateFormat);
 
                 return ValidationResult.Success();
             }
@@ -256,7 +256,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
                 exercise.DateStart.ToString(_dateFormat),
                 exercise.DateEnd.ToString(_dateFormat),
                 TimeSpan.FromSeconds(exercise.Duration!.Value).ToString(),
-                exercise.Comments ?? "-"
+                exercise.Comments ?? AppStrings.IoNullValueChar
 
             };
         }

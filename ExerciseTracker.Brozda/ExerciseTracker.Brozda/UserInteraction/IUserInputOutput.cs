@@ -20,7 +20,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
         /// <param name="exercises"></param>
         /// <param name="prompt"></param>
         /// <returns></returns>
-        int GetRecordId(List<Exercise> exercises, string prompt);
+        int GetRecordId(List<Exercise> exercises);
         void PrintError(string? errorMsg);
         void PrintExercise(Exercise exercise);
         void PrintExercises(List<Exercise> exercises);

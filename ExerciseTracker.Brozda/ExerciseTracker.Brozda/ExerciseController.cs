@@ -1,4 +1,5 @@
-﻿using ExerciseTracker.Brozda.Services;
+﻿using ExerciseTracker.Brozda.Helpers;
+using ExerciseTracker.Brozda.Services;
 using ExerciseTracker.Brozda.UserInteraction;
 
 namespace ExerciseTracker.Brozda
@@ -45,11 +46,11 @@ namespace ExerciseTracker.Brozda
         /// </summary>
         private void MapMenu()
         {
-            _menuOptions.Add((int)MenuOptions.ViewAll, ("View all excercises", ProcessViewAll));
-            _menuOptions.Add((int)MenuOptions.CreateRecord, ("Create a new excercise", ProcessCreate));
-            _menuOptions.Add((int)MenuOptions.EditRecord, ("Update existing excercise", ProcessUpdate));
-            _menuOptions.Add((int)MenuOptions.DeleteRecord, ("Delete existing excercise", ProcessDelete));
-            _menuOptions.Add((int)MenuOptions.ExitApp, ("Exit the application", ProcessExitApp));
+            _menuOptions.Add((int)MenuOptions.ViewAll, (AppStrings.ControllerViewAll, ProcessViewAll));
+            _menuOptions.Add((int)MenuOptions.CreateRecord, (AppStrings.ControllerCreate, ProcessCreate));
+            _menuOptions.Add((int)MenuOptions.EditRecord, (AppStrings.ControllerEdit, ProcessUpdate));
+            _menuOptions.Add((int)MenuOptions.DeleteRecord, (AppStrings.ControllerDelete, ProcessDelete));
+            _menuOptions.Add((int)MenuOptions.ExitApp, (AppStrings.ControllerExit, ProcessExitApp));
 
 
 
@@ -102,7 +103,7 @@ namespace ExerciseTracker.Brozda
 
             if (createResult.IsSucessul && createResult.Data is not null)
             {
-                _ui.PrintText("Exercise added successfully");
+                _ui.PrintText(AppStrings.ControllerSuccessCreate);
                 _ui.PrintExercise(createResult.Data);
             }
             else
@@ -133,7 +134,7 @@ namespace ExerciseTracker.Brozda
 
             if (updateResult.IsSucessul && updateResult.Data is not null)
             {
-                _ui.PrintText("Exercise updated successfully");
+                _ui.PrintText(AppStrings.ControllerSuccessEdit);
                 _ui.PrintExercise(updateResult.Data);
             }
             else
@@ -153,7 +154,7 @@ namespace ExerciseTracker.Brozda
 
             if (deleteResult.IsSucessul && deleteResult.Data is true)
             {
-                _ui.PrintText("Exercise deleted successfully");
+                _ui.PrintText(AppStrings.ControllerSuccessDelete);
             }
             else
             {
@@ -184,7 +185,7 @@ namespace ExerciseTracker.Brozda
                 return 0;
             }
 
-            return _ui.GetRecordId(getAllResult.Data, "Please select id of exercise you'd like to see: ");
+            return _ui.GetRecordId(getAllResult.Data);
         }
         
     }

@@ -1,4 +1,5 @@
-﻿using ExerciseTracker.Brozda.Models;
+﻿using ExerciseTracker.Brozda.Helpers;
+using ExerciseTracker.Brozda.Models;
 using ExerciseTracker.Brozda.Repositories.Interfaces;
 using ExerciseTracker.Brozda.Services.Interfaces;
 
@@ -30,7 +31,7 @@ namespace ExerciseTracker.Brozda.Services
             }
             catch (Exception ex)
             {
-                return RepositoryResult<Exercise>.Fail($"Error occured: {ex.Message}");
+                return RepositoryResult<Exercise>.Fail($"{AppStrings.ServiceErrorOcurred}: {ex.Message}");
             }
 
         }
@@ -43,7 +44,7 @@ namespace ExerciseTracker.Brozda.Services
             }
             catch (Exception ex)
             {
-                return RepositoryResult<List<Exercise>>.Fail($"Error occured: {ex.Message}");
+                return RepositoryResult<List<Exercise>>.Fail($"{AppStrings.ServiceErrorOcurred}: {ex.Message}");
             }
         }
         public async Task<RepositoryResult<Exercise>> GetByIdAsync(int id)
@@ -59,7 +60,7 @@ namespace ExerciseTracker.Brozda.Services
             }
             catch (Exception ex)
             {
-                return RepositoryResult<Exercise>.Fail($"Error occured: {ex.Message}");
+                return RepositoryResult<Exercise>.Fail($"{AppStrings.ServiceErrorOcurred}: {ex.Message}");
             }
         }
         public async Task<RepositoryResult<Exercise>> EditAsync(int id, Exercise updatedEntity)
@@ -67,7 +68,7 @@ namespace ExerciseTracker.Brozda.Services
             try
             {
                 if (updatedEntity.Id != id)
-                { return RepositoryResult<Exercise>.Fail($"Error occured: argument ID and entity ID mismatch"); }
+                { return RepositoryResult<Exercise>.Fail(AppStrings.ServiceErrorUpdateIdMismatch); }
 
                 var updateResult = await _repository.Edit(updatedEntity);
 
@@ -77,7 +78,7 @@ namespace ExerciseTracker.Brozda.Services
             }
             catch (Exception ex)
             {
-                return RepositoryResult<Exercise>.Fail($"Error occured: {ex.Message}");
+                return RepositoryResult<Exercise>.Fail($"{AppStrings.ServiceErrorOcurred}: {ex.Message}");
             }
         }
         public async Task<RepositoryResult<bool>> DeleteAsync(int id)
@@ -93,7 +94,7 @@ namespace ExerciseTracker.Brozda.Services
             }
             catch (Exception ex)
             {
-                return RepositoryResult<bool>.Fail($"Error occured: {ex.Message}");
+                return RepositoryResult<bool>.Fail($"{AppStrings.ServiceErrorOcurred}: {ex.Message}");
             }
         }
     }
