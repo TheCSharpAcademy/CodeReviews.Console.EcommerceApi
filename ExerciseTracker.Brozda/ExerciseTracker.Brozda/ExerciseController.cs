@@ -1,31 +1,48 @@
 ﻿using ExerciseTracker.Brozda.Services;
 using ExerciseTracker.Brozda.UserInteraction;
-using System.ComponentModel.Design;
-using System.Runtime.CompilerServices;
 
 namespace ExerciseTracker.Brozda
 {
+    /// <summary>
+    /// Constrols flow of the application.
+    /// Presents options to the user and performs requested actions
+    /// </summary>
     internal class ExerciseController
     {
+        /// <summary>
+        /// Enum defining menu options and values
+        /// </summary>
         private enum MenuOptions
         {
             ViewAll = 1,
             CreateRecord,
             EditRecord,
             DeleteRecord,
-            ExitApp,
+            ExitApp = 100,
         }
 
+        /// <summary>
+        /// A Map of menu options to label - text defining the option and <see cref="Func<<see cref="Task"/>>"/> defining an action to be performed for each option
+        /// </summary>
         private readonly Dictionary<int, (string label, Func<Task> action)> _menuOptions = new Dictionary<int, (string label, Func<Task> action)>();
 
         private readonly ExerciseService _service;
-        private readonly UserInput _ui;
-        public ExerciseController(UserInput ui, ExerciseService service)
+        private readonly UserInputOutput _ui;
+
+        /// <summary>
+        /// Initializes new instance of <see cref="ExerciseController"/>
+        /// </summary>
+        /// <param name="ui">A <see cref="UserInputOutput"/> handling Input and ouput actions to UI</param>
+        /// <param name="service">A <see cref="ExerciseService"/> handling database access</param>
+        public ExerciseController(UserInputOutput ui, ExerciseService service)
         {
             _service = service;
             _ui = ui;
             MapMenu();
         }
+        /// <summary>
+        /// Maps enum representing option to respective label and action
+        /// </summary>
         private void MapMenu()
         {
             _menuOptions.Add((int)MenuOptions.ViewAll, ("View all excercises", ProcessViewAll));
@@ -37,6 +54,10 @@ namespace ExerciseTracker.Brozda
 
 
         }
+
+        /// <summary>
+        /// Initializes the app flow. Which is ongoing until user decides to exit the application
+        /// </summary>
         public async Task Run()
         {
             int menuChoice = _ui.ShowMenuAndGetInput(_menuOptions.ToDictionary(x => x.Key, x=> x.Value.label));
@@ -52,6 +73,10 @@ namespace ExerciseTracker.Brozda
                 }
             }
         }
+        /// <summary>
+        /// Gets all existing exercises from repository and prints them to user output
+        /// User is informed about any error
+        /// </summary>
         public async Task ProcessViewAll()
         {
             var getAllResult = await _service.ViewAllAsync();
@@ -62,9 +87,13 @@ namespace ExerciseTracker.Brozda
             }
             else
             {
-                _ui.PrintError(getAllResult.ErrorMessage ?? "Unhandled error");
+                _ui.PrintError(getAllResult.ErrorMessage);
             }
         }
+        /// <summary>
+        /// Gets data for new exercise from user input and inserts it into the database
+        /// User is informed about any error
+        /// </summary
         public async Task ProcessCreate()
         {
             var exercise = _ui.GetExercise(null);
@@ -78,9 +107,13 @@ namespace ExerciseTracker.Brozda
             }
             else
             {
-                _ui.PrintError(createResult.ErrorMessage ?? "Unhandled error");
+                _ui.PrintError(createResult.ErrorMessage);
             }
         }
+        /// <summary>
+        /// Updates existing exercise base on data from user input and inserts it into the database
+        /// User is informed about any error
+        /// </summary
         public async Task ProcessUpdate()
         {
             int id = await GetIdFromUser();
@@ -89,7 +122,7 @@ namespace ExerciseTracker.Brozda
 
             if (!getByIdResult.IsSucessul || getByIdResult.Data is null)
             {
-                _ui.PrintError(getByIdResult.ErrorMessage ?? "Unhandled error");
+                _ui.PrintError(getByIdResult.ErrorMessage);
                 return;
             }
 
@@ -105,10 +138,13 @@ namespace ExerciseTracker.Brozda
             }
             else
             {
-                _ui.PrintError(updateResult.ErrorMessage ?? "Unhandled error");
+                _ui.PrintError(updateResult.ErrorMessage);
             }
 
         }
+        /// <summary>
+        /// Deletes existing exercise from database
+        /// </summary>
         public async Task ProcessDelete()
         {
             int id = await GetIdFromUser();
@@ -121,24 +157,30 @@ namespace ExerciseTracker.Brozda
             }
             else
             {
-                _ui.PrintError(deleteResult.ErrorMessage ?? "Unhandled error");
+                _ui.PrintError(deleteResult.ErrorMessage);
             }
 
         }
+        /// <summary>
+        /// Exits the application
+        /// </summary>
         private Task ProcessExitApp()
         {
             Environment.Exit(0);
             return Task.CompletedTask;
         }
 
-
+        /// <summary>
+        /// Gets an Id of existing records from user input
+        /// </summary>
+        /// <returns>A task result contains <see cref="int"/> representing the record Id</returns>
         private async Task<int> GetIdFromUser()
         {
             var getAllResult = await _service.ViewAllAsync();
 
             if (!getAllResult.IsSucessul || getAllResult.Data is null)
             {
-                _ui.PrintError(getAllResult.ErrorMessage ?? "Unhandled error");
+                _ui.PrintError(getAllResult.ErrorMessage);
                 return 0;
             }
 

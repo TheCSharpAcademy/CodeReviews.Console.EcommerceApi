@@ -5,11 +5,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ExerciseTracker.Brozda.Repositories
 {
+    /// <summary>
+    /// Provides CRUD operations for <see cref="Exercise"/> entities using Entity Framework Core.
+    /// Implements <see cref="IExerciseRepository"/>
+    /// </summary>
     internal class ExerciseRepository : IExerciseRepository
     {
-        private readonly ExcerciseTrackerContext _dbContext;
+        private readonly ExerciseTrackerContext _dbContext;
 
-        public ExerciseRepository(ExcerciseTrackerContext dbContext)
+        /// <summary>
+        /// Initializes new instance of <see cref="ExerciseRepository"/>
+        /// </summary>
+        /// <param name="dbContext">Database context for EF core for Excercise Tracker application</param>
+        public ExerciseRepository(ExerciseTrackerContext dbContext)
         {
             _dbContext = dbContext;
         }

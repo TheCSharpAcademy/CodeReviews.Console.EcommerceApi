@@ -1,8 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
+﻿
 
 namespace ExerciseTracker.Brozda.Models
 {
+    /// <summary>
+    /// Represents record in Excercises table
+    /// </summary>
     internal class Exercise
     {
         public int Id { get; set; }
@@ -13,6 +15,10 @@ namespace ExerciseTracker.Brozda.Models
         public long? Duration { get; set; }
         public string? Comments { get; set; }
 
+        /// <summary>
+        /// Maps value from passed value to current one
+        /// </summary>
+        /// <param name="updated"></param>
         public void MapFromUpdate(Exercise updated)
         {
             this.Name = updated.Name;

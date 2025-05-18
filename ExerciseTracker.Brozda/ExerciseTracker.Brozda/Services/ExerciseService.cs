@@ -4,9 +4,17 @@ using ExerciseTracker.Brozda.Services.Interfaces;
 
 namespace ExerciseTracker.Brozda.Services
 {
+    /// <summary>
+    /// Provides business logic and service-level CRUD operations for managing <see cref="Exercise"/> entities.
+    /// Implements the <see cref="IExerciseService"/>
+    /// </summary>
     internal class ExerciseService : IExerciseService
     {
         public IExerciseRepository _repository;
+        /// <summary>
+        /// Initializes new instance of <see cref="ExerciseService"/>
+        /// </summary>
+        /// <param name="repository">Repository instance for data access</param>
         public ExerciseService(IExerciseRepository repository)
         {
             _repository = repository;

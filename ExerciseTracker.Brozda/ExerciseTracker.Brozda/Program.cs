@@ -13,8 +13,8 @@ namespace ExerciseTracker.Brozda
     {
         static async Task Main(string[] args)
         {
-            UserInput ui = new UserInput();
-            ExcerciseTrackerContext _context = new ExcerciseTrackerContext();
+            UserInputOutput ui = new UserInputOutput();
+            ExerciseTrackerContext _context = new ExerciseTrackerContext();
             ExerciseRepository repo = new ExerciseRepository(_context);
             ExerciseService svc = new ExerciseService(repo);
             ExerciseController app = new ExerciseController(ui, svc);
