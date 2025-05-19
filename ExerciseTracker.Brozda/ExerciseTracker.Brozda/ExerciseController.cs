@@ -1,5 +1,6 @@
 ﻿using ExerciseTracker.Brozda.Helpers;
 using ExerciseTracker.Brozda.Services;
+using ExerciseTracker.Brozda.Services.Interfaces;
 using ExerciseTracker.Brozda.UserInteraction;
 
 namespace ExerciseTracker.Brozda
@@ -27,15 +28,15 @@ namespace ExerciseTracker.Brozda
         /// </summary>
         private readonly Dictionary<int, (string label, Func<Task> action)> _menuOptions = new Dictionary<int, (string label, Func<Task> action)>();
 
-        private readonly ExerciseService _service;
-        private readonly UserInputOutput _ui;
+        private readonly IExerciseService _service;
+        private readonly IUserInputOutput _ui;
 
         /// <summary>
         /// Initializes new instance of <see cref="ExerciseController"/>
         /// </summary>
         /// <param name="ui">A <see cref="UserInputOutput"/> handling Input and ouput actions to UI</param>
         /// <param name="service">A <see cref="ExerciseService"/> handling database access</param>
-        public ExerciseController(UserInputOutput ui, ExerciseService service)
+        public ExerciseController(IUserInputOutput ui, IExerciseService service)
         {
             _service = service;
             _ui = ui;
