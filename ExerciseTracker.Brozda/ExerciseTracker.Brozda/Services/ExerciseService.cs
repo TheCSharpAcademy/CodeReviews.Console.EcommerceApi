@@ -28,6 +28,7 @@ namespace ExerciseTracker.Brozda.Services
         }
         public async Task<RepositoryResult<List<Exercise>>> ViewAllAsync()
         {
+            var result = await ExecuteSafeAsync(() => _repository.GetAll());
             return await ExecuteSafeAsync(() => _repository.GetAll());
         }
         public async Task<RepositoryResult<Exercise>> GetByIdAsync(int id)
