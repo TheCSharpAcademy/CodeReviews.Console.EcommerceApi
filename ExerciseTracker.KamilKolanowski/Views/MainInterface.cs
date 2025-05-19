@@ -1,6 +1,5 @@
 using ExerciseTracker.KamilKolanowski.Controllers;
 using ExerciseTracker.KamilKolanowski.Enums;
-using ExerciseTracker.KamilKolanowski.Models;
 using ExerciseTracker.KamilKolanowski.Services;
 using Spectre.Console;
 
@@ -20,6 +19,7 @@ internal class MainInterface
     {
         while (true)
         {
+            Console.Clear();
             var selection = AnsiConsole.Prompt(
                 new SelectionPrompt<string>()
                     .Title("Select what would you like to do")
@@ -36,13 +36,15 @@ internal class MainInterface
                     _controller.AddExercise();
                     break;
                 case ExerciseTrackerMenu.Menu.EditExercise:
+                    ShowTable();
                     _controller.UpdateExercise();
                     break;
                 case ExerciseTrackerMenu.Menu.RemoveExercise:
+                    ShowTable();
                     _controller.DeleteExercise();
                     break;
                 case ExerciseTrackerMenu.Menu.ReadExercises:
-                    _controller.ReadExercises();
+                    ShowTable();
                     break;
                 case ExerciseTrackerMenu.Menu.Exit:
                     break;
@@ -50,11 +52,12 @@ internal class MainInterface
         }
     }
 
-    internal void ShowTable()
+    private void ShowTable()
     {
         var table = new Table();
 
         table.AddColumn("[cyan]Exercise Id[/]");
+        table.AddColumn("[cyan]Exercise Name[/]");
         table.AddColumn("[cyan]Start Datetime[/]");
         table.AddColumn("[cyan]End Datetime[/]");
         table.AddColumn("[cyan]Duration[/]");
@@ -67,6 +70,7 @@ internal class MainInterface
         {
             table.AddRow(
                 idx.ToString(),
+                exercise.Name,
                 exercise.DateStart.ToString("yyyy-MM-dd HH:mm:ss"),
                 exercise.DateEnd.ToString("yyyy-MM-dd HH:mm:ss"),
                 exercise.Duration.ToString(@"hh\:mm\:ss"),
@@ -76,5 +80,6 @@ internal class MainInterface
         
         table.Border = TableBorder.Rounded;
         AnsiConsole.Write(table);
+        Console.ReadKey();
     }
 }

@@ -10,8 +10,37 @@ public class UserInputService
     {
         var name = AnsiConsole.Ask<string>("Enter the exercise name:");
         var comment = AnsiConsole.Ask<string>("Enter the exercise comment:");
-        var dateStart = AnsiConsole.Ask<DateTime>("Enter the exercise start date:");
-        var dateEnd = AnsiConsole.Ask<DateTime>("Enter the exercise end date:");
+        
+        var dateStart = AnsiConsole.Prompt(
+            new TextPrompt<DateTime>(
+                "Enter start date and time [yellow](e.g. 2025-05-16 14:30)[/]:"
+            )
+            //     .Validate(input =>
+            // {
+            //     if (exercise.DateEnd <= input)
+            //         return ValidationResult.Error(
+            //             "[red]Start time must be before end time.[/]"
+            //         );
+            //     if (exercise.DateEnd - input > TimeSpan.FromHours(24))
+            //         return ValidationResult.Error(
+            //             "[red]You can't work out longer than 24 hours![/]"
+            //         );
+            //     return ValidationResult.Success();
+            // })
+        );
+        
+        var dateEnd = AnsiConsole.Prompt(
+            new TextPrompt<DateTime>(
+                "Enter end date and time [yellow](e.g. 2025-05-16 14:30)[/]:"
+            )
+            // .Validate(input =>
+            //     input > exercise.DateStart
+            //         ? ValidationResult.Success()
+            //         : ValidationResult.Error(
+            //             "[red]Invalid date (end date must be greater than start date).[/]"
+            //         )
+            // )
+        );
 
         return new Exercise()
         {
@@ -47,7 +76,7 @@ public class UserInputService
                             );
                         if (exercise.DateEnd - input > TimeSpan.FromHours(24))
                             return ValidationResult.Error(
-                                "[red]You can't work longer than 24 hours![/]"
+                                "[red]You can't work out longer than 24 hours![/]"
                             );
                         return ValidationResult.Success();
                     })

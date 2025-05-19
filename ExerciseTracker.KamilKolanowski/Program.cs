@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace ExerciseTracker.KamilKolanowski;
 
@@ -26,6 +27,7 @@ class Program
         builder.Services.AddTransient<MainInterface>();
         builder.Services.AddTransient<UserInputService>();
 
+        builder.Logging.ClearProviders(); 
         var app = builder.Build();
         var scope = app.Services.CreateScope();
         
