@@ -36,15 +36,17 @@ internal class MainInterface
                     _controller.AddExercise();
                     break;
                 case ExerciseTrackerMenu.Menu.EditExercise:
-                    ShowTable();
                     _controller.UpdateExercise();
+                    AnsiConsole.MarkupLine("Press any key to continue...");
                     break;
                 case ExerciseTrackerMenu.Menu.RemoveExercise:
-                    ShowTable();
                     _controller.DeleteExercise();
+                    AnsiConsole.MarkupLine("Press any key to continue...");
                     break;
                 case ExerciseTrackerMenu.Menu.ReadExercises:
-                    ShowTable();
+                    _controller.ReadExercises();
+                    AnsiConsole.MarkupLine("Press any key to continue...");
+                    Console.ReadKey();
                     break;
                 case ExerciseTrackerMenu.Menu.Exit:
                     break;
@@ -52,34 +54,5 @@ internal class MainInterface
         }
     }
 
-    private void ShowTable()
-    {
-        var table = new Table();
-
-        table.AddColumn("[cyan]Exercise Id[/]");
-        table.AddColumn("[cyan]Exercise Name[/]");
-        table.AddColumn("[cyan]Start Datetime[/]");
-        table.AddColumn("[cyan]End Datetime[/]");
-        table.AddColumn("[cyan]Duration[/]");
-        table.AddColumn("[cyan]Comment[/]");
-
-        var exercises = _service.ReadExercises();
-        var idx = 1;
-        
-        foreach (var exercise in exercises)
-        {
-            table.AddRow(
-                idx.ToString(),
-                exercise.Name,
-                exercise.DateStart.ToString("yyyy-MM-dd HH:mm:ss"),
-                exercise.DateEnd.ToString("yyyy-MM-dd HH:mm:ss"),
-                exercise.Duration.ToString(@"hh\:mm\:ss"),
-                exercise.Comment ?? ""
-            );
-        }
-        
-        table.Border = TableBorder.Rounded;
-        AnsiConsole.Write(table);
-        Console.ReadKey();
-    }
+    
 }
