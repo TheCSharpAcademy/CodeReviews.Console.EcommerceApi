@@ -12,7 +12,7 @@ namespace ExerciseTracker.Brozda.Repositories.Interfaces
         /// </summary>
         /// <param name="entity"><see cref="Exercise"/> entity to be added</param>
         /// <returns><see cref="Exercise"/> entity with populated Id field</returns>
-        Task<Exercise> Create(Exercise entity);
+        Task<ExerciseDto> Create(Exercise entity);
         /// <summary>
         /// Deletes an existing record from the database based on its Id
         /// </summary>
@@ -24,17 +24,17 @@ namespace ExerciseTracker.Brozda.Repositories.Interfaces
         /// </summary>
         /// <param name="updatedEntity">An <see cref="Exercise"/> object containing updated values</param>
         /// <returns>Returns passed <see cref="Exercise"/> object in case of sucessful update; null otherwise</returns>
-        Task<Exercise?> Edit(Exercise updatedEntity);
+        Task<ExerciseDto?> Edit(Exercise updatedEntity);
         /// <summary>
         /// Retrieves all records from Exercise table
         /// </summary>
         /// <returns><see cref="List{}"/> containing all <see cref="Exercise"/> records</returns>
-        Task<List<Exercise>> GetAll();
+        Task<List<ExerciseDto>> GetAll();
         /// <summary>
         /// Retrieves single record from database based on provided record Id
         /// </summary>
         /// <param name="id">Id of record to be retrieved</param>
         /// <returns>Valied <see cref="Exercise"/> record if it exists, false otherwise</returns>
-        Task<Exercise?> GetById(int id);
+        Task<ExerciseDto?> GetById(int id);
     }
 }

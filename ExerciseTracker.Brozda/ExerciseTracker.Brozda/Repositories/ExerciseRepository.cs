@@ -21,32 +21,44 @@ namespace ExerciseTracker.Brozda.Repositories
         {
             _dbContext = dbContext;
         }
-        public async Task<Exercise> Create(Exercise entity)
+        public async Task<ExerciseDto> Create(ExerciseDto entity)
         {
-            await _dbContext.ExercisesWeight.AddAsync(entity);
+            Exercise toAdd = entity.MapFromDto();
+
+            await _dbContext.ExercisesWeight.AddAsync(toAdd);
             await _dbContext.SaveChangesAsync();
-            return entity;
+
+            return toAdd.MapToDto();
         }
-        public async Task<List<Exercise>> GetAll()
+        public async Task<List<ExerciseDto>> GetAll()
         {
-            return await _dbContext.ExercisesWeight.ToListAsync();
+            return await _dbContext.ExercisesWeight
+                .Include(s => s.Type)
+                .Select(s => s.MapToDto())
+                .ToListAsync();
+                
+
         }
-        public async Task<Exercise?> GetById(int id)
+        public async Task<ExerciseDto?> GetById(int id)
         {
-            return await _dbContext.ExercisesWeight.FirstOrDefaultAsync(x => x.Id == id);
+            var entity = await _dbContext.ExercisesWeight.FindAsync(id);
+            
+            return entity is not null ? entity.MapToDto() : null; 
         }
-        public async Task<Exercise?> Edit(Exercise updatedEntity)
+        public async Task<ExerciseDto?> Edit(ExerciseDto updatedEntity)
         {
             var original = await _dbContext.ExercisesWeight.FindAsync(updatedEntity.Id);
+
             if (original is null)
             {
                 return null;
             }
-            original.MapFromUpdate(updatedEntity);
+
+            original.MapFromUpdate(updatedEntity.MapFromDto());
 
             await _dbContext.SaveChangesAsync();
 
-            return original;
+            return original.MapToDto();
         }
         public async Task<bool> DeleteById(int id)
         {

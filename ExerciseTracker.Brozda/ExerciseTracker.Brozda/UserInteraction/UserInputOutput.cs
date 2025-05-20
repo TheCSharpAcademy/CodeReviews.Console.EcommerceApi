@@ -62,7 +62,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
         public void PrintExercises(List<Exercise> exercises)
         {
             var table = new Table();
-            table.AddColumns("Id", "Name", "Weight Lifted", "Start", "End", "Duration", "Comments");
+            table.AddColumns("Id", "Name", "Volume", "Start", "End", "Duration", "Comments");
             foreach (var exercise in exercises)
             {
                 table.AddRow(GetTableRow(exercise));
@@ -77,7 +77,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
         public void PrintExercise(Exercise exercise)
         {
             var table = new Table();
-            table.AddColumns("Id", "Name", "Weight Lifted", "Start", "End", "Duration", "Comments");
+            table.AddColumns("Id", "Name", "Volume", "Start", "End", "Duration", "Comments");
             table.AddRow(GetTableRow(exercise));
 
             AnsiConsole.Write(table);
@@ -252,7 +252,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
             {
                 exercise.Id.ToString(),
                 exercise.Name,
-                exercise.Volume.ToString(),
+                exercise.Volume.ToString() + exercise.Type.Unit,
                 exercise.DateStart.ToString(_dateFormat),
                 exercise.DateEnd.ToString(_dateFormat),
                 TimeSpan.FromSeconds(exercise.Duration!.Value).ToString(),
