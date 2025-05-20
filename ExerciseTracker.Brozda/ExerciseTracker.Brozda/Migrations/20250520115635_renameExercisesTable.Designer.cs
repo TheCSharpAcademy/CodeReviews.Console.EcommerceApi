@@ -4,6 +4,7 @@ using ExerciseTracker.Brozda.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExerciseTracker.Brozda.Migrations
 {
     [DbContext(typeof(ExerciseTrackerContext))]
-    partial class ExcerciseTrackerContextModelSnapshot : ModelSnapshot
+    [Migration("20250520115635_renameExercisesTable")]
+    partial class renameExercisesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,49 +49,16 @@ namespace ExerciseTracker.Brozda.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TypeId")
-                        .HasColumnType("int");
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double>("Volume")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("TypeId");
-
-                    b.ToTable("ExercisesWeight", (string)null);
-                });
-
-            modelBuilder.Entity("ExerciseTracker.Brozda.Models.ExerciseType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Unit")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ExerciseTypes");
-                });
-
-            modelBuilder.Entity("ExerciseTracker.Brozda.Models.Exercise", b =>
-                {
-                    b.HasOne("ExerciseTracker.Brozda.Models.ExerciseType", "Type")
-                        .WithMany()
-                        .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Type");
+                    b.ToTable("ExercisesWeight");
                 });
 #pragma warning restore 612, 618
         }

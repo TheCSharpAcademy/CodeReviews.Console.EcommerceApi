@@ -111,7 +111,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
         public Exercise GetExercise(Exercise? existing = null)
         {
             string name = GetString(AppStrings.IoExerciseName, existing?.Name);
-            double lifted = GetDouble(AppStrings.IoWeightLifted, existing?.WeightLifted); ;
+            double lifted = GetDouble(AppStrings.IoWeightLifted, existing?.Volume); ;
             DateTime start = GetDate(AppStrings.IoDateStart, existing?.DateStart); ;
             DateTime end = GetDate(AppStrings.IoDateEnd, existing?.DateEnd, start); ;
             long duration = (long)(end - start).TotalSeconds;
@@ -120,7 +120,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
             return new Exercise()
             {
                 Name = name,
-                WeightLifted = lifted,
+                Volume = lifted,
                 DateStart = start,
                 DateEnd = end,
                 Duration = duration,
@@ -252,7 +252,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
             {
                 exercise.Id.ToString(),
                 exercise.Name,
-                exercise.WeightLifted.ToString(),
+                exercise.Volume.ToString(),
                 exercise.DateStart.ToString(_dateFormat),
                 exercise.DateEnd.ToString(_dateFormat),
                 TimeSpan.FromSeconds(exercise.Duration!.Value).ToString(),

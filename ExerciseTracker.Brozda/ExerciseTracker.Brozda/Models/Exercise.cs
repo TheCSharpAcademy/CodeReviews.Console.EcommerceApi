@@ -9,7 +9,9 @@ namespace ExerciseTracker.Brozda.Models
     {
         public int Id { get; set; }
         public string Name { get; set; } = null!;
-        public double WeightLifted { get; set; }
+        public int TypeId { get; set; }
+        public ExerciseType? Type { get; set; }
+        public double Volume { get; set; }
         public DateTime DateStart { get; set; }
         public DateTime DateEnd { get; set; }
         public long? Duration { get; set; }
@@ -22,7 +24,7 @@ namespace ExerciseTracker.Brozda.Models
         public void MapFromUpdate(Exercise updated)
         {
             this.Name = updated.Name;
-            this.WeightLifted = updated.WeightLifted;
+            this.Volume = updated.Volume;
             this.DateStart = updated.DateStart;
             this.DateEnd = updated.DateEnd;
             this.Duration = updated.Duration;

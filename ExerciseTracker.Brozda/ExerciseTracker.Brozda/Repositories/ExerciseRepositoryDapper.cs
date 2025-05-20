@@ -2,7 +2,11 @@
 using ExerciseTracker.Brozda.Models;
 using ExerciseTracker.Brozda.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Xml.Linq;
+using System;
 using static Dapper.SqlMapper;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace ExerciseTracker.Brozda.Repositories
@@ -11,17 +15,76 @@ namespace ExerciseTracker.Brozda.Repositories
     {
         private string _connectionString = @"Data Source=(localdb)\LOCALDB;Initial Catalog=ExcerciseTracker;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
+        public ExerciseRepositoryDapper()
+        {
+            InitializeDb();
+        }
+        private void InitializeDb()
+        {
+            if (!DoesTableExist())
+            {
+                CreateTable();
+            }
+        }
+        private bool DoesTableExist()
+        {
+            var connection = new SqlConnection(_connectionString);
+            string sql = "SELECT COUNT(*) " +
+                "FROM INFORMATION_SCHEMA.TABLES " +
+                "WHERE TABLE_NAME = 'ExercisesCardio';";
+
+            var result = connection.QuerySingle<int>(sql);
+
+
+            return result != 0;
+        }
+        private async void CreateTable()
+        {
+            var connection = new SqlConnection(_connectionString);
+
+            string sql = "CREATE TABLE [dbo].[ExercisesCardio] ( " +
+            "[Id] INT IDENTITY(1, 1) NOT NULL,"+
+            "[Name] NVARCHAR(MAX) NOT NULL,"+
+            "[Volume] FLOAT(53)     NOT NULL,"+
+            "[DateStart] DATETIME2(7)  NOT NULL,"+
+            "[DateEnd] DATETIME2(7)  NOT NULL,"+
+            "[Comments] NVARCHAR(MAX) NULL,"+
+            "[Duration] BIGINT NULL,"+
+            "[TypeId] INT DEFAULT((0)) NOT NULL,"+
+            "CONSTRAINT[PK_ExercisesWeight] PRIMARY KEY CLUSTERED([Id] ASC),"+
+            "CONSTRAINT[FK_ExercisesWeight_ExerciseTypes_TypeId] FOREIGN KEY([TypeId]) REFERENCES[dbo].[ExerciseTypes]([Id]) ON DELETE CASCADE"+
+            "); ";
+
+            await connection.ExecuteAsync(sql);
+        }
         public async Task<Exercise> Create(Exercise entity)
         {
             var connection = new SqlConnection(_connectionString);
-            var sql = "INSERT INTO [Exercises] " +
-                "(Name,WeightLifted,DateStart,DateEnd,Duration,Comments) " +
+            var sql = "INSERT INTO [ExercisesCardio] (" +
+                "Name," +
+                "TypeId," +
+                "Volume," +
+                "DateStart," +
+                "DateEnd," +
+                "Duration," +
+                "Comments) " +
+
                 "OUTPUT INSERTED.Id " +
-                "VALUES (@Name, @WeightLifted, @DateStart, @DateEnd, @Duration, @Comments);";
+
+                "VALUES (" +
+                "@Name, " +
+                "@TypeId, " +
+                "@Volume, " +
+                "@DateStart, " +
+                "@DateEnd, " +
+                "@Duration, " +
+                "@Comments" +
+                ");";
 
             var id = await connection.ExecuteAsync(sql, new {
                 Name = entity.Name,
-                WeightLifted = entity.WeightLifted,
+                TypeId = entity.TypeId,
+                Volume = entity.Volume,
                 DateStart = entity.DateStart,
                 DateEnd = entity.DateEnd,
                 Duration = entity.Duration,
@@ -36,7 +99,7 @@ namespace ExerciseTracker.Brozda.Repositories
         public async Task<bool> DeleteById(int id)
         {
             var connection = new SqlConnection(_connectionString);
-            var sql = "DELETE FROM [Exercises] WHERE Id=@Id;";
+            var sql = "DELETE FROM [ExercisesCardio] WHERE Id=@Id;";
 
             var affectedRows = await connection.ExecuteAsync(sql, new { Id = id });
 
@@ -47,15 +110,22 @@ namespace ExerciseTracker.Brozda.Repositories
         public async Task<Exercise?> Edit(Exercise updatedEntity)
         {
             var connection = new SqlConnection(_connectionString);
-            var sql = "UPDATE [Exercises] " +
-                "SET Name=@Name, WeightLifted=@WeightLifted, DateStart=@DateStart, DateEnd=@DateEnd,Duration=@Duration,Comments=@Comments " +
+            var sql = "UPDATE [ExercisesCardio] SET " +
+                "Name=@Name, " +
+                "TypeId=@TypeId, " +
+                "Volume=@Volume, " +
+                "DateStart=@DateStart, " +
+                "DateEnd=@DateEnd," +
+                "Duration=@Duration," +
+                "Comments=@Comments " +
                 "WHERE Id=@Id;";
 
             var affectedRows = await connection.ExecuteAsync(sql, new
             {
                 Id = updatedEntity.Id,
                 Name = updatedEntity.Name,
-                WeightLifted = updatedEntity.WeightLifted,
+                TypeId = updatedEntity.TypeId,
+                Volume = updatedEntity.Volume,
                 DateStart = updatedEntity.DateStart,
                 DateEnd = updatedEntity.DateEnd,
                 Duration = updatedEntity.Duration,
@@ -70,7 +140,7 @@ namespace ExerciseTracker.Brozda.Repositories
         public async Task<List<Exercise>> GetAll()
         {
             var connection = new SqlConnection(_connectionString);
-            var sql = "SELECT * FROM [Exercises];";
+            var sql = "SELECT * FROM [ExercisesCardio];";
 
             var exercises = await connection.QueryAsync<Exercise>(sql);
 
@@ -80,7 +150,7 @@ namespace ExerciseTracker.Brozda.Repositories
         public async Task<Exercise?> GetById(int id)
         {
             var connection = new SqlConnection(_connectionString);
-            var sql = "SELECT * FROM [Exercises] WHERE Id=@Id;";
+            var sql = "SELECT * FROM [ExercisesCardio] WHERE Id=@Id;";
 
             return await connection.QuerySingleAsync<Exercise>(sql, new {Id = id});
         }

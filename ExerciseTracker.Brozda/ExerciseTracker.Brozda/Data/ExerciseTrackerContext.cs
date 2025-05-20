@@ -14,8 +14,9 @@ namespace ExerciseTracker.Brozda.Data
     /// </remarks>
     internal class ExerciseTrackerContext : DbContext
     {
-        public DbSet<Exercise> Exercises { get; set; } = null!;
-
+        public DbSet<Exercise> ExercisesWeight { get; set; } = null!;
+        public DbSet<Exercise> ExercisesCardio { get; set; } = null!;
+        public DbSet<ExerciseType> ExerciseTypes { get; set; } = null!;
         /// <summary>
         /// Configures the database provider and optionally seeds data from a JSON file.
         /// </summary>
@@ -31,6 +32,8 @@ namespace ExerciseTracker.Brozda.Data
 
                     var path = Path.Combine(projectRoot ?? Directory.GetCurrentDirectory(), "Resources", "SeedData.json");
 
+                    
+
                     AutoSeedHelper(dbContext, path);   
                 });
 
@@ -45,21 +48,27 @@ namespace ExerciseTracker.Brozda.Data
             if (File.Exists(jsonPath))
             {
                 var rawData = File.ReadAllText(jsonPath);
-                var deserialized = JsonSerializer.Deserialize<SeedData>(rawData);
+                var seedData = JsonSerializer.Deserialize<SeedDataEf>(rawData);
 
-                if (deserialized is not null)
+                if (seedData is not null)
                 {
-                    foreach (var excercise in deserialized.Exercises)
+                    foreach (var excercise in seedData.ExercisesWeight)
                     {
                         excercise.Duration = (long)(excercise.DateEnd - excercise.DateStart).TotalSeconds;
                     }
 
+                    context.Set<ExerciseType>().AddRange(seedData.ExerciseTypes);
+                    context.SaveChanges();
 
-                    context.AddRange(deserialized.Exercises);
+                    context.Set<Exercise>().AddRange(seedData.ExercisesWeight);
                     context.SaveChanges();
                 }
             }
         }
- 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Exercise>().ToTable("ExercisesWeight");
+        }
+
     }
 }

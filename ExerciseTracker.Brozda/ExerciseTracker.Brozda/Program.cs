@@ -4,7 +4,10 @@ using ExerciseTracker.Brozda.Repositories.Interfaces;
 using ExerciseTracker.Brozda.Services;
 using ExerciseTracker.Brozda.Services.Interfaces;
 using ExerciseTracker.Brozda.UserInteraction;
+using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Dapper;
 
 namespace ExerciseTracker.Brozda
 {
