@@ -15,57 +15,48 @@ public class ExerciseService
         _repository = repository;
         _userInputService = userInputService;
     }
-    
+
     internal void AddExercise()
     {
         var exercise = CreateExercise();
 
         _repository.Insert(exercise);
-        Close();
+        Close("added");
+        Console.ReadKey();
     }
 
     internal void UpdateExercise()
     {
         var exerciseId = PromptForId("update");
         var exercise = _repository.GetExercise(exerciseId);
-        
-        if (exercise == null) return;
+
+        if (exercise == null)
+            return;
 
         var updatedExercise = _userInputService.EditExercise(exercise);
 
         _repository.Update(updatedExercise);
+        Close("edited");
+        Console.ReadKey();
     }
 
     internal void DeleteExercise()
     {
         try
         {
-            var exercises = GetExercisesTable();
-
-            while (true)
-            {
-                var exerciseId = PromptForId("delete");
-
-                if (!exercises.TryGetValue(exerciseId, out var mappedExercise))
-                {
-                    AnsiConsole.MarkupLine("[red]No exercise found with the provided id [/]");
-                    continue;
-                }
+            var exerciseId = PromptForId("delete");
             
-                var exercise = _repository.GetExercise(mappedExercise);
+            _repository.Delete(exerciseId);
 
-                if (exercise == null) return;
-
-                _repository.Delete(exerciseId);
-                AnsiConsole.MarkupLine("[green]Successfully deleted exercise![/]");
-                Close();
-            }
-            
+            Close("deleted");
         }
+        
         catch (Exception ex)
         {
             AnsiConsole.WriteException(ex);
         }
+
+        Console.ReadKey();
     }
 
     internal void ReadExercises()
@@ -91,17 +82,26 @@ public class ExerciseService
             AnsiConsole.WriteException(ex);
             return null;
         }
-        
     }
-    
+
     private int PromptForId(string operation)
     {
         try
         {
-            return AnsiConsole.Prompt(
-                new TextPrompt<int>($"Select exercise id to {operation}:")
-                    .Validate(id => _repository.GetExercise(id) != null));
-            // fix here to validate after mapping the keys;
+            var exercises = GetExercisesTable();
+            
+            while (true)
+            {
+                var exerciseId = AnsiConsole.Ask<int>($"Choose [yellow2]exercise id[/] to {operation}:");
+                
+                if (!exercises.TryGetValue(exerciseId, out var mappedExerciseId))
+                {
+                    AnsiConsole.MarkupLine("[red]No exercise found with the provided id [/]");
+                    continue;
+                }
+                
+                return mappedExerciseId;
+            }
         }
         catch (Exception ex)
         {
@@ -109,6 +109,7 @@ public class ExerciseService
             return -1;
         }
     }
+
     private Dictionary<int, int> GetExercisesTable()
     {
         try
@@ -136,7 +137,7 @@ public class ExerciseService
                     exercise.Duration.ToString(@"hh\:mm\:ss"),
                     exercise.Comment ?? ""
                 );
-                mappedId.Add(idx, exercise.Id);
+                mappedId.Add(exercise.Id, idx);
                 idx++;
             }
 
@@ -150,12 +151,14 @@ public class ExerciseService
             AnsiConsole.WriteException(ex);
             return null;
         }
-        
     }
 
-    private void Close()
+    private void Close(string operation)
     {
+        if (operation is not null)
+        {
+            AnsiConsole.MarkupLine($"[green]Successfully {operation} exercise![/]");
+        }
         AnsiConsole.MarkupLine("Press any key to continue...");
-        Console.ReadKey();
     }
 }

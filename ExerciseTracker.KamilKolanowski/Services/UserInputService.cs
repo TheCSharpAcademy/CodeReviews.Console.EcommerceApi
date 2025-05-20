@@ -13,20 +13,18 @@ public class UserInputService
 
         var dateStart = AnsiConsole.Prompt(
             new TextPrompt<DateTime>(
-                    "Enter start date and time [yellow](e.g. 2025-05-16 14:30)[/]:"
-                )
-                .Validate(input =>
-                    input > DateTime.MinValue
-                        ? ValidationResult.Success()
-                        : ValidationResult.Error("You provided invalid datetime!")
+                "Enter start date and time [yellow](e.g. 2025-05-16 14:30)[/]:"
+            ).Validate(input =>
+                input > DateTime.MinValue
+                    ? ValidationResult.Success()
+                    : ValidationResult.Error("You provided invalid datetime!")
             )
         );
-        
+
         var dateEnd = AnsiConsole.Prompt(
             new TextPrompt<DateTime>(
                 "Enter end date and time [yellow](e.g. 2025-05-16 14:30)[/]:"
-            )
-            .Validate(input =>
+            ).Validate(input =>
                 input > dateStart
                     ? ValidationResult.Success()
                     : ValidationResult.Error(

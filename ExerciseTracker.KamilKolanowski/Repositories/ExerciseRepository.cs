@@ -73,7 +73,7 @@ internal class ExerciseRepository : IExerciseRepository
         {
             AnsiConsole.WriteException(e);
         }
-        
+
         Save();
     }
 

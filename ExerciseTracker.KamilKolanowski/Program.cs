@@ -27,12 +27,11 @@ class Program
         builder.Services.AddTransient<MainInterface>();
         builder.Services.AddTransient<UserInputService>();
 
-        builder.Logging.ClearProviders(); 
+        builder.Logging.ClearProviders();
         var app = builder.Build();
         var scope = app.Services.CreateScope();
-        
+
         var main = scope.ServiceProvider.GetRequiredService<MainInterface>();
         main.Start();
-
     }
 }

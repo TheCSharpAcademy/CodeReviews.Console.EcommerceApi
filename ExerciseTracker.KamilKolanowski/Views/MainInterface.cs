@@ -15,6 +15,7 @@ internal class MainInterface
         _controller = controller;
         _service = service;
     }
+
     internal void Start()
     {
         while (true)
@@ -37,15 +38,12 @@ internal class MainInterface
                     break;
                 case ExerciseTrackerMenu.Menu.EditExercise:
                     _controller.UpdateExercise();
-                    AnsiConsole.MarkupLine("Press any key to continue...");
                     break;
                 case ExerciseTrackerMenu.Menu.RemoveExercise:
                     _controller.DeleteExercise();
-                    AnsiConsole.MarkupLine("Press any key to continue...");
                     break;
                 case ExerciseTrackerMenu.Menu.ReadExercises:
                     _controller.ReadExercises();
-                    AnsiConsole.MarkupLine("Press any key to continue...");
                     Console.ReadKey();
                     break;
                 case ExerciseTrackerMenu.Menu.Exit:
@@ -53,6 +51,4 @@ internal class MainInterface
             }
         }
     }
-
-    
 }
