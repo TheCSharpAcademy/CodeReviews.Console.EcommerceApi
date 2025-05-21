@@ -12,7 +12,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
         /// </summary>
         /// <param name="existing">Optional <see cref="Exercise"/> value which values will be shown to user as default values</param>
         /// <returns></returns>
-        Exercise GetExercise(Exercise? existing = null);
+        ExerciseDto GetExercise(ExerciseDto? existing = null);
 
         /// <summary>
         /// Shows user all list of records from which user needs to select
@@ -20,10 +20,10 @@ namespace ExerciseTracker.Brozda.UserInteraction
         /// <param name="exercises"></param>
         /// <param name="prompt"></param>
         /// <returns></returns>
-        int GetRecordId(List<Exercise> exercises);
+        int GetRecordId(List<ExerciseDto> exercises);
         void PrintError(string? errorMsg);
-        void PrintExercise(Exercise exercise);
-        void PrintExercises(List<Exercise> exercises);
+        void PrintExercise(ExerciseDto exercise);
+        void PrintExercises(List<ExerciseDto> exercises);
         void PrintPressAnyKeyToContinue();
         void PrintText(string text);
         int ShowMenuAndGetInput(Dictionary<int, string> menuOptions);

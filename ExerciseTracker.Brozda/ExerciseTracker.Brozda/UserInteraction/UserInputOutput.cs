@@ -59,7 +59,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
         /// Prints exercises to the user console in form of Table
         /// </summary>
         /// <param name="exercises">A List of <see cref="Exercise"/> to be printed</param>
-        public void PrintExercises(List<Exercise> exercises)
+        public void PrintExercises(List<ExerciseDto> exercises)
         {
             var table = new Table();
             table.AddColumns("Id", "Name", "Volume", "Start", "End", "Duration", "Comments");
@@ -74,7 +74,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
         /// Prints a single exercise to the user console in form of Table
         /// </summary>
         /// <param name="exercise"> <see cref="Exercise"/> to be printed</param>
-        public void PrintExercise(Exercise exercise)
+        public void PrintExercise(ExerciseDto exercise)
         {
             var table = new Table();
             table.AddColumns("Id", "Name", "Volume", "Start", "End", "Duration", "Comments");
@@ -90,7 +90,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
         /// <returns>A <see cref="int"/> representing valid record Id</returns>
         /// <remarks> User input is validated and only valid choice is possible
         /// </remarks>
-        public int GetRecordId(List<Exercise> exercises)
+        public int GetRecordId(List<ExerciseDto> exercises)
         {
             PrintExercises(exercises);
 
@@ -108,7 +108,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
         /// </summary>
         /// <param name="existing">Optional argument of existing <see cref="Exercise"/>. If present then its values will be used as default values</param>
         /// <returns>A <see cref="Exercise"/> containing values from user input</returns>
-        public Exercise GetExercise(Exercise? existing = null)
+        public ExerciseDto GetExercise(ExerciseDto? existing = null)
         {
             string name = GetString(AppStrings.IoExerciseName, existing?.Name);
             double lifted = GetDouble(AppStrings.IoWeightLifted, existing?.Volume); ;
@@ -117,7 +117,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
             long duration = (long)(end - start).TotalSeconds;
             string? comments = GetNullableString(AppStrings.IoComment, existing?.Comments); ;
 
-            return new Exercise()
+            return new ExerciseDto()
             {
                 Name = name,
                 Volume = lifted,
@@ -246,21 +246,20 @@ namespace ExerciseTracker.Brozda.UserInteraction
         /// </summary>
         /// <param name="exercise">An <see cref="Exercise"/> to be mapped</param>
         /// <returns>A <see cref="string"/> array containing values from record values</returns>
-        private string[] GetTableRow(Exercise exercise)
+        private string[] GetTableRow(ExerciseDto dto)
         {
             return new string[]
             {
-                exercise.Id.ToString(),
-                exercise.Name,
-                exercise.Volume.ToString() + exercise.Type.Unit,
-                exercise.DateStart.ToString(_dateFormat),
-                exercise.DateEnd.ToString(_dateFormat),
-                TimeSpan.FromSeconds(exercise.Duration!.Value).ToString(),
-                exercise.Comments ?? AppStrings.IoNullValueChar
+                dto.Id.ToString(),
+                dto.Name,
+                dto.Volume.ToString() + dto.Unit,
+                dto.DateStart.ToString(_dateFormat),
+                dto.DateEnd.ToString(_dateFormat),
+                TimeSpan.FromSeconds(dto.Duration!.Value).ToString(),
+                dto.Comments ?? AppStrings.IoNullValueChar
 
             };
         }
-
 
     }
 }

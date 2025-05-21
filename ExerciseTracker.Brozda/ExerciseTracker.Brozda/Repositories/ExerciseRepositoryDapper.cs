@@ -7,22 +7,22 @@ using static Dapper.SqlMapper;
 
 namespace ExerciseTracker.Brozda.Repositories
 {
-    internal class ExerciseRepositoryDapper : IExerciseRepository
+    internal class ExerciseRepositoryDapper //: IExerciseRepository
     {
         private string _connectionString = @"Data Source=(localdb)\LOCALDB;Initial Catalog=ExcerciseTracker;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
-        public ExerciseRepositoryDapper()
+        /*public ExerciseRepositoryDapper()
         {
             InitializeDb();
-        }
-        private void InitializeDb()
+        }*/
+        /*private void InitializeDb()
         {
             if (!DoesTableExist())
             {
                 CreateTable();
             }
-        }
-        private bool DoesTableExist()
+        }*/
+        /*private bool DoesTableExist()
         {
             var connection = new SqlConnection(_connectionString);
             string sql = "SELECT COUNT(*) " +
@@ -149,6 +149,6 @@ namespace ExerciseTracker.Brozda.Repositories
             var sql = "SELECT * FROM [ExercisesCardio] WHERE Id=@Id;";
 
             return await connection.QuerySingleAsync<Exercise>(sql, new {Id = id});
-        }
+        }*/
     }
 }
