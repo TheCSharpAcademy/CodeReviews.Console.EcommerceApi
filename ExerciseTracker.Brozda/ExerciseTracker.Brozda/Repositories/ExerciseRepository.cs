@@ -21,31 +21,26 @@ namespace ExerciseTracker.Brozda.Repositories
         {
             _dbContext = dbContext;
         }
-        public async Task<ExerciseDto> Create(ExerciseDto entity)
+        public async Task<Exercise> Create(Exercise entity)
         {
-            Exercise toAdd = entity.MapFromDto();
-
-            await _dbContext.ExercisesWeight.AddAsync(toAdd);
+            await _dbContext.ExercisesWeight.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
 
-            return toAdd.MapToDto();
+            return entity;
         }
-        public async Task<List<ExerciseDto>> GetAll()
+        public async Task<List<Exercise>> GetAll()
         {
             return await _dbContext.ExercisesWeight
                 .Include(s => s.Type)
-                .Select(s => s.MapToDto())
                 .ToListAsync();
-                
-
         }
-        public async Task<ExerciseDto?> GetById(int id)
+        public async Task<Exercise?> GetById(int id)
         {
             var entity = await _dbContext.ExercisesWeight.FindAsync(id);
             
-            return entity is not null ? entity.MapToDto() : null; 
+            return entity is not null ? entity : null; 
         }
-        public async Task<ExerciseDto?> Edit(ExerciseDto updatedEntity)
+        public async Task<Exercise?> Edit(Exercise updatedEntity)
         {
             var original = await _dbContext.ExercisesWeight.FindAsync(updatedEntity.Id);
 
@@ -54,11 +49,11 @@ namespace ExerciseTracker.Brozda.Repositories
                 return null;
             }
 
-            original.MapFromUpdate(updatedEntity.MapFromDto());
+            original.MapFromUpdate(updatedEntity);
 
             await _dbContext.SaveChangesAsync();
 
-            return original.MapToDto();
+            return original;
         }
         public async Task<bool> DeleteById(int id)
         {
@@ -66,6 +61,7 @@ namespace ExerciseTracker.Brozda.Repositories
 
             return affectedRows > 0;
         }
+
     }
 }
 

@@ -21,29 +21,40 @@ namespace ExerciseTracker.Brozda.Services
             _repository = repository;
         }
 
-        public async Task<RepositoryResult<Exercise>> CreateAsync(Exercise dto)
+        public async Task<RepositoryResult<ExerciseDto>> CreateAsync(ExerciseDto dto)
         {
-            return await ExecuteSafeAsync( () => _repository.Create(dto));
+            var model = dto.MapFromDto();
+
+            var result = await ExecuteSafeAsync(() => _repository.Create(model));
+
+            return result.Map(x => x.MapToDto());
 
         }
-        public async Task<RepositoryResult<List<Exercise>>> ViewAllAsync()
+        public async Task<RepositoryResult<List<ExerciseDto>>> ViewAllAsync()
         {
             var result = await ExecuteSafeAsync(() => _repository.GetAll());
-            return await ExecuteSafeAsync(() => _repository.GetAll());
+
+            return result.Map(x => x.Select(x => x.MapToDto()).ToList());
         }
-        public async Task<RepositoryResult<Exercise>> GetByIdAsync(int id)
+        public async Task<RepositoryResult<ExerciseDto>> GetByIdAsync(int id)
         {
-            return await ExecuteSafeAsync<Exercise>(() => _repository.GetById(id)!);
+            var result = await ExecuteSafeAsync<Exercise>(() => _repository.GetById(id)!);
+
+            return result.Map(x=>x.MapToDto());
 
         }
-        public async Task<RepositoryResult<Exercise>> EditAsync(int id, Exercise updatedEntity)
+        public async Task<RepositoryResult<ExerciseDto>> EditAsync(int id, ExerciseDto updatedEntity)
         {
             if (updatedEntity.Id != id)
             { 
-                return RepositoryResult<Exercise>.Fail(AppStrings.ServiceErrorUpdateIdMismatch); 
+                return RepositoryResult<ExerciseDto>.Fail(AppStrings.ServiceErrorUpdateIdMismatch); 
             }
 
-            return await ExecuteSafeAsync<Exercise>(() => _repository.Edit(updatedEntity)!);
+            var entity = updatedEntity.MapFromDto();
+
+            var result =  await ExecuteSafeAsync<Exercise>(() => _repository.Edit(entity)!);
+
+            return result.Map(x=> x.MapToDto());
 
         }
         public async Task<RepositoryResult<bool>> DeleteAsync(int id)
@@ -64,6 +75,10 @@ namespace ExerciseTracker.Brozda.Services
             {
                 var result = await action();
 
+                if(result is null)
+                {
+                    return RepositoryResult<T>.NotFound();
+                }
                 return result is not null
                     ? RepositoryResult<T>.Success(result)
                     : RepositoryResult<T>.NotFound();
@@ -73,5 +88,6 @@ namespace ExerciseTracker.Brozda.Services
                 return RepositoryResult<T>.Fail($"{AppStrings.ServiceErrorOcurred}: {ex.Message}");
             }
         }
+
     }
 }

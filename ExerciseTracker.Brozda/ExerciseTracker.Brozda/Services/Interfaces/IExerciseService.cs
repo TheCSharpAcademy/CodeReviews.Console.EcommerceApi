@@ -14,7 +14,7 @@ namespace ExerciseTracker.Brozda.Services.Interfaces
         /// <returns>
         /// A <see cref="RepositoryResult{T}"/> containing the created <see cref="Exercise"/> or an error in case of any fail
         /// </returns>
-        Task<RepositoryResult<Exercise>> CreateAsync(Exercise entity);
+        Task<RepositoryResult<ExerciseDto>> CreateAsync(ExerciseDto entity);
         /// <summary>
         /// Deletes existing <see cref="Exercise"/> entry
         /// </summary>
@@ -31,7 +31,7 @@ namespace ExerciseTracker.Brozda.Services.Interfaces
         /// <returns>
         /// A <see cref="RepositoryResult{T}"/> containing the updated <see cref="Exercise"/> or an error in case of any fail
         /// </returns>
-        Task<RepositoryResult<Exercise>> EditAsync(int id, Exercise updatedEntity);
+        Task<RepositoryResult<ExerciseDto>> EditAsync(int id, ExerciseDto updatedEntity);
         /// <summary>
         /// Retrieves single <see cref="Exercise"/> entry 
         /// </summary>
@@ -39,13 +39,13 @@ namespace ExerciseTracker.Brozda.Services.Interfaces
         /// <returns>
         /// A <see cref="RepositoryResult{T}"/> containing the retrieved <see cref="Exercise"/> or an error in case of any fail
         /// </returns>
-        Task<RepositoryResult<Exercise>> GetByIdAsync(int id);
+        Task<RepositoryResult<ExerciseDto>> GetByIdAsync(int id);
         /// <summary>
         /// Retrieves all <see cref="Exercise"/> entries
         /// </summary>
         /// <returns>
         /// A <see cref="RepositoryResult{T}"/> containing List of all retrieved <see cref="Exercise"/> or an error in case of any fail
         /// </returns>
-        Task<RepositoryResult<List<Exercise>>> ViewAllAsync();
+        Task<RepositoryResult<List<ExerciseDto>>> ViewAllAsync();
     }
 }
