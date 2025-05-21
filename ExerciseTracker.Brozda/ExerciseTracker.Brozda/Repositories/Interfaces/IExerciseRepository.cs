@@ -12,7 +12,7 @@ namespace ExerciseTracker.Brozda.Repositories.Interfaces
         /// </summary>
         /// <param name="entity"><see cref="Exercise"/> entity to be added</param>
         /// <returns><see cref="Exercise"/> entity with populated Id field</returns>
-        Task<ExerciseDto> Create(Exercise entity);
+        Task<ExerciseDto> Create(ExerciseDto entity);
         /// <summary>
         /// Deletes an existing record from the database based on its Id
         /// </summary>
@@ -24,7 +24,7 @@ namespace ExerciseTracker.Brozda.Repositories.Interfaces
         /// </summary>
         /// <param name="updatedEntity">An <see cref="Exercise"/> object containing updated values</param>
         /// <returns>Returns passed <see cref="Exercise"/> object in case of sucessful update; null otherwise</returns>
-        Task<ExerciseDto?> Edit(Exercise updatedEntity);
+        Task<ExerciseDto?> Edit(ExerciseDto updatedEntity);
         /// <summary>
         /// Retrieves all records from Exercise table
         /// </summary>

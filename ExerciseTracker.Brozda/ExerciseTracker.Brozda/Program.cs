@@ -25,6 +25,7 @@ namespace ExerciseTracker.Brozda
             await app.Run();
 
         }
+        //test
         public static void SetServices(IServiceCollection services) 
         {
             services.AddSingleton<IUserInputOutput>(new UserInputOutput());

@@ -2,11 +2,7 @@
 using ExerciseTracker.Brozda.Models;
 using ExerciseTracker.Brozda.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.Xml.Linq;
-using System;
 using static Dapper.SqlMapper;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 namespace ExerciseTracker.Brozda.Repositories
@@ -57,7 +53,7 @@ namespace ExerciseTracker.Brozda.Repositories
 
             await connection.ExecuteAsync(sql);
         }
-        public async Task<Exercise> Create(Exercise entity)
+        public async Task<ExerciseDto> Create(ExerciseDto entity)
         {
             var connection = new SqlConnection(_connectionString);
             var sql = "INSERT INTO [ExercisesCardio] (" +
@@ -107,7 +103,7 @@ namespace ExerciseTracker.Brozda.Repositories
 
         }
 
-        public async Task<Exercise?> Edit(Exercise updatedEntity)
+        public async Task<ExerciseDto?> Edit(ExerciseDto updatedEntity)
         {
             var connection = new SqlConnection(_connectionString);
             var sql = "UPDATE [ExercisesCardio] SET " +
@@ -137,7 +133,7 @@ namespace ExerciseTracker.Brozda.Repositories
                 : null;
         }
 
-        public async Task<List<Exercise>> GetAll()
+        public async Task<List<ExerciseDto>> GetAll()
         {
             var connection = new SqlConnection(_connectionString);
             var sql = "SELECT * FROM [ExercisesCardio];";
@@ -147,7 +143,7 @@ namespace ExerciseTracker.Brozda.Repositories
             return exercises.ToList();
         }
 
-        public async Task<Exercise?> GetById(int id)
+        public async Task<ExerciseDto?> GetById(int id)
         {
             var connection = new SqlConnection(_connectionString);
             var sql = "SELECT * FROM [ExercisesCardio] WHERE Id=@Id;";
