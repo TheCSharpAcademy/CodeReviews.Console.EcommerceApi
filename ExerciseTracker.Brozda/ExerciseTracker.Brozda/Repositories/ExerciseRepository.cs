@@ -23,6 +23,7 @@ namespace ExerciseTracker.Brozda.Repositories
         }
         public async Task<Exercise> Create(Exercise entity)
         {
+            
             await _dbContext.ExercisesWeight.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
 
@@ -61,7 +62,10 @@ namespace ExerciseTracker.Brozda.Repositories
 
             return affectedRows > 0;
         }
-
+        public async Task<List<ExerciseType>> GetExerciseTypes()
+        {
+            return await _dbContext.ExerciseTypes.ToListAsync();
+        }
     }
 }
 

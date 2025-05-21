@@ -88,6 +88,10 @@ namespace ExerciseTracker.Brozda.Services
                 return RepositoryResult<T>.Fail($"{AppStrings.ServiceErrorOcurred}: {ex.Message}");
             }
         }
+        public async Task<RepositoryResult<List<ExerciseType>>> GetExerciseTypes()
+        {
+            return await ExecuteSafeAsync(() => _repository.GetExerciseTypes());
+        }
 
     }
 }

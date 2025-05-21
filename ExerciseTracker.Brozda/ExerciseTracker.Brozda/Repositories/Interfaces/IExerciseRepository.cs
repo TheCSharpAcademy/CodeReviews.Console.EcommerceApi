@@ -36,5 +36,7 @@ namespace ExerciseTracker.Brozda.Repositories.Interfaces
         /// <param name="id">Id of record to be retrieved</param>
         /// <returns>Valied <see cref="Exercise"/> record if it exists, false otherwise</returns>
         Task<Exercise?> GetById(int id);
+
+        Task<List<ExerciseType>> GetExerciseTypes();
     }
 }

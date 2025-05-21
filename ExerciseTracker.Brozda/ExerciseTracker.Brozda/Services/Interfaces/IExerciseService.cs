@@ -47,5 +47,7 @@ namespace ExerciseTracker.Brozda.Services.Interfaces
         /// A <see cref="RepositoryResult{T}"/> containing List of all retrieved <see cref="Exercise"/> or an error in case of any fail
         /// </returns>
         Task<RepositoryResult<List<ExerciseDto>>> ViewAllAsync();
+
+        Task<RepositoryResult<List<ExerciseType>>> GetExerciseTypes();
     }
 }

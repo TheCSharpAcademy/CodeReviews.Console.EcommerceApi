@@ -98,7 +98,8 @@ namespace ExerciseTracker.Brozda
         /// </summary
         public async Task ProcessCreate()
         {
-            var exercise = _ui.GetExercise(null);
+            var exTypes = await _service.GetExerciseTypes();
+            var exercise = _ui.GetExercise(exTypes.Data!,null);
 
             var createResult = await _service.CreateAsync(exercise);
 
@@ -120,6 +121,7 @@ namespace ExerciseTracker.Brozda
         {
             int id = await GetIdFromUser();
 
+            var exTypes = await _service.GetExerciseTypes();
             var getByIdResult = await _service.GetByIdAsync(id);
 
             if (!getByIdResult.IsSucessul || getByIdResult.Data is null)
@@ -128,7 +130,7 @@ namespace ExerciseTracker.Brozda
                 return;
             }
 
-            var updatedExercise = _ui.GetExercise(getByIdResult.Data);
+            var updatedExercise = _ui.GetExercise(exTypes.Data!,getByIdResult.Data);
             updatedExercise.Id = getByIdResult.Data.Id; 
 
             var updateResult = await _service.EditAsync(id, updatedExercise);

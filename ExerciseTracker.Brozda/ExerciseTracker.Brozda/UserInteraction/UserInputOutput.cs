@@ -108,25 +108,56 @@ namespace ExerciseTracker.Brozda.UserInteraction
         /// </summary>
         /// <param name="existing">Optional argument of existing <see cref="Exercise"/>. If present then its values will be used as default values</param>
         /// <returns>A <see cref="Exercise"/> containing values from user input</returns>
-        public ExerciseDto GetExercise(ExerciseDto? existing = null)
+        public ExerciseDto GetExercise(List<ExerciseType> exTypes, ExerciseDto? existing = null)
         {
             string name = GetString(AppStrings.IoExerciseName, existing?.Name);
-            double lifted = GetDouble(AppStrings.IoWeightLifted, existing?.Volume); ;
+            int typeId = GetExerciseTypeId(exTypes, existing);
+
+            string unit = exTypes.Find(x => x.Id == typeId)!.Unit;
+
+            double volume = GetDouble($"{AppStrings.IoVolume} ({unit}): ", existing?.Volume);
             DateTime start = GetDate(AppStrings.IoDateStart, existing?.DateStart); ;
             DateTime end = GetDate(AppStrings.IoDateEnd, existing?.DateEnd, start); ;
             long duration = (long)(end - start).TotalSeconds;
-            string? comments = GetNullableString(AppStrings.IoComment, existing?.Comments); ;
+            string? comments = GetNullableString(AppStrings.IoComment, existing?.Comments);
 
             return new ExerciseDto()
             {
                 Name = name,
-                Volume = lifted,
+                TypeId = typeId,
+                Volume = volume,
                 DateStart = start,
                 DateEnd = end,
                 Duration = duration,
                 Comments = comments
             };
 
+        }
+        public void PrintExerciseTypes(List<ExerciseType> exTypes)
+        {
+            var table = new Table();
+            table.AddColumns("Id", "Type");
+            foreach (var exerciseType in exTypes)
+            {
+                table.AddRow(new string[] { exerciseType.Id.ToString(), exerciseType.Name });
+            }
+            AnsiConsole.Write(table);
+        }
+        public int GetExerciseTypeId(List<ExerciseType> exTypes, ExerciseDto? existing = null!)
+        {
+            var validIds = exTypes.Select(x => x.Id);
+
+            PrintExerciseTypes(exTypes);
+
+            var prompt = new TextPrompt<int>(AppStrings.IoSelectExerciseType)
+                .Validate(x => validIds.Contains(x));
+            
+            if(existing is not null)
+            {
+                prompt.DefaultValue(existing.TypeId);
+            }
+
+            return AnsiConsole.Prompt(prompt);
         }
         /// <summary>
         /// Retrieves <see cref="DateTime"/> value from user input 
@@ -260,6 +291,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
 
             };
         }
+        
 
     }
 }
