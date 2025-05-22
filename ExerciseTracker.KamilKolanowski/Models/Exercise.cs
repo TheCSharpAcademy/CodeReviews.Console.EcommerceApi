@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using ExerciseTracker.KamilKolanowski.Enums;
 
 namespace ExerciseTracker.KamilKolanowski.Models;
 
@@ -16,6 +17,9 @@ public class Exercise
     {
         get => DateEnd - DateStart;
     }
+
+    [StringLength(10)]
+    public string ExerciseType { get; set; } = String.Empty;
 
     [StringLength(200)]
     public string? Comment { get; set; }

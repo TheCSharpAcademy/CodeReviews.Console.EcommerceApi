@@ -1,5 +1,6 @@
+using ExerciseTracker.KamilKolanowski.Enums;
+using ExerciseTracker.KamilKolanowski.Interfaces;
 using ExerciseTracker.KamilKolanowski.Models;
-using ExerciseTracker.KamilKolanowski.Repositories;
 using Spectre.Console;
 
 namespace ExerciseTracker.KamilKolanowski.Services;
@@ -7,21 +8,24 @@ namespace ExerciseTracker.KamilKolanowski.Services;
 public class ExerciseService
 {
     private readonly UserInputService _userInputService;
-    private readonly IExerciseRepository _repository;
+    private readonly IExerciseRepositoryFactory _repositoryFactory;
 
-    public ExerciseService(IExerciseRepository repository, UserInputService userInputService)
+    public ExerciseService(IExerciseRepositoryFactory repositoryFactory, UserInputService userInputService)
     {
-        _repository = repository;
+        _repositoryFactory = repositoryFactory;
         _userInputService = userInputService;
     }
-
+    
     internal void AddExercise()
     {
         try
         {
-            var exercise = CreateExercise();
+            var exerciseType = _userInputService.GetUserChoiceForExerciseType();
+            var repo = _repositoryFactory.GetExerciseRepository(exerciseType);
+            var exercise = CreateExercise(exerciseType.ToString());
 
-            _repository.Insert(exercise);
+            repo.Insert(exercise);
+            
             Close("added");
             Console.ReadKey();
         }
@@ -36,14 +40,20 @@ public class ExerciseService
         try
         {
             var exerciseId = PromptForId("update");
-            var exercise = _repository.GetExercise(exerciseId);
+            
+            var efRepo = _repositoryFactory.GetExerciseRepository(ExerciseType.Weight);
+            var dapperRepo = _repositoryFactory.GetExerciseRepository(ExerciseType.Cardio);
+
+            var exercise = efRepo.GetExercise(exerciseId) ?? dapperRepo.GetExercise(exerciseId);
 
             if (exercise == null)
                 return;
 
-            var updatedExercise = _userInputService.EditExercise(exercise);
+            var repo = _repositoryFactory.GetExerciseRepository(Enum.Parse<ExerciseType>(exercise.ExerciseType));
 
-            _repository.Update(updatedExercise);
+            var updatedExercise = _userInputService.EditExercise(exercise);
+            repo.Update(updatedExercise);
+
             Close("edited");
             Console.ReadKey();
         }
@@ -59,7 +69,16 @@ public class ExerciseService
         {
             var exerciseId = PromptForId("delete");
 
-            _repository.Delete(exerciseId);
+            var efRepo = _repositoryFactory.GetExerciseRepository(ExerciseType.Weight);
+            var dapperRepo = _repositoryFactory.GetExerciseRepository(ExerciseType.Cardio);
+
+            var exercise = efRepo.GetExercise(exerciseId) ?? dapperRepo.GetExercise(exerciseId);
+
+            if (exercise == null)
+                return;
+
+            var repo = _repositoryFactory.GetExerciseRepository(Enum.Parse<ExerciseType>(exercise.ExerciseType));
+            repo.Delete(exerciseId);
 
             Close("deleted");
             Console.ReadKey();
@@ -82,11 +101,11 @@ public class ExerciseService
         }
     }
 
-    private Exercise CreateExercise()
+    private Exercise CreateExercise(string exerciseType)
     {
         try
         {
-            return _userInputService.CreateExercise();
+            return _userInputService.CreateExercise(exerciseType);
         }
         catch (Exception ex)
         {
@@ -109,7 +128,6 @@ public class ExerciseService
 
                 if (!exercises.TryGetValue(exerciseId, out var mappedExerciseId))
                 {
-                    Console.WriteLine(mappedExerciseId);
                     AnsiConsole.MarkupLine("[red]No exercise found with the provided id [/]");
                     continue;
                 }
@@ -128,6 +146,9 @@ public class ExerciseService
     {
         try
         {
+            var exerciseType = _userInputService.GetUserChoiceForExerciseType();
+            var repo = _repositoryFactory.GetExerciseRepository(exerciseType);
+            
             var table = new Table();
 
             table.AddColumn("[cyan]Exercise Id[/]");
@@ -136,8 +157,9 @@ public class ExerciseService
             table.AddColumn("[cyan]End Datetime[/]");
             table.AddColumn("[cyan]Duration[/]");
             table.AddColumn("[cyan]Comment[/]");
+            table.AddColumn("[cyan]Exercise Type[/]");
 
-            var exercises = _repository.GetExercises();
+            var exercises = repo.GetExercises(exerciseType.ToString());
             var mappedId = new Dictionary<int, int>();
             var idx = 1;
 
@@ -149,7 +171,8 @@ public class ExerciseService
                     exercise.DateStart.ToString("yyyy-MM-dd HH:mm:ss"),
                     exercise.DateEnd.ToString("yyyy-MM-dd HH:mm:ss"),
                     exercise.Duration.ToString(@"hh\:mm\:ss"),
-                    exercise.Comment ?? ""
+                    exercise.Comment ?? "",
+                    exercise.ExerciseType
                 );
                 mappedId.Add(idx, exercise.Id);
                 idx++;

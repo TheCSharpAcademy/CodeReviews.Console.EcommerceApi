@@ -1,10 +1,10 @@
 using ExerciseTracker.KamilKolanowski.Models;
 
-namespace ExerciseTracker.KamilKolanowski.Repositories;
+namespace ExerciseTracker.KamilKolanowski.Interfaces;
 
 public interface IExerciseRepository
 {
-    IEnumerable<Exercise?> GetExercises();
+    IEnumerable<Exercise?> GetExercises(string type);
     Exercise? GetExercise(int id);
     void Insert(Exercise exercise);
     void Update(Exercise exercise);

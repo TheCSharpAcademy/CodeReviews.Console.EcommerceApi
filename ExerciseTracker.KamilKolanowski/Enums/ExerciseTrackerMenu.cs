@@ -29,5 +29,6 @@ internal class ExerciseTrackerMenu
         DateStart,
         DateEnd,
         Comment,
+        ExerciseType,
     }
 }

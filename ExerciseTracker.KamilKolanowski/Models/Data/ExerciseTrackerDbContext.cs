@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ExerciseTracker.KamilKolanowski.Models.Data;
 
-internal class ExerciseTrackerDbContext : DbContext
+public class ExerciseTrackerDbContext : DbContext
 {
     public ExerciseTrackerDbContext(DbContextOptions<ExerciseTrackerDbContext> options)
         : base(options) { }

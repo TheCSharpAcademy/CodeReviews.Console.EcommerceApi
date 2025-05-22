@@ -4,6 +4,7 @@ using ExerciseTracker.KamilKolanowski.Models.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExerciseTracker.KamilKolanowski.Migrations
 {
     [DbContext(typeof(ExerciseTrackerDbContext))]
-    partial class ExerciseTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250522212409_extendSchema")]
+    partial class extendSchema
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,10 +44,8 @@ namespace ExerciseTracker.KamilKolanowski.Migrations
                     b.Property<DateTime>("DateStart")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("ExerciseType")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                    b.Property<int>("ExerciseType")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()

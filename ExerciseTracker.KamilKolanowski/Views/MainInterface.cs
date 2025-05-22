@@ -45,6 +45,7 @@ internal class MainInterface
                     GoBackToMainMenu();
                     break;
                 case ExerciseTrackerMenu.Menu.Exit:
+                    Environment.Exit(0);
                     break;
             }
         }

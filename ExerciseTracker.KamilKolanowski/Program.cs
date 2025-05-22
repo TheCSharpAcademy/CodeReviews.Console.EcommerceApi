@@ -1,4 +1,5 @@
 ﻿using ExerciseTracker.KamilKolanowski.Controllers;
+using ExerciseTracker.KamilKolanowski.Interfaces;
 using ExerciseTracker.KamilKolanowski.Models;
 using ExerciseTracker.KamilKolanowski.Models.Data;
 using ExerciseTracker.KamilKolanowski.Repositories;
@@ -25,7 +26,12 @@ class Program
         );
         
         // builder.Services.AddTransient<IExerciseRepository, ExerciseRepository>(); // EF Core implementation;
-        builder.Services.AddTransient<IExerciseRepository, DapperExerciseRepository>(); // Dapper implementation;
+        // builder.Services.AddTransient<IDapperExerciseRepository, DapperExerciseRepository>(); // Dapper implementation;
+        builder.Services.AddTransient<ExerciseRepository>();         // EF Core
+        builder.Services.AddTransient<DapperExerciseRepository>();   // Dapper
+        builder.Services.AddTransient<IExerciseRepository, ExerciseRepository>();
+        builder.Services.AddTransient<IExerciseRepositoryFactory, ExerciseRepositoryFactory>();
+        
         builder.Services.AddTransient<ExerciseService>();
         builder.Services.AddTransient<ExerciseController>();
         builder.Services.AddTransient<MainInterface>();

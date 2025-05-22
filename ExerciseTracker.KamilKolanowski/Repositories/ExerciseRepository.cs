@@ -1,10 +1,11 @@
+using ExerciseTracker.KamilKolanowski.Interfaces;
 using ExerciseTracker.KamilKolanowski.Models;
 using ExerciseTracker.KamilKolanowski.Models.Data;
 using Spectre.Console;
 
 namespace ExerciseTracker.KamilKolanowski.Repositories;
 
-internal class ExerciseRepository : IExerciseRepository
+public class ExerciseRepository : IExerciseRepository
 {
     private readonly ExerciseTrackerDbContext _context;
 
@@ -13,9 +14,9 @@ internal class ExerciseRepository : IExerciseRepository
         _context = context;
     }
 
-    public IEnumerable<Exercise?> GetExercises()
+    public IEnumerable<Exercise?> GetExercises(string type)
     {
-        var allExercises = _context.Exercises;
+        var allExercises = _context.Exercises.Where(e => e.ExerciseType == type);
         return allExercises;
     }
 
