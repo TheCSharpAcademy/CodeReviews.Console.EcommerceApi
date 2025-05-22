@@ -2,32 +2,33 @@
 using ExerciseTracker.Brozda.Models;
 using ExerciseTracker.Brozda.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
+using System;
 using static Dapper.SqlMapper;
 
 
 namespace ExerciseTracker.Brozda.Repositories
 {
-    internal class ExerciseRepositoryDapper //: IExerciseRepository
+    internal class ExerciseRepositoryDapper : IExerciseRepository
     {
         private string _connectionString = @"Data Source=(localdb)\LOCALDB;Initial Catalog=ExcerciseTracker;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
-        /*public ExerciseRepositoryDapper()
+        public ExerciseRepositoryDapper()
         {
             InitializeDb();
-        }*/
-        /*private void InitializeDb()
+        }
+        private void InitializeDb()
         {
             if (!DoesTableExist())
             {
                 CreateTable();
             }
-        }*/
-        /*private bool DoesTableExist()
+        }
+        private bool DoesTableExist()
         {
             var connection = new SqlConnection(_connectionString);
             string sql = "SELECT COUNT(*) " +
                 "FROM INFORMATION_SCHEMA.TABLES " +
-                "WHERE TABLE_NAME = 'ExercisesCardio';";
+                "WHERE TABLE_NAME = 'ExercisesWeight';";
 
             var result = connection.QuerySingle<int>(sql);
 
@@ -38,7 +39,7 @@ namespace ExerciseTracker.Brozda.Repositories
         {
             var connection = new SqlConnection(_connectionString);
 
-            string sql = "CREATE TABLE [dbo].[ExercisesCardio] ( " +
+            string sql = "CREATE TABLE [dbo].[ExercisesWeight] ( " +
             "[Id] INT IDENTITY(1, 1) NOT NULL,"+
             "[Name] NVARCHAR(MAX) NOT NULL,"+
             "[Volume] FLOAT(53)     NOT NULL,"+
@@ -53,7 +54,50 @@ namespace ExerciseTracker.Brozda.Repositories
 
             await connection.ExecuteAsync(sql);
         }
-        public async Task<ExerciseDto> Create(ExerciseDto entity)
+        public async Task<List<Exercise>> GetAll()
+        {
+            var connection = new SqlConnection(_connectionString);
+            var sql = "SELECT * "+
+                      "FROM [ExercisesWeight] AS[ex] " +
+                      "INNER JOIN[ExerciseTypes] AS[type] ON[ex].[TypeId] = [type].[Id];";
+
+            var exercises = await connection.QueryAsync<Exercise, ExerciseType, Exercise>(sql, (exercise, type) => {
+                exercise.Type = type;
+                return exercise;
+            },
+            splitOn:"TypeId");
+
+            return exercises.ToList();
+        }
+
+        public Task<Exercise> Create(Exercise entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> DeleteById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Exercise?> Edit(Exercise updatedEntity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<Exercise?> GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<ExerciseType>> GetExerciseTypes()
+        {
+            throw new NotImplementedException();
+        }
+
+
+
+        /*public async Task<ExerciseDto> Create(ExerciseDto entity)
         {
             var connection = new SqlConnection(_connectionString);
             var sql = "INSERT INTO [ExercisesCardio] (" +

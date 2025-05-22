@@ -32,8 +32,8 @@ namespace ExerciseTracker.Brozda
 
             services.AddDbContext<ExerciseTrackerContext>();
 
-            services.AddScoped<IExerciseRepository, ExerciseRepository>();
-            //services.AddScoped<IExerciseRepository, ExerciseRepositoryDapper>();
+            //services.AddScoped<IExerciseRepository, ExerciseRepository>();
+            services.AddScoped<IExerciseRepository, ExerciseRepositoryDapper>();
             services.AddScoped<IExerciseService, ExerciseService>();
             services.AddScoped<ExerciseController>();
 
