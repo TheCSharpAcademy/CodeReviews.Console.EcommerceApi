@@ -100,6 +100,7 @@ namespace ExerciseTracker.Brozda
         {
             var exTypes = await _service.GetExerciseTypes();
             var exercise = _ui.GetExercise(exTypes.Data!,null);
+            
 
             var createResult = await _service.CreateAsync(exercise);
 

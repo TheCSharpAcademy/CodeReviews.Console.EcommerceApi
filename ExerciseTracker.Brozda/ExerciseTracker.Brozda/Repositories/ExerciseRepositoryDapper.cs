@@ -1,13 +1,8 @@
 ﻿using Dapper;
-using ExerciseTracker.Brozda.Migrations;
 using ExerciseTracker.Brozda.Models;
 using ExerciseTracker.Brozda.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System;
-using System.Collections.Generic;
 using System.Text.Json;
-using System.Xml.Linq;
 using static Dapper.SqlMapper;
 
 
@@ -32,9 +27,9 @@ namespace ExerciseTracker.Brozda.Repositories
         private bool DoesTableExist()
         {
             var connection = new SqlConnection(_connectionString);
-            string sql = "SELECT COUNT(*) " +
-                "FROM INFORMATION_SCHEMA.TABLES " +
-                "WHERE TABLE_NAME = 'ExercisesCardio';";
+            string sql = @"SELECT COUNT(*)
+                          FROM INFORMATION_SCHEMA.TABLES
+                          WHERE TABLE_NAME = 'ExercisesCardio';";
 
             var result = connection.QuerySingle<int>(sql);
 
@@ -45,18 +40,19 @@ namespace ExerciseTracker.Brozda.Repositories
         {
             var connection = new SqlConnection(_connectionString);
 
-            string sql = "CREATE TABLE [ExercisesCardio] ( " +
-            "[Id] INT IDENTITY(1, 1) NOT NULL,"+
-            "[Name] NVARCHAR(MAX) NOT NULL,"+
-            "[Volume] FLOAT(53)     NOT NULL,"+
-            "[DateStart] DATETIME2(7)  NOT NULL,"+
-            "[DateEnd] DATETIME2(7)  NOT NULL,"+
-            "[Comments] NVARCHAR(MAX) NULL,"+
-            "[Duration] BIGINT NULL,"+
-            "[TypeId] INT DEFAULT((0)) NOT NULL,"+
-            "CONSTRAINT[PK_ExercisesCardio] PRIMARY KEY CLUSTERED([Id] ASC)," +
-            "CONSTRAINT[FK_ExercisesCardio_ExerciseTypes_TypeId] FOREIGN KEY([TypeId]) REFERENCES[dbo].[ExerciseTypes]([Id]) ON DELETE CASCADE" +
-            "); ";
+            string sql = @"CREATE TABLE [ExercisesCardio] (
+                        [Id] INT IDENTITY(1, 1) NOT NULL,
+                        [Name] NVARCHAR(MAX) NOT NULL,
+                        [Volume] FLOAT(53) NOT NULL,
+                        [DateStart] DATETIME2(7) NOT NULL,
+                        [DateEnd] DATETIME2(7) NOT NULL,
+                        [Comments] NVARCHAR(MAX) NULL,
+                        [Duration] BIGINT NULL,
+                        [TypeId] INT DEFAULT((0)) NOT NULL,
+                        CONSTRAINT [PK_ExercisesCardio] PRIMARY KEY CLUSTERED ([Id] ASC),
+                        CONSTRAINT [FK_ExercisesCardio_ExerciseTypes_TypeId] FOREIGN KEY ([TypeId]) 
+                        REFERENCES [dbo].[ExerciseTypes]([Id]) ON DELETE CASCADE
+                        );";
 
             await connection.ExecuteAsync(sql);
         }
@@ -86,9 +82,23 @@ namespace ExerciseTracker.Brozda.Repositories
         {
             var connection = new SqlConnection(_connectionString);
             var sql = "INSERT INTO [ExercisesCardio] " +
-                      "(Name, Volume, DateStart, DateEnd, Comments, Duration, TypeId) " +
+                      "(Name, " +
+                      "Volume, " +
+                      "DateStart, " +
+                      "DateEnd, " +
+                      "Comments, " +
+                      "Duration, " +
+                      "TypeId) " +
+
                       "VALUES " +
-                      "(@Name, @Volume, @DateStart, @DateEnd, @Comments, @Duration, @TypeId);";
+
+                      "(@Name, " +
+                      "@Volume, " +
+                      "@DateStart, " +
+                      "@DateEnd, " +
+                      "@Comments, " +
+                      "@Duration, " +
+                      "@TypeId);";
 
             foreach (var exercise in exercises)
             {
@@ -108,108 +118,123 @@ namespace ExerciseTracker.Brozda.Repositories
         public async Task<List<Exercise>> GetAll()
         {
             var connection = new SqlConnection(_connectionString);
-            var sql = "SELECT * "+
-                      "FROM [ExercisesCardio] AS[ex] " +
-                      "INNER JOIN[ExerciseTypes] AS[type] ON[ex].[TypeId] = [type].[Id];";
+            var sql = @"SELECT 
+                        ex.Id, ex.Name, ex.Volume, ex.DateStart, ex.DateEnd, ex.Duration, ex.Comments, ex.TypeId,
+                        type.Id, type.Name, type.Unit
+                     FROM [ExercisesCardio] AS ex
+                     INNER JOIN [ExerciseTypes] AS type ON ex.TypeId = type.Id";
 
             var exercises = await connection.QueryAsync<Exercise, ExerciseType, Exercise>(sql, (exercise, type) => {
                 exercise.Type = type;
                 return exercise;
             },
-            splitOn:"TypeId");
+            splitOn:"Id");
 
             return exercises.ToList();
         }
-
-        public Task<Exercise> Create(Exercise entity)
+        public async Task<Exercise?> GetById(int id)
         {
-            throw new NotImplementedException();
+            using var connection = new SqlConnection(_connectionString);
+
+            var sql = @"SELECT 
+                        ex.Id, ex.Name, ex.Volume, ex.DateStart, ex.DateEnd, ex.Duration, ex.Comments, ex.TypeId,
+                        type.Id, type.Name, type.Unit
+                     FROM [ExercisesCardio] AS ex
+                     INNER JOIN [ExerciseTypes] AS type ON ex.TypeId = type.Id
+                     WHERE ex.Id = @Id;";
+
+            var result = await connection.QueryAsync<Exercise, ExerciseType, Exercise>(
+                sql,
+                (exercise, type) =>
+                {
+                    exercise.Type = type;
+                    return exercise;
+                },
+                new { Id = id },
+                splitOn: "Id" 
+            );
+
+            return result.FirstOrDefault();
         }
 
-        public Task<bool> DeleteById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Exercise?> Edit(Exercise updatedEntity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Exercise?> GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<ExerciseType>> GetExerciseTypes()
-        {
-            throw new NotImplementedException();
-        }
-
-
-
-        public async Task<ExerciseDto> Create(ExerciseDto entity)
+        public async Task<Exercise> Create(Exercise entity)
         {
             var connection = new SqlConnection(_connectionString);
-            var sql = "INSERT INTO [ExercisesCardio] (" +
-                "Name," +
-                "TypeId," +
-                "Volume," +
-                "DateStart," +
-                "DateEnd," +
-                "Duration," +
-                "Comments) " +
+            var sql = @"INSERT INTO [ExercisesCardio] 
+                        (
+                            Name, 
+                            Volume, 
+                            DateStart, 
+                            DateEnd, 
+                            Comments, 
+                            Duration, 
+                            TypeId
+                        )
+                        OUTPUT INSERTED.Id
+                        VALUES 
+                        (
+                            @Name, 
+                            @Volume, 
+                            @DateStart, 
+                            @DateEnd, 
+                            @Comments, 
+                            @Duration, 
+                            @TypeId
+                        );";
+            
 
-                "OUTPUT INSERTED.Id " +
-
-                "VALUES (" +
-                "@Name, " +
-                "@TypeId, " +
-                "@Volume, " +
-                "@DateStart, " +
-                "@DateEnd, " +
-                "@Duration, " +
-                "@Comments" +
-                ");";
-
-            var id = await connection.ExecuteAsync(sql, new {
+            var id = await connection.QuerySingleAsync<int>(sql, new
+            {
                 Name = entity.Name,
-                TypeId = entity.TypeId,
                 Volume = entity.Volume,
                 DateStart = entity.DateStart,
                 DateEnd = entity.DateEnd,
-                Duration = entity.Duration,
                 Comments = entity.Comments,
+                Duration = entity.Duration,
+                TypeId = entity.TypeId,
             });
 
-            entity.Id = id;
 
-            return entity;
+            return await GetById(id) ?? new Exercise() { };
         }
-        /*
+
         public async Task<bool> DeleteById(int id)
         {
             var connection = new SqlConnection(_connectionString);
-            var sql = "DELETE FROM [ExercisesCardio] WHERE Id=@Id;";
+            var sql = @"DELETE FROM [ExercisesCardio] 
+                        WHERE Id=@Id;";
 
             var affectedRows = await connection.ExecuteAsync(sql, new { Id = id });
 
             return affectedRows > 0;
-
         }
 
-        public async Task<ExerciseDto?> Edit(ExerciseDto updatedEntity)
+        
+
+        public async Task<List<ExerciseType>> GetExerciseTypes()
         {
             var connection = new SqlConnection(_connectionString);
-            var sql = "UPDATE [ExercisesCardio] SET " +
-                "Name=@Name, " +
-                "TypeId=@TypeId, " +
-                "Volume=@Volume, " +
-                "DateStart=@DateStart, " +
-                "DateEnd=@DateEnd," +
-                "Duration=@Duration," +
-                "Comments=@Comments " +
-                "WHERE Id=@Id;";
+            var sql = @"SELECT 
+                       Id,Name,Unit 
+                       FROM [ExerciseTypes];";
+
+            var exTypes = await connection.QueryAsync<ExerciseType>(sql);
+
+            return exTypes.ToList();
+        }
+
+        public async Task<Exercise?> Edit(Exercise updatedEntity)
+        {
+            var connection = new SqlConnection(_connectionString);
+            var sql = @"UPDATE [ExercisesCardio] SET
+                        Name = @Name,
+                        TypeId = @TypeId,
+                        Volume = @Volume,
+                        DateStart = @DateStart,
+                        DateEnd = @DateEnd,
+                        Duration = @Duration,
+                        Comments = @Comments
+                    WHERE Id = @Id;";
 
             var affectedRows = await connection.ExecuteAsync(sql, new
             {
@@ -224,26 +249,9 @@ namespace ExerciseTracker.Brozda.Repositories
             });
 
             return affectedRows > 0
-                ? updatedEntity
+                ? await GetById(updatedEntity.Id)
                 : null;
         }
-
-        public async Task<List<ExerciseDto>> GetAll()
-        {
-            var connection = new SqlConnection(_connectionString);
-            var sql = "SELECT * FROM [ExercisesCardio];";
-
-            var exercises = await connection.QueryAsync<Exercise>(sql);
-
-            return exercises.ToList();
-        }
-
-        public async Task<ExerciseDto?> GetById(int id)
-        {
-            var connection = new SqlConnection(_connectionString);
-            var sql = "SELECT * FROM [ExercisesCardio] WHERE Id=@Id;";
-
-            return await connection.QuerySingleAsync<Exercise>(sql, new {Id = id});
-        }*/
+        
     }
 }
