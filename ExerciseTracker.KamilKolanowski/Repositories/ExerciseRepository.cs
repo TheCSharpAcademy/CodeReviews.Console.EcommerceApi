@@ -29,12 +29,12 @@ internal class ExerciseRepository : IExerciseRepository
         try
         {
             _context.Exercises.Add(exercise);
+            Save();
         }
         catch (Exception e)
         {
             AnsiConsole.WriteException(e);
         }
-        Save();
     }
 
     public void Update(Exercise exerciseObject)
@@ -51,12 +51,12 @@ internal class ExerciseRepository : IExerciseRepository
             }
 
             _context.Exercises.Update(exerciseObject);
+            Save();
         }
         catch (Exception e)
         {
             AnsiConsole.WriteException(e);
         }
-        Save();
     }
 
     public void Delete(int id)
@@ -64,17 +64,17 @@ internal class ExerciseRepository : IExerciseRepository
         try
         {
             var exercise = _context.Exercises.Find(id);
+            Console.WriteLine($"Entity found: {exercise != null}");
             if (exercise != null)
             {
                 _context.Exercises.Remove(exercise);
+                Save();
             }
         }
         catch (Exception e)
         {
             AnsiConsole.WriteException(e);
         }
-
-        Save();
     }
 
     public void Save()

@@ -8,12 +8,10 @@ namespace ExerciseTracker.KamilKolanowski.Views;
 internal class MainInterface
 {
     private readonly ExerciseController _controller;
-    private readonly ExerciseService _service;
 
-    public MainInterface(ExerciseController controller, ExerciseService service)
+    public MainInterface(ExerciseController controller)
     {
         _controller = controller;
-        _service = service;
     }
 
     internal void Start()

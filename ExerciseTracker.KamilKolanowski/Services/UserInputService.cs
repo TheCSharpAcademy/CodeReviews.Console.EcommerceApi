@@ -8,8 +8,21 @@ public class UserInputService
 {
     internal Exercise CreateExercise()
     {
-        var name = AnsiConsole.Ask<string>("Enter the exercise name:");
-        var comment = AnsiConsole.Ask<string>("Enter the exercise comment:");
+        var name = AnsiConsole.Prompt(
+            new TextPrompt<string>("Enter the exercise name:").Validate(input =>
+                input.Length <= 100
+                    ? ValidationResult.Success()
+                    : ValidationResult.Error("[red]Name can't be longer than 100 characters[/]")
+            )
+        );
+
+        var comment = AnsiConsole.Prompt(
+            new TextPrompt<string>("Enter the exercise comment:").Validate(input =>
+                input.Length <= 200
+                    ? ValidationResult.Success()
+                    : ValidationResult.Error("[red]Comment can't be longer than 200 characters[/]")
+            )
+        );
 
         var dateStart = AnsiConsole.Prompt(
             new TextPrompt<DateTime>(
@@ -17,7 +30,7 @@ public class UserInputService
             ).Validate(input =>
                 input > DateTime.MinValue
                     ? ValidationResult.Success()
-                    : ValidationResult.Error("You provided invalid datetime!")
+                    : ValidationResult.Error("[red]You provided invalid datetime![/]")
             )
         );
 
@@ -53,7 +66,15 @@ public class UserInputService
         switch (selectedChoice)
         {
             case ExerciseTrackerMenu.ColumnsToEdit.Name:
-                exercise.Name = AnsiConsole.Ask<string>("Enter the exercise name:");
+                exercise.Name = AnsiConsole.Prompt(
+                    new TextPrompt<string>("Enter the exercise name:").Validate(input =>
+                        input.Length <= 100
+                            ? ValidationResult.Success()
+                            : ValidationResult.Error(
+                                "[red]Name can't be longer than 100 characters[/]"
+                            )
+                    )
+                );
                 break;
             case ExerciseTrackerMenu.ColumnsToEdit.DateStart:
                 exercise.DateStart = AnsiConsole.Prompt(
@@ -87,7 +108,15 @@ public class UserInputService
                 );
                 break;
             case ExerciseTrackerMenu.ColumnsToEdit.Comment:
-                exercise.Comment = AnsiConsole.Ask<string>("Enter the comment for exercise:");
+                exercise.Comment = AnsiConsole.Prompt(
+                    new TextPrompt<string>("Enter the exercise comment:").Validate(input =>
+                        input.Length <= 200
+                            ? ValidationResult.Success()
+                            : ValidationResult.Error(
+                                "[red]Comment can't be longer than 200 characters[/]"
+                            )
+                    )
+                );
                 break;
         }
 

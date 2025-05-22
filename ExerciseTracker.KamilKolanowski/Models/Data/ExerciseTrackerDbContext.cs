@@ -7,7 +7,7 @@ internal class ExerciseTrackerDbContext : DbContext
     public ExerciseTrackerDbContext(DbContextOptions<ExerciseTrackerDbContext> options)
         : base(options) { }
 
-    public DbSet<Exercise?> Exercises { get; set; }
+    public DbSet<Exercise> Exercises { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -1,4 +1,5 @@
 ﻿using ExerciseTracker.KamilKolanowski.Controllers;
+using ExerciseTracker.KamilKolanowski.Models;
 using ExerciseTracker.KamilKolanowski.Models.Data;
 using ExerciseTracker.KamilKolanowski.Repositories;
 using ExerciseTracker.KamilKolanowski.Services;
@@ -16,16 +17,22 @@ class Program
     static void Main()
     {
         var builder = Host.CreateApplicationBuilder();
+        var modelBuilder = new ModelBuilder();
         var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
         builder.Services.AddDbContext<ExerciseTrackerDbContext>(options =>
             options.UseSqlServer(connectionString)
         );
+        
         builder.Services.AddTransient<IExerciseRepository, ExerciseRepository>();
         builder.Services.AddTransient<ExerciseService>();
         builder.Services.AddTransient<ExerciseController>();
         builder.Services.AddTransient<MainInterface>();
         builder.Services.AddTransient<UserInputService>();
+
+        modelBuilder.Entity<Exercise>().Property(e => e.Comment).HasMaxLength(200);
+
+        modelBuilder.Entity<Exercise>().Property(e => e.Name).HasMaxLength(100);
 
         builder.Logging.ClearProviders();
         var app = builder.Build();

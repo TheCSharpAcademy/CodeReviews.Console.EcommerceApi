@@ -8,7 +8,6 @@ public class ExerciseService
 {
     private readonly UserInputService _userInputService;
     private readonly IExerciseRepository _repository;
-    private readonly ExerciseService _service;
 
     public ExerciseService(IExerciseRepository repository, UserInputService userInputService)
     {
@@ -18,10 +17,18 @@ public class ExerciseService
 
     internal void AddExercise()
     {
-        var exercise = CreateExercise();
+        try
+        {
+            var exercise = CreateExercise();
 
-        _repository.Insert(exercise);
-        Close("added");
+            _repository.Insert(exercise);
+            Close("added");
+        }
+        catch (Exception ex)
+        {
+            AnsiConsole.WriteException(ex);
+        }
+
         Console.ReadKey();
     }
 
@@ -45,12 +52,11 @@ public class ExerciseService
         try
         {
             var exerciseId = PromptForId("delete");
-            
+
             _repository.Delete(exerciseId);
 
             Close("deleted");
         }
-        
         catch (Exception ex)
         {
             AnsiConsole.WriteException(ex);
@@ -89,17 +95,20 @@ public class ExerciseService
         try
         {
             var exercises = GetExercisesTable();
-            
+
             while (true)
             {
-                var exerciseId = AnsiConsole.Ask<int>($"Choose [yellow2]exercise id[/] to {operation}:");
-                
+                var exerciseId = AnsiConsole.Ask<int>(
+                    $"Choose [yellow2]exercise id[/] to {operation}:"
+                );
+
                 if (!exercises.TryGetValue(exerciseId, out var mappedExerciseId))
                 {
+                    Console.WriteLine(mappedExerciseId);
                     AnsiConsole.MarkupLine("[red]No exercise found with the provided id [/]");
                     continue;
                 }
-                
+
                 return mappedExerciseId;
             }
         }
@@ -137,7 +146,7 @@ public class ExerciseService
                     exercise.Duration.ToString(@"hh\:mm\:ss"),
                     exercise.Comment ?? ""
                 );
-                mappedId.Add(exercise.Id, idx);
+                mappedId.Add(idx, exercise.Id);
                 idx++;
             }
 
