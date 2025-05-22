@@ -19,7 +19,7 @@ internal class ExerciseTrackerMenu
             { Menu.AddExercise, "Add Exercise" },
             { Menu.RemoveExercise, "Remove Exercise" },
             { Menu.EditExercise, "Edit Exercise" },
-            { Menu.ReadExercises, "Read Exercise" },
+            { Menu.ReadExercises, "Read Exercises" },
             { Menu.Exit, "Exit" },
         };
 

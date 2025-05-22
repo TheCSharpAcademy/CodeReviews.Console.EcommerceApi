@@ -24,15 +24,17 @@ class Program
             options.UseSqlServer(connectionString)
         );
         
-        builder.Services.AddTransient<IExerciseRepository, ExerciseRepository>();
+        // builder.Services.AddTransient<IExerciseRepository, ExerciseRepository>(); // EF Core implementation;
+        builder.Services.AddTransient<IExerciseRepository, DapperExerciseRepository>(); // Dapper implementation;
         builder.Services.AddTransient<ExerciseService>();
         builder.Services.AddTransient<ExerciseController>();
         builder.Services.AddTransient<MainInterface>();
         builder.Services.AddTransient<UserInputService>();
 
         modelBuilder.Entity<Exercise>().Property(e => e.Comment).HasMaxLength(200);
-
         modelBuilder.Entity<Exercise>().Property(e => e.Name).HasMaxLength(100);
+        modelBuilder.Entity<Exercise>().ToTable("ExerciseTracker", schema: "TCSA");
+
 
         builder.Logging.ClearProviders();
         var app = builder.Build();

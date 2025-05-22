@@ -42,11 +42,17 @@ internal class MainInterface
                     break;
                 case ExerciseTrackerMenu.Menu.ReadExercises:
                     _controller.ReadExercises();
-                    Console.ReadKey();
+                    GoBackToMainMenu();
                     break;
                 case ExerciseTrackerMenu.Menu.Exit:
                     break;
             }
         }
+    }
+
+    private void GoBackToMainMenu()
+    {
+        AnsiConsole.MarkupLine("Press any key to go back to the main menu...");
+        Console.ReadKey();
     }
 }

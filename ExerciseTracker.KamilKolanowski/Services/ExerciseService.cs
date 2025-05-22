@@ -23,28 +23,34 @@ public class ExerciseService
 
             _repository.Insert(exercise);
             Close("added");
+            Console.ReadKey();
         }
         catch (Exception ex)
         {
             AnsiConsole.WriteException(ex);
         }
-
-        Console.ReadKey();
     }
 
     internal void UpdateExercise()
     {
-        var exerciseId = PromptForId("update");
-        var exercise = _repository.GetExercise(exerciseId);
+        try
+        {
+            var exerciseId = PromptForId("update");
+            var exercise = _repository.GetExercise(exerciseId);
 
-        if (exercise == null)
-            return;
+            if (exercise == null)
+                return;
 
-        var updatedExercise = _userInputService.EditExercise(exercise);
+            var updatedExercise = _userInputService.EditExercise(exercise);
 
-        _repository.Update(updatedExercise);
-        Close("edited");
-        Console.ReadKey();
+            _repository.Update(updatedExercise);
+            Close("edited");
+            Console.ReadKey();
+        }
+        catch (Exception ex)
+        {
+            AnsiConsole.WriteException(ex);
+        }
     }
 
     internal void DeleteExercise()
@@ -56,13 +62,12 @@ public class ExerciseService
             _repository.Delete(exerciseId);
 
             Close("deleted");
+            Console.ReadKey();
         }
         catch (Exception ex)
         {
             AnsiConsole.WriteException(ex);
         }
-
-        Console.ReadKey();
     }
 
     internal void ReadExercises()
