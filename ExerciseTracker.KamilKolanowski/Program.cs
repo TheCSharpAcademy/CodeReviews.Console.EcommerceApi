@@ -25,8 +25,6 @@ class Program
             options.UseSqlServer(connectionString)
         );
         
-        // builder.Services.AddTransient<IExerciseRepository, ExerciseRepository>(); // EF Core implementation;
-        // builder.Services.AddTransient<IDapperExerciseRepository, DapperExerciseRepository>(); // Dapper implementation;
         builder.Services.AddTransient<ExerciseRepository>();         // EF Core
         builder.Services.AddTransient<DapperExerciseRepository>();   // Dapper
         builder.Services.AddTransient<IExerciseRepository, ExerciseRepository>();
