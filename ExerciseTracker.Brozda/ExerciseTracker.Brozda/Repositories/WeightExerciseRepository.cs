@@ -9,15 +9,15 @@ namespace ExerciseTracker.Brozda.Repositories
     /// Provides CRUD operations for <see cref="Exercise"/> entities using Entity Framework Core.
     /// Implements <see cref="IExerciseRepository"/>
     /// </summary>
-    internal class ExerciseRepository : IExerciseRepository
+    internal class WeightExerciseRepository : IExerciseRepository
     {
         private readonly ExerciseTrackerContext _dbContext;
 
         /// <summary>
-        /// Initializes new instance of <see cref="ExerciseRepository"/>
+        /// Initializes new instance of <see cref="WeightExerciseRepository"/>
         /// </summary>
         /// <param name="dbContext">Database context for EF core for Excercise Tracker application</param>
-        public ExerciseRepository(ExerciseTrackerContext dbContext)
+        public WeightExerciseRepository(ExerciseTrackerContext dbContext)
         {
             _dbContext = dbContext;
         }

@@ -2,6 +2,8 @@
 
 namespace ExerciseTracker.Brozda.Services.Interfaces
 {
+    internal interface IWeightExerciseService : IExerciseService;
+    internal interface ICardioExerciseService : IExerciseService;
     /// <summary>
     /// Defines a contract for service-level CRUD operations related to <see cref="Exercise"/> entities,
     /// </summary>

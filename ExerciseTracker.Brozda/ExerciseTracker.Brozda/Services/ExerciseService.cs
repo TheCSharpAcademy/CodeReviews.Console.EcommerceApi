@@ -9,7 +9,7 @@ namespace ExerciseTracker.Brozda.Services
     /// Provides business logic and service-level CRUD operations for managing <see cref="Exercise"/> entities.
     /// Implements the <see cref="IExerciseService"/>
     /// </summary>
-    internal class ExerciseService : IExerciseService
+    internal class ExerciseService : IWeightExerciseService, ICardioExerciseService
     {
         public IExerciseRepository _repository;
         /// <summary>

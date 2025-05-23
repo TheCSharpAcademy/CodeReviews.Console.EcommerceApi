@@ -31,9 +31,15 @@ namespace ExerciseTracker.Brozda
 
             services.AddDbContext<ExerciseTrackerContext>();
 
-            //services.AddScoped<IExerciseRepository, ExerciseRepository>();
-            services.AddScoped<IExerciseRepository, ExerciseRepositoryDapper>();
-            services.AddScoped<IExerciseService, ExerciseService>();
+            services.AddScoped<WeightExerciseRepository>();
+            services.AddScoped<CardioExerciseRepository>();
+            
+            services.AddScoped<IWeightExerciseService>(sp => new ExerciseService(
+                sp.GetRequiredService<WeightExerciseRepository>()));
+
+            services.AddScoped<ICardioExerciseService>(sp => new ExerciseService(
+                sp.GetRequiredService<CardioExerciseRepository>()));
+
             services.AddScoped<ExerciseController>();
 
         }

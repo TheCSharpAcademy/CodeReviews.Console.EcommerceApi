@@ -8,11 +8,11 @@ using static Dapper.SqlMapper;
 
 namespace ExerciseTracker.Brozda.Repositories
 {
-    internal class ExerciseRepositoryDapper : IExerciseRepository
+    internal class CardioExerciseRepository : IExerciseRepository
     {
         private string _connectionString = @"Data Source=(localdb)\LOCALDB;Initial Catalog=ExcerciseTracker;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
 
-        public ExerciseRepositoryDapper()
+        public CardioExerciseRepository()
         {
             InitializeDb();
         }
