@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExerciseTracker.Brozda.Migrations
 {
     [DbContext(typeof(ExerciseTrackerContext))]
-    [Migration("20250512103722_ExerciseRemoveTimeSpanDuration")]
-    partial class ExerciseRemoveTimeSpanDuration
+    [Migration("20250528183039_initialCreate")]
+    partial class initialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,16 +42,59 @@ namespace ExerciseTracker.Brozda.Migrations
                     b.Property<DateTime>("DateStart")
                         .HasColumnType("datetime2");
 
+                    b.Property<long?>("Duration")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("WeightLifted")
+                    b.Property<int>("TypeId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Volume")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Exercises");
+                    b.HasIndex("TypeId");
+
+                    b.ToTable("ExercisesWeight", (string)null);
+                });
+
+            modelBuilder.Entity("ExerciseTracker.Brozda.Models.ExerciseType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Unit")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("ExerciseTypes");
+                });
+
+            modelBuilder.Entity("ExerciseTracker.Brozda.Models.Exercise", b =>
+                {
+                    b.HasOne("ExerciseTracker.Brozda.Models.ExerciseType", "Type")
+                        .WithMany()
+                        .HasForeignKey("TypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Type");
                 });
 #pragma warning restore 612, 618
         }

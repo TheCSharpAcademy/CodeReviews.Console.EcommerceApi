@@ -59,13 +59,12 @@ namespace ExerciseTracker.Brozda
             _menuOptions.Add((int)MenuOptions.DeleteRecord, (AppStrings.ControllerDelete, ProcessDelete));
             _menuOptions.Add((int)MenuOptions.ExitApp, (AppStrings.ControllerExit, ProcessExitApp));
 
-
-
         }
         private async Task SelectActiveService()
         {
             var exTypes = await _weightExerciseService.GetExerciseTypes();
 
+            _ui.PrintText("Please select database which you'd like to manage: ");
             var exTypeId = _ui.GetExerciseTypeId(exTypes.Data!);
 
             var exTypeName = exTypes.Data!.First(x => x.Id == exTypeId);
@@ -79,6 +78,7 @@ namespace ExerciseTracker.Brozda
             {
                 _activeService = _cardioExerciseService;
             }
+            _ui.ClearConsole();
         }
 
         /// <summary>
@@ -86,6 +86,7 @@ namespace ExerciseTracker.Brozda
         /// </summary>
         public async Task Run()
         {
+            
             await SelectActiveService();
 
             int menuChoice = _ui.ShowMenuAndGetInput(_menuOptions.ToDictionary(x => x.Key, x=> x.Value.label));

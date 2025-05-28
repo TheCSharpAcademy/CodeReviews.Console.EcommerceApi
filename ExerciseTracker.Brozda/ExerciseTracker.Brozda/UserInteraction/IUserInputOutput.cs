@@ -26,6 +26,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
         void PrintExercises(List<ExerciseDto> exercises);
         void PrintPressAnyKeyToContinue();
         void PrintText(string text);
+        void ClearConsole();
         int ShowMenuAndGetInput(Dictionary<int, string> menuOptions);
         int GetExerciseTypeId(List<ExerciseType> exTypes, ExerciseDto? existing = null!);
     }

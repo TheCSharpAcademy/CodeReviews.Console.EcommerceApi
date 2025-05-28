@@ -10,7 +10,7 @@
         public const string IoPressAnyKeyToContinue = "Press any key to continue...";
         public const string IoSelectMenu = "Please select your choice: ";
         public const string IoSelectRecordId = "Please select your choice: ";
-        public const string IoSelectExerciseType = "Please select exercise type: ";
+        public const string IoSelectExerciseType = "Please select exercise type ID: ";
         public const string IoExerciseName = "Exercise name: ";
         public const string IoVolume = "Volume";
         public const string IoDateStart = "Enter start date: ";

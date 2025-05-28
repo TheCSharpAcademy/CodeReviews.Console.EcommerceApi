@@ -4,7 +4,6 @@ using ExerciseTracker.Brozda.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -12,11 +11,9 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExerciseTracker.Brozda.Migrations
 {
     [DbContext(typeof(ExerciseTrackerContext))]
-    [Migration("20250520181850_AddingExerciseTypeColumn")]
-    partial class AddingExerciseTypeColumn
+    partial class ExerciseTrackerContextModelSnapshot : ModelSnapshot
     {
-        /// <inheritdoc />
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,7 +56,7 @@ namespace ExerciseTracker.Brozda.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("ExercisesWeight");
+                    b.ToTable("ExercisesWeight", (string)null);
                 });
 
             modelBuilder.Entity("ExerciseTracker.Brozda.Models.ExerciseType", b =>
@@ -72,9 +69,16 @@ namespace ExerciseTracker.Brozda.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Unit")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("ExerciseTypes");
                 });

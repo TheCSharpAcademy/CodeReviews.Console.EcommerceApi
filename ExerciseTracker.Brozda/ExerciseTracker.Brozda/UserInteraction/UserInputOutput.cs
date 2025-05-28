@@ -11,6 +11,12 @@ namespace ExerciseTracker.Brozda.UserInteraction
     internal class UserInputOutput : IUserInputOutput
     {
         private string _dateFormat = AppStrings.IoDateFormat;
+
+        public void ClearConsole()
+        {
+            Console.Clear();
+        }
+
         /// <summary>
         /// Prints provided text to the console
         /// </summary>
