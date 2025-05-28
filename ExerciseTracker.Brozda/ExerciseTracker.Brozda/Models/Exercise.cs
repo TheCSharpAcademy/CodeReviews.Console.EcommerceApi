@@ -36,6 +36,7 @@ namespace ExerciseTracker.Brozda.Models
         /// <returns>Mapped <see cref="ExerciseDto"/> object</returns>
         public ExerciseDto MapToDto()
         {
+
             return new ExerciseDto
             {
                 Id = this.Id,

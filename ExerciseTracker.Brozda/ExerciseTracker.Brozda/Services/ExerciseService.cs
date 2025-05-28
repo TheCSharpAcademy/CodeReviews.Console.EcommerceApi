@@ -25,22 +25,25 @@ namespace ExerciseTracker.Brozda.Services
         {
             var model = dto.MapFromDto();
 
-            var result = await ExecuteSafeAsync(() => _repository.Create(model));
-
-            return result.Map(x => x.MapToDto());
+            return await ExecuteSafeAsync(
+                () => _repository.Create(model),
+                x => x.MapToDto());
 
         }
         public async Task<RepositoryResult<List<ExerciseDto>>> ViewAllAsync()
         {
-            var result = await ExecuteSafeAsync(() => _repository.GetAll());
 
-            return result.Map(x => x.Select(x => x.MapToDto()).ToList());
+            return await ExecuteSafeAsync(
+                () => _repository.GetAll(),
+                result => result.Select(x => x.MapToDto())
+                .ToList()
+                );
         }
         public async Task<RepositoryResult<ExerciseDto>> GetByIdAsync(int id)
         {
-            var result = await ExecuteSafeAsync<Exercise>(() => _repository.GetById(id)!);
-
-            return result.Map(x=>x.MapToDto());
+            return await ExecuteSafeAsync(
+                () => _repository.GetById(id),
+                result => result!.MapToDto());
 
         }
         public async Task<RepositoryResult<ExerciseDto>> EditAsync(int id, ExerciseDto updatedEntity)
@@ -52,10 +55,9 @@ namespace ExerciseTracker.Brozda.Services
 
             var entity = updatedEntity.MapFromDto();
 
-            var result =  await ExecuteSafeAsync<Exercise>(() => _repository.Edit(entity)!);
-
-            return result.Map(x=> x.MapToDto());
-
+            return await ExecuteSafeAsync(
+                () => _repository.Edit(entity),
+                result => result!.MapToDto());
         }
         public async Task<RepositoryResult<bool>> DeleteAsync(int id)
         {
@@ -69,29 +71,48 @@ namespace ExerciseTracker.Brozda.Services
         /// <param name="action">Action to be run against the repository</param>
         /// <returns>A Task result contains <see cref="RepositoryResult{T}"/> with expected data based on the request
         /// Can return Successful result, NotFound result or Fail in case of any error</returns>
-        private async Task<RepositoryResult<T>> ExecuteSafeAsync<T>(Func<Task<T>> action)
+        public async Task<RepositoryResult<List<ExerciseType>>> GetExerciseTypes()
+        {
+            return await ExecuteSafeAsync(
+                () => _repository.GetExerciseTypes(),
+                x => x);
+        }
+        private async Task<RepositoryResult<TOut>> ExecuteSafeAsync<TIn, TOut>(
+            Func<Task<TIn>> dbCall,
+            Func<TIn,TOut> mapToResult)
         {
             try
             {
-                var result = await action();
+                var result = await dbCall();
 
-                if(result is null)
+                if (result is null)
                 {
-                    return RepositoryResult<T>.NotFound();
+                    return RepositoryResult<TOut>.NotFound();
                 }
-                return result is not null
-                    ? RepositoryResult<T>.Success(result)
-                    : RepositoryResult<T>.NotFound();
+
+                var dtoData = mapToResult(result);
+
+                return RepositoryResult<TOut>.Success(dtoData);
             }
             catch (Exception ex)
             {
-                return RepositoryResult<T>.Fail($"{AppStrings.ServiceErrorOcurred}: {ex.Message}");
+                return RepositoryResult<TOut>.Fail($"{AppStrings.ServiceErrorOcurred}: {ex.Message}");
             }
         }
-        public async Task<RepositoryResult<List<ExerciseType>>> GetExerciseTypes()
+        private async Task<RepositoryResult<bool>> ExecuteSafeAsync(Func<Task<bool>> dbCall)
         {
-            return await ExecuteSafeAsync(() => _repository.GetExerciseTypes());
-        }
+            try
+            {
+                var result = await dbCall();
 
+                return result
+                    ? RepositoryResult<bool>.Success(result)
+                    : RepositoryResult<bool>.Fail("Operation failed");
+            }
+            catch (Exception ex)
+            {
+                return RepositoryResult<bool>.Fail($"{AppStrings.ServiceErrorOcurred}: {ex.Message}");
+            }
+        }
     }
 }
