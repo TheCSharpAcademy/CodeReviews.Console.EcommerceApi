@@ -12,7 +12,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
         /// </summary>
         /// <param name="existing">Optional <see cref="Exercise"/> value which values will be shown to user as default values</param>
         /// <returns></returns>
-        ExerciseDto GetExercise(List<ExerciseType> exTypes, ExerciseDto? existing = null);
+        ExerciseDto GetExercise(ExerciseType exType, ExerciseDto? existing = null);
 
         /// <summary>
         /// Shows user all list of records from which user needs to select

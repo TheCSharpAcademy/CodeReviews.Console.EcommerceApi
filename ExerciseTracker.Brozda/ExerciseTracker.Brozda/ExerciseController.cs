@@ -1,4 +1,5 @@
 ﻿using ExerciseTracker.Brozda.Helpers;
+using ExerciseTracker.Brozda.Models;
 using ExerciseTracker.Brozda.Services;
 using ExerciseTracker.Brozda.Services.Interfaces;
 using ExerciseTracker.Brozda.UserInteraction;
@@ -20,20 +21,23 @@ namespace ExerciseTracker.Brozda
             CreateRecord,
             EditRecord,
             DeleteRecord,
-            ExitApp = 100,
+            SelectExerciseType = 100,
+            ExitApp = 101,
         }
 
         /// <summary>
         /// A Map of menu options to label - text defining the option and <see cref="Func<<see cref="Task"/>>"/> defining an action to be performed for each option
         /// </summary>
-        private readonly Dictionary<int, (string label, Func<Task> action)> _menuOptions = new Dictionary<int, (string label, Func<Task> action)>();
-
-        
+        /// 
+        private readonly Dictionary<int, string> _menuOptions = new Dictionary<int, string>();
+        private readonly Dictionary<int, Func<Task>> _menuActions = new Dictionary<int, Func<Task>>();
 
         private readonly IWeightExerciseService _weightExerciseService;
         private readonly ICardioExerciseService _cardioExerciseService;
 
         private IExerciseService? _activeService;
+        private ExerciseType? _activeExerciseType;
+
         private readonly IUserInputOutput _ui;
 
         /// <summary>
@@ -53,32 +57,36 @@ namespace ExerciseTracker.Brozda
         /// </summary>
         private void MapMenu()
         {
-            _menuOptions.Add((int)MenuOptions.ViewAll, (AppStrings.ControllerViewAll, ProcessViewAll));
-            _menuOptions.Add((int)MenuOptions.CreateRecord, (AppStrings.ControllerCreate, ProcessCreate));
-            _menuOptions.Add((int)MenuOptions.EditRecord, (AppStrings.ControllerEdit, ProcessUpdate));
-            _menuOptions.Add((int)MenuOptions.DeleteRecord, (AppStrings.ControllerDelete, ProcessDelete));
-            _menuOptions.Add((int)MenuOptions.ExitApp, (AppStrings.ControllerExit, ProcessExitApp));
+            _menuOptions.Add((int)MenuOptions.ViewAll, AppStrings.ControllerViewAll);
+            _menuOptions.Add((int)MenuOptions.CreateRecord, AppStrings.ControllerCreate);
+            _menuOptions.Add((int)MenuOptions.EditRecord, AppStrings.ControllerEdit);
+            _menuOptions.Add((int)MenuOptions.DeleteRecord, AppStrings.ControllerDelete);
+            _menuOptions.Add((int)MenuOptions.SelectExerciseType, AppStrings.SelectExerciseType);
+            _menuOptions.Add((int)MenuOptions.ExitApp, AppStrings.ControllerExit);
+
+            _menuActions.Add((int)MenuOptions.ViewAll, ProcessViewAll);
+            _menuActions.Add((int)MenuOptions.CreateRecord, ProcessCreate);
+            _menuActions.Add((int)MenuOptions.EditRecord, ProcessUpdate);
+            _menuActions.Add((int)MenuOptions.DeleteRecord, ProcessDelete);
+            _menuActions.Add((int)MenuOptions.SelectExerciseType, ProcessSelectExerciseType);
+            _menuActions.Add((int)MenuOptions.ExitApp, ProcessExitApp);
 
         }
-        private async Task SelectActiveService()
+        private async Task ProcessSelectExerciseType()
         {
             var exTypes = await _weightExerciseService.GetExerciseTypes();
 
-            _ui.PrintText("Please select database which you'd like to manage: ");
+            _ui.PrintText(AppStrings.IoSelectDatabase);
+
             var exTypeId = _ui.GetExerciseTypeId(exTypes.Data!);
 
-            var exTypeName = exTypes.Data!.First(x => x.Id == exTypeId);
+            _activeExerciseType = exTypes.Data!.First(x => x.Id == exTypeId);
 
-
-            if (exTypeId == 1)
-            {
-                _activeService = _weightExerciseService;
-            }
-            else
-            {
-                _activeService = _cardioExerciseService;
-            }
             _ui.ClearConsole();
+
+            _activeService = (exTypeId == 1)
+                ? _weightExerciseService
+                : _cardioExerciseService;
         }
 
         /// <summary>
@@ -86,20 +94,26 @@ namespace ExerciseTracker.Brozda
         /// </summary>
         public async Task Run()
         {
-            
-            await SelectActiveService();
 
-            int menuChoice = _ui.ShowMenuAndGetInput(_menuOptions.ToDictionary(x => x.Key, x=> x.Value.label));
+            await ProcessSelectExerciseType();
 
-            while(menuChoice != (int)MenuOptions.ExitApp)
+            int menuChoice = _ui.ShowMenuAndGetInput(_menuOptions);
+
+            while (menuChoice != (int)MenuOptions.ExitApp)
             {
-                if(_menuOptions.TryGetValue(menuChoice, out var labelActionPair))
+                if (_menuActions.TryGetValue(menuChoice, out var menuAction))
                 {
-                    await labelActionPair.action();
-                    _ui.PrintPressAnyKeyToContinue();
-
-                    menuChoice = _ui.ShowMenuAndGetInput(_menuOptions.ToDictionary(x => x.Key, x => x.Value.label));
+                    await menuAction();
+                    
                 }
+
+                if (menuChoice != (int)MenuOptions.SelectExerciseType)
+                {
+                    _ui.PrintPressAnyKeyToContinue();
+                }
+
+                menuChoice = _ui.ShowMenuAndGetInput(_menuOptions);
+
             }
         }
         /// <summary>
@@ -107,7 +121,13 @@ namespace ExerciseTracker.Brozda
         /// User is informed about any error
         /// </summary>
         public async Task ProcessViewAll()
-        {
+        {   
+            if(_activeService is null)
+            {
+                _ui.PrintText(AppStrings.IoDatabaseNotSelected);
+                return;
+            }
+
             var getAllResult = await _activeService.ViewAllAsync();
 
             if (getAllResult.IsSucessul && getAllResult.Data is not null)
@@ -125,8 +145,15 @@ namespace ExerciseTracker.Brozda
         /// </summary
         public async Task ProcessCreate()
         {
+            if (_activeService is null || _activeExerciseType is null)
+            {
+                _ui.PrintText(AppStrings.IoDatabaseNotSelected);
+                return;
+            }
+
+
             var exTypes = await _activeService.GetExerciseTypes();
-            var exercise = _ui.GetExercise(exTypes.Data!,null);
+            var exercise = _ui.GetExercise(_activeExerciseType,null);
             
 
             var createResult = await _activeService.CreateAsync(exercise);
@@ -147,9 +174,16 @@ namespace ExerciseTracker.Brozda
         /// </summary
         public async Task ProcessUpdate()
         {
+            if (_activeService is null || _activeExerciseType is null)
+            {
+                _ui.PrintText(AppStrings.IoDatabaseNotSelected);
+                return;
+            }
+
             int id = await GetIdFromUser();
 
             var exTypes = await _activeService.GetExerciseTypes();
+
             var getByIdResult = await _activeService.GetByIdAsync(id);
 
             if (!getByIdResult.IsSucessul || getByIdResult.Data is null)
@@ -158,7 +192,7 @@ namespace ExerciseTracker.Brozda
                 return;
             }
 
-            var updatedExercise = _ui.GetExercise(exTypes.Data!,getByIdResult.Data);
+            var updatedExercise = _ui.GetExercise(_activeExerciseType,getByIdResult.Data);
             updatedExercise.Id = getByIdResult.Data.Id; 
 
             var updateResult = await _activeService.EditAsync(id, updatedExercise);
@@ -179,6 +213,12 @@ namespace ExerciseTracker.Brozda
         /// </summary>
         public async Task ProcessDelete()
         {
+            if (_activeService is null || _activeExerciseType is null)
+            {
+                _ui.PrintText(AppStrings.IoDatabaseNotSelected);
+                return;
+            }
+
             int id = await GetIdFromUser();
 
             var deleteResult = await _activeService.DeleteAsync(id);
@@ -208,6 +248,12 @@ namespace ExerciseTracker.Brozda
         /// <returns>A task result contains <see cref="int"/> representing the record Id</returns>
         private async Task<int> GetIdFromUser()
         {
+            if (_activeService is null || _activeExerciseType is null)
+            {
+                _ui.PrintText(AppStrings.IoDatabaseNotSelected);
+                return 0;
+            }
+
             var getAllResult = await _activeService.ViewAllAsync();
 
             if (!getAllResult.IsSucessul || getAllResult.Data is null)

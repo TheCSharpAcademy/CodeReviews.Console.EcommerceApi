@@ -114,7 +114,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
         /// </summary>
         /// <param name="existing">Optional argument of existing <see cref="Exercise"/>. If present then its values will be used as default values</param>
         /// <returns>A <see cref="Exercise"/> containing values from user input</returns>
-        public ExerciseDto GetExercise(List<ExerciseType> exTypes, ExerciseDto? existing = null)
+        /*public ExerciseDto GetExercise(List<ExerciseType> exTypes, ExerciseDto? existing = null)
         {
             string name = GetString(AppStrings.IoExerciseName, existing?.Name);
             int typeId = GetExerciseTypeId(exTypes, existing);
@@ -131,6 +131,29 @@ namespace ExerciseTracker.Brozda.UserInteraction
             {
                 Name = name,
                 TypeId = typeId,
+                Volume = volume,
+                DateStart = start,
+                DateEnd = end,
+                Duration = duration,
+                Comments = comments
+            };
+
+        }*/
+
+        public ExerciseDto GetExercise(ExerciseType exerciseType, ExerciseDto? existing = null)
+        {
+            string name = GetString(AppStrings.IoExerciseName, existing?.Name);
+
+            double volume = GetDouble($"{AppStrings.IoVolume} ({exerciseType.Unit}): ", existing?.Volume);
+            DateTime start = GetDate(AppStrings.IoDateStart, existing?.DateStart); ;
+            DateTime end = GetDate(AppStrings.IoDateEnd, existing?.DateEnd, start); ;
+            long duration = (long)(end - start).TotalSeconds;
+            string? comments = GetNullableString(AppStrings.IoComment, existing?.Comments);
+
+            return new ExerciseDto()
+            {
+                Name = name,
+                TypeId = exerciseType.Id,
                 Volume = volume,
                 DateStart = start,
                 DateEnd = end,
@@ -273,7 +296,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
 
             var input = AnsiConsole.Prompt(textPrompt);
 
-            return input == string.Empty
+            return (input == AppStrings.IoNullValueChar || input == string.Empty)
                 ? null
                 : input;
 
