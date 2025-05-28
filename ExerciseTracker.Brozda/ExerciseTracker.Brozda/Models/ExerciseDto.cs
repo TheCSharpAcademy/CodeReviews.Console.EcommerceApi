@@ -1,5 +1,8 @@
 ﻿namespace ExerciseTracker.Brozda.Models
 {
+    /// <summary>
+    /// Represent DTO of DB model presented to the user
+    /// </summary>
     internal class ExerciseDto
     {
         public int Id { get; set; }
@@ -13,22 +16,10 @@
         public long? Duration { get; set; }
         public string? Comments { get; set; }
 
-        public static ExerciseDto MapToDto(Exercise ex)
-        {
-            return new ExerciseDto
-            {
-                Id = ex.Id,
-                Name = ex.Name,
-                TypeId = ex.TypeId,
-                TypeName = ex.Type.Name,
-                Unit = ex.Type.Unit,
-                Volume = ex.Volume,
-                DateStart = ex.DateStart,
-                DateEnd = ex.DateEnd,
-                Duration = ex.Duration,
-                Comments = ex.Comments,
-            };
-        }
+        /// <summary>
+        /// Maps DTO to valid database model
+        /// </summary>
+        /// <returns>Mapped <see cref="Exercise"/> object </returns>
         public Exercise MapFromDto()
         {
             return new Exercise

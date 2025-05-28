@@ -30,21 +30,10 @@ namespace ExerciseTracker.Brozda.Models
             this.Duration = updated.Duration;
             this.Comments = updated.Comments;
         }
-
-        public static Exercise MapFromDto(ExerciseDto dto)
-        {
-            return new Exercise
-            {
-                Id = dto.Id,
-                Name = dto.Name,
-                TypeId = dto.TypeId,
-                Volume = dto.Volume,
-                DateStart = dto.DateStart,
-                DateEnd = dto.DateEnd,
-                Duration = dto.Duration,
-                Comments = dto.Comments,
-            };
-        }
+        /// <summary>
+        /// Maps values from database model to DTO
+        /// </summary>
+        /// <returns>Mapped <see cref="ExerciseDto"/> object</returns>
         public ExerciseDto MapToDto()
         {
             return new ExerciseDto
