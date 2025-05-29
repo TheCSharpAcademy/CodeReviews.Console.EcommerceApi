@@ -15,8 +15,5 @@
         public DateTime DateEnd { get; set; }
         public long? Duration { get; set; }
         public string? Comments { get; set; }
-
     }
-
-    
 }

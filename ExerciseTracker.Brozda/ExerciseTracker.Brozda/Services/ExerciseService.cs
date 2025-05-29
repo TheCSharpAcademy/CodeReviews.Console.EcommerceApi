@@ -1,9 +1,7 @@
-﻿using Azure.Core;
-using ExerciseTracker.Brozda.Helpers;
+﻿using ExerciseTracker.Brozda.Helpers;
 using ExerciseTracker.Brozda.Models;
 using ExerciseTracker.Brozda.Repositories.Interfaces;
 using ExerciseTracker.Brozda.Services.Interfaces;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ExerciseTracker.Brozda.Services
 {
@@ -14,6 +12,7 @@ namespace ExerciseTracker.Brozda.Services
     internal class ExerciseService : IWeightExerciseService, ICardioExerciseService
     {
         public IExerciseRepository _repository;
+
         /// <summary>
         /// Initializes new instance of <see cref="ExerciseService"/>
         /// </summary>
@@ -30,29 +29,29 @@ namespace ExerciseTracker.Brozda.Services
             return await ExecuteSafeAsync(
                 () => _repository.Create(model),
                 result => Exercise.MapToDto(result));
-
         }
+
         public async Task<RepositoryResult<List<ExerciseDto>>> ViewAllAsync()
         {
-
             return await ExecuteSafeAsync(
                 () => _repository.GetAll(),
                 result => result.Select(x => Exercise.MapToDto(x))
                 .ToList()
                 );
         }
+
         public async Task<RepositoryResult<ExerciseDto>> GetByIdAsync(int id)
         {
             return await ExecuteSafeAsync(
                 () => _repository.GetById(id),
                 result => Exercise.MapToDto(result!));
-
         }
+
         public async Task<RepositoryResult<ExerciseDto>> EditAsync(int id, ExerciseDto updatedEntity)
         {
             if (updatedEntity.Id != id)
-            { 
-                return RepositoryResult<ExerciseDto>.Fail(AppStrings.ServiceErrorUpdateIdMismatch); 
+            {
+                return RepositoryResult<ExerciseDto>.Fail(AppStrings.ServiceErrorUpdateIdMismatch);
             }
 
             var entity = Exercise.MapFromDto(updatedEntity);
@@ -61,11 +60,12 @@ namespace ExerciseTracker.Brozda.Services
                 () => _repository.Edit(entity),
                 result => Exercise.MapToDto(result!));
         }
+
         public async Task<RepositoryResult<bool>> DeleteAsync(int id)
         {
             return await ExecuteSafeAsync(() => _repository.DeleteById(id));
-
         }
+
         /// <summary>
         /// Safely executes action and return data in form of <see cref="RepositoryResult{T}"/>
         /// </summary>
@@ -73,7 +73,7 @@ namespace ExerciseTracker.Brozda.Services
         /// <param name="action">Action to be run against the repository</param>
         /// <returns>A Task result contains <see cref="RepositoryResult{T}"/> with expected data based on the request
         /// Can return Successful result, NotFound result or Fail in case of any error</returns>
-        /// 
+        ///
         public async Task<RepositoryResult<List<ExerciseType>>> GetExerciseTypes()
         {
             return await ExecuteSafeAsync(
@@ -92,7 +92,7 @@ namespace ExerciseTracker.Brozda.Services
         /// Can return Successful result, NotFound result or Fail in case of any error</returns>
         private async Task<RepositoryResult<TOut>> ExecuteSafeAsync<TIn, TOut>(
             Func<Task<TIn>> dbCall,
-            Func<TIn,TOut> mapToResult)
+            Func<TIn, TOut> mapToResult)
         {
             try
             {
@@ -112,6 +112,7 @@ namespace ExerciseTracker.Brozda.Services
                 return RepositoryResult<TOut>.Fail($"{AppStrings.ServiceErrorOcurred}: {ex.Message}");
             }
         }
+
         /// <summary>
         /// Safely executes action returning <see cref="bool"/> and return data in form of <see cref="RepositoryResult{TOut}"/> containing
         /// bool data

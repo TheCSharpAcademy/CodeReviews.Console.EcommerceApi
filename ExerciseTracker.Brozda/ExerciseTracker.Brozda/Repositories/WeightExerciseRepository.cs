@@ -21,26 +21,29 @@ namespace ExerciseTracker.Brozda.Repositories
         {
             _dbContext = dbContext;
         }
+
         public async Task<Exercise> Create(Exercise entity)
         {
-            
             await _dbContext.ExercisesWeight.AddAsync(entity);
             await _dbContext.SaveChangesAsync();
 
             return entity;
         }
+
         public async Task<List<Exercise>> GetAll()
         {
             return await _dbContext.ExercisesWeight
                 .Include(s => s.Type)
                 .ToListAsync();
         }
+
         public async Task<Exercise?> GetById(int id)
         {
             var entity = await _dbContext.ExercisesWeight.FindAsync(id);
-            
-            return entity is not null ? entity : null; 
+
+            return entity is not null ? entity : null;
         }
+
         public async Task<Exercise?> Edit(Exercise updatedEntity)
         {
             var original = await _dbContext.ExercisesWeight.FindAsync(updatedEntity.Id);
@@ -56,16 +59,17 @@ namespace ExerciseTracker.Brozda.Repositories
 
             return original;
         }
+
         public async Task<bool> DeleteById(int id)
         {
             var affectedRows = await _dbContext.ExercisesWeight.Where(x => x.Id == id).ExecuteDeleteAsync();
 
             return affectedRows > 0;
         }
+
         public async Task<List<ExerciseType>> GetExerciseTypes()
         {
             return await _dbContext.ExerciseTypes.ToListAsync();
         }
     }
 }
-

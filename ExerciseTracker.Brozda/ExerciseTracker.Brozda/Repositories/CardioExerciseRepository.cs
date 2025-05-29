@@ -5,17 +5,17 @@ using Microsoft.Data.SqlClient;
 using System.Text.Json;
 using static Dapper.SqlMapper;
 
-
 namespace ExerciseTracker.Brozda.Repositories
 {
     internal class CardioExerciseRepository : IExerciseRepository
     {
-        private string _connectionString = @"Data Source=(localdb)\LOCALDB;Initial Catalog=ExcerciseTracker;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
-
-        public CardioExerciseRepository()
+        private string _connectionString;
+        public CardioExerciseRepository(string connectionString)
         {
+            _connectionString = connectionString;
             InitializeDb();
         }
+
         private void InitializeDb()
         {
             if (!DoesTableExist())
@@ -24,6 +24,7 @@ namespace ExerciseTracker.Brozda.Repositories
                 InitialAutoSeed();
             }
         }
+
         private bool DoesTableExist()
         {
             var connection = new SqlConnection(_connectionString);
@@ -33,9 +34,9 @@ namespace ExerciseTracker.Brozda.Repositories
 
             var result = connection.QuerySingle<int>(sql);
 
-
             return result != 0;
         }
+
         private async void CreateTable()
         {
             var connection = new SqlConnection(_connectionString);
@@ -50,12 +51,13 @@ namespace ExerciseTracker.Brozda.Repositories
                         [Duration] BIGINT NULL,
                         [TypeId] INT DEFAULT((0)) NOT NULL,
                         CONSTRAINT [PK_ExercisesCardio] PRIMARY KEY CLUSTERED ([Id] ASC),
-                        CONSTRAINT [FK_ExercisesCardio_ExerciseTypes_TypeId] FOREIGN KEY ([TypeId]) 
+                        CONSTRAINT [FK_ExercisesCardio_ExerciseTypes_TypeId] FOREIGN KEY ([TypeId])
                         REFERENCES [dbo].[ExerciseTypes]([Id]) ON DELETE CASCADE
                         );";
 
             await connection.ExecuteAsync(sql);
         }
+
         private async void InitialAutoSeed()
         {
             var projectRoot = Environment.GetEnvironmentVariable("PROJECT_ROOT");
@@ -72,12 +74,12 @@ namespace ExerciseTracker.Brozda.Repositories
                     foreach (var excercise in seedData.ExercisesCardio)
                     {
                         excercise.Duration = (long)(excercise.DateEnd - excercise.DateStart).TotalSeconds;
-                       
                     }
                     await BulkInsert(seedData.ExercisesCardio);
                 }
             }
         }
+
         private async Task BulkInsert(List<Exercise> exercises)
         {
             var connection = new SqlConnection(_connectionString);
@@ -113,30 +115,32 @@ namespace ExerciseTracker.Brozda.Repositories
                     Comments = exercise.Comments,
                 });
             }
-
         }
+
         public async Task<List<Exercise>> GetAll()
         {
             var connection = new SqlConnection(_connectionString);
-            var sql = @"SELECT 
+            var sql = @"SELECT
                         ex.Id, ex.Name, ex.Volume, ex.DateStart, ex.DateEnd, ex.Duration, ex.Comments, ex.TypeId,
                         type.Id, type.Name, type.Unit
                      FROM [ExercisesCardio] AS ex
                      INNER JOIN [ExerciseTypes] AS type ON ex.TypeId = type.Id";
 
-            var exercises = await connection.QueryAsync<Exercise, ExerciseType, Exercise>(sql, (exercise, type) => {
+            var exercises = await connection.QueryAsync<Exercise, ExerciseType, Exercise>(sql, (exercise, type) =>
+            {
                 exercise.Type = type;
                 return exercise;
             },
-            splitOn:"Id");
+            splitOn: "Id");
 
             return exercises.ToList();
         }
+
         public async Task<Exercise?> GetById(int id)
         {
             using var connection = new SqlConnection(_connectionString);
 
-            var sql = @"SELECT 
+            var sql = @"SELECT
                         ex.Id, ex.Name, ex.Volume, ex.DateStart, ex.DateEnd, ex.Duration, ex.Comments, ex.TypeId,
                         type.Id, type.Name, type.Unit
                      FROM [ExercisesCardio] AS ex
@@ -151,7 +155,7 @@ namespace ExerciseTracker.Brozda.Repositories
                     return exercise;
                 },
                 new { Id = id },
-                splitOn: "Id" 
+                splitOn: "Id"
             );
 
             return result.FirstOrDefault();
@@ -160,28 +164,27 @@ namespace ExerciseTracker.Brozda.Repositories
         public async Task<Exercise> Create(Exercise entity)
         {
             var connection = new SqlConnection(_connectionString);
-            var sql = @"INSERT INTO [ExercisesCardio] 
+            var sql = @"INSERT INTO [ExercisesCardio]
                         (
-                            Name, 
-                            Volume, 
-                            DateStart, 
-                            DateEnd, 
-                            Comments, 
-                            Duration, 
+                            Name,
+                            Volume,
+                            DateStart,
+                            DateEnd,
+                            Comments,
+                            Duration,
                             TypeId
                         )
                         OUTPUT INSERTED.Id
-                        VALUES 
+                        VALUES
                         (
-                            @Name, 
-                            @Volume, 
-                            @DateStart, 
-                            @DateEnd, 
-                            @Comments, 
-                            @Duration, 
+                            @Name,
+                            @Volume,
+                            @DateStart,
+                            @DateEnd,
+                            @Comments,
+                            @Duration,
                             @TypeId
                         );";
-            
 
             var id = await connection.QuerySingleAsync<int>(sql, new
             {
@@ -194,14 +197,13 @@ namespace ExerciseTracker.Brozda.Repositories
                 TypeId = entity.TypeId,
             });
 
-
             return await GetById(id) ?? new Exercise() { };
         }
 
         public async Task<bool> DeleteById(int id)
         {
             var connection = new SqlConnection(_connectionString);
-            var sql = @"DELETE FROM [ExercisesCardio] 
+            var sql = @"DELETE FROM [ExercisesCardio]
                         WHERE Id=@Id;";
 
             var affectedRows = await connection.ExecuteAsync(sql, new { Id = id });
@@ -209,13 +211,11 @@ namespace ExerciseTracker.Brozda.Repositories
             return affectedRows > 0;
         }
 
-        
-
         public async Task<List<ExerciseType>> GetExerciseTypes()
         {
             var connection = new SqlConnection(_connectionString);
-            var sql = @"SELECT 
-                       Id,Name,Unit 
+            var sql = @"SELECT
+                       Id,Name,Unit
                        FROM [ExerciseTypes];";
 
             var exTypes = await connection.QueryAsync<ExerciseType>(sql);
@@ -252,6 +252,5 @@ namespace ExerciseTracker.Brozda.Repositories
                 ? await GetById(updatedEntity.Id)
                 : null;
         }
-        
     }
 }

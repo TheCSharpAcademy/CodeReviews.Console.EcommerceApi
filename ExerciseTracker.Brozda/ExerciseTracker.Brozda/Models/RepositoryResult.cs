@@ -17,7 +17,7 @@
         /// </summary>
         /// <param name="data">The data to include in the result..</param>
         /// <returns>A successful result with the given data</returns>
-        public static RepositoryResult<T> Success(T data) 
+        public static RepositoryResult<T> Success(T data)
         {
             return new RepositoryResult<T>
             {
@@ -25,6 +25,7 @@
                 IsSucessul = true
             };
         }
+
         /// <summary>
         /// Returns a failed <see cref="RepositoryResult{T}"/> containing the provided error message
         /// </summary>
@@ -38,6 +39,7 @@
                 ErrorMessage = errorMsg
             };
         }
+
         /// <summary>
         /// Returns a failed <see cref="RepositoryResult{T}"/> indicating that requested data were not found
         /// </summary>
@@ -50,6 +52,5 @@
                 ErrorMessage = "Requested record not found"
             };
         }
-        
     }
 }

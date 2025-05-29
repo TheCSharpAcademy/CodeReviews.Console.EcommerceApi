@@ -25,7 +25,6 @@ namespace ExerciseTracker.Brozda
             ExitApp = 101,
         }
 
-        
         private readonly Dictionary<int, string> _menuOptions = new Dictionary<int, string>();
         private readonly Dictionary<int, Func<Task>> _menuActions = new Dictionary<int, Func<Task>>();
 
@@ -35,8 +34,6 @@ namespace ExerciseTracker.Brozda
 
         private IExerciseService? _activeService;
         private ExerciseType? _activeExerciseType;
-
-        
 
         /// <summary>
         /// Initializes new instance of <see cref="ExerciseController"/>
@@ -50,6 +47,7 @@ namespace ExerciseTracker.Brozda
             _ui = ui;
             MapMenu();
         }
+
         /// <summary>
         /// Maps enum representing option to respective label and action
         /// </summary>
@@ -70,8 +68,8 @@ namespace ExerciseTracker.Brozda
             _menuActions.Add((int)MenuOptions.DeleteRecord, ProcessDelete);
             _menuActions.Add((int)MenuOptions.SelectExerciseType, ProcessSelectExerciseType);
             _menuActions.Add((int)MenuOptions.ExitApp, ProcessExitApp);
-
         }
+
         /// <summary>
         /// Sets activeService and activeExercise type used to DB access and data modification
         /// </summary>
@@ -98,7 +96,6 @@ namespace ExerciseTracker.Brozda
         /// </summary>
         public async Task Run()
         {
-
             await ProcessSelectExerciseType();
 
             int menuChoice = _ui.ShowMenuAndGetInput(_menuOptions);
@@ -108,7 +105,6 @@ namespace ExerciseTracker.Brozda
                 if (_menuActions.TryGetValue(menuChoice, out var menuAction))
                 {
                     await menuAction();
-                    
                 }
 
                 if (menuChoice != (int)MenuOptions.SelectExerciseType)
@@ -117,16 +113,16 @@ namespace ExerciseTracker.Brozda
                 }
 
                 menuChoice = _ui.ShowMenuAndGetInput(_menuOptions);
-
             }
         }
+
         /// <summary>
         /// Gets all existing exercises from repository and prints them to user output
         /// User is informed about any error
         /// </summary>
         public async Task ProcessViewAll()
-        {   
-            if(_activeService is null)
+        {
+            if (_activeService is null)
             {
                 _ui.PrintText(AppStrings.IoDatabaseNotSelected);
                 return;
@@ -143,6 +139,7 @@ namespace ExerciseTracker.Brozda
                 _ui.PrintError(getAllResult.ErrorMessage);
             }
         }
+
         /// <summary>
         /// Gets data for new exercise from user input and inserts it into the database
         /// User is informed about any error
@@ -155,10 +152,8 @@ namespace ExerciseTracker.Brozda
                 return;
             }
 
-
             var exTypes = await _activeService.GetExerciseTypes();
-            var exercise = _ui.GetExercise(_activeExerciseType,null);
-            
+            var exercise = _ui.GetExercise(_activeExerciseType, null);
 
             var createResult = await _activeService.CreateAsync(exercise);
 
@@ -172,6 +167,7 @@ namespace ExerciseTracker.Brozda
                 _ui.PrintError(createResult.ErrorMessage);
             }
         }
+
         /// <summary>
         /// Updates existing exercise base on data from user input and inserts it into the database
         /// User is informed about any error
@@ -196,8 +192,8 @@ namespace ExerciseTracker.Brozda
                 return;
             }
 
-            var updatedExercise = _ui.GetExercise(_activeExerciseType,getByIdResult.Data);
-            updatedExercise.Id = getByIdResult.Data.Id; 
+            var updatedExercise = _ui.GetExercise(_activeExerciseType, getByIdResult.Data);
+            updatedExercise.Id = getByIdResult.Data.Id;
 
             var updateResult = await _activeService.EditAsync(id, updatedExercise);
 
@@ -210,8 +206,8 @@ namespace ExerciseTracker.Brozda
             {
                 _ui.PrintError(updateResult.ErrorMessage);
             }
-
         }
+
         /// <summary>
         /// Deletes existing exercise from database
         /// </summary>
@@ -235,8 +231,8 @@ namespace ExerciseTracker.Brozda
             {
                 _ui.PrintError(deleteResult.ErrorMessage);
             }
-
         }
+
         /// <summary>
         /// Exits the application
         /// </summary>
@@ -268,6 +264,5 @@ namespace ExerciseTracker.Brozda
 
             return _ui.GetRecordId(getAllResult.Data);
         }
-        
     }
 }

@@ -3,7 +3,9 @@
 namespace ExerciseTracker.Brozda.Services.Interfaces
 {
     internal interface IWeightExerciseService : IExerciseService;
+
     internal interface ICardioExerciseService : IExerciseService;
+
     /// <summary>
     /// Defines a contract for service-level CRUD operations related to <see cref="Exercise"/> entities,
     /// </summary>
@@ -17,6 +19,7 @@ namespace ExerciseTracker.Brozda.Services.Interfaces
         /// A <see cref="RepositoryResult{T}"/> containing the created <see cref="Exercise"/> or an error in case of any fail
         /// </returns>
         Task<RepositoryResult<ExerciseDto>> CreateAsync(ExerciseDto entity);
+
         /// <summary>
         /// Deletes existing <see cref="Exercise"/> entry
         /// </summary>
@@ -25,6 +28,7 @@ namespace ExerciseTracker.Brozda.Services.Interfaces
         /// A <see cref="RepositoryResult{T}"/> containing the created <see cref="bool"/> value indicating success or fail
         /// </returns>
         Task<RepositoryResult<bool>> DeleteAsync(int id);
+
         /// <summary>
         /// Updates existing <see cref="Exercise"/> entry
         /// </summary>
@@ -34,14 +38,16 @@ namespace ExerciseTracker.Brozda.Services.Interfaces
         /// A <see cref="RepositoryResult{T}"/> containing the updated <see cref="Exercise"/> or an error in case of any fail
         /// </returns>
         Task<RepositoryResult<ExerciseDto>> EditAsync(int id, ExerciseDto updatedEntity);
+
         /// <summary>
-        /// Retrieves single <see cref="Exercise"/> entry 
+        /// Retrieves single <see cref="Exercise"/> entry
         /// </summary>
         /// <param name="id">Id of entry to be retrieved</param>
         /// <returns>
         /// A <see cref="RepositoryResult{T}"/> containing the retrieved <see cref="Exercise"/> or an error in case of any fail
         /// </returns>
         Task<RepositoryResult<ExerciseDto>> GetByIdAsync(int id);
+
         /// <summary>
         /// Retrieves all <see cref="Exercise"/> entries
         /// </summary>

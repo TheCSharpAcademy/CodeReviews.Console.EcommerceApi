@@ -9,5 +9,4 @@
         public List<ExerciseType> ExerciseTypes { get; set; } = null!;
         public List<Exercise> ExercisesCardio { get; set; } = null!;
     }
-
 }

@@ -1,8 +1,4 @@
-﻿
-
-using System.Runtime.CompilerServices;
-
-namespace ExerciseTracker.Brozda.Models
+﻿namespace ExerciseTracker.Brozda.Models
 {
     /// <summary>
     /// Represents record in Excercises table
@@ -32,6 +28,7 @@ namespace ExerciseTracker.Brozda.Models
             this.Duration = updated.Duration;
             this.Comments = updated.Comments;
         }
+
         /// <summary>
         /// Maps values from database model to DTO
         /// </summary>
@@ -52,6 +49,7 @@ namespace ExerciseTracker.Brozda.Models
                 Comments = model.Comments,
             };
         }
+
         /// <summary>
         /// Maps DTO to valid database model
         /// </summary>
@@ -69,10 +67,6 @@ namespace ExerciseTracker.Brozda.Models
                 Duration = dto.Duration,
                 Comments = dto.Comments,
             };
-        } 
-
+        }
     }
-    
 }
-
-

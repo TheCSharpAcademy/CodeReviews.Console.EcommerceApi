@@ -25,8 +25,6 @@
 
         public const string IoNullValueChar = "-";
 
-
-
         public const string ControllerViewAll = "View all excercises";
         public const string ControllerCreate = "Create a new excercise";
         public const string ControllerEdit = "Update existing excercise";
@@ -36,6 +34,6 @@
 
         public const string ControllerSuccessCreate = "Exercise added successfully";
         public const string ControllerSuccessEdit = "Exercise updated successfully";
-        public const string ControllerSuccessDelete= "Exercise deleted successfully";
+        public const string ControllerSuccessDelete = "Exercise deleted successfully";
     }
 }

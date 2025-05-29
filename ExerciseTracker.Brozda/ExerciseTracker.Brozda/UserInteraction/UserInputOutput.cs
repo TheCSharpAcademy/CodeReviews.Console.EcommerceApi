@@ -16,20 +16,24 @@ namespace ExerciseTracker.Brozda.UserInteraction
         {
             Console.Clear();
         }
+
         public void PrintText(string text)
         {
             Console.WriteLine(text);
         }
+
         public void PrintError(string? errorMsg)
         {
             Console.WriteLine(errorMsg ?? AppStrings.IoUnhandledError);
         }
+
         public void PrintPressAnyKeyToContinue()
         {
             Console.WriteLine(AppStrings.IoPressAnyKeyToContinue);
             Console.ReadKey();
             Console.Clear();
         }
+
         public int ShowMenuAndGetInput(Dictionary<int, string> menuOptions)
         {
             var input = AnsiConsole.Prompt(
@@ -41,6 +45,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
 
             return input;
         }
+
         public void PrintExercises(List<ExerciseDto> exercises)
         {
             var table = new Table();
@@ -52,6 +57,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
 
             AnsiConsole.Write(table);
         }
+
         public void PrintExercise(ExerciseDto exercise)
         {
             var table = new Table();
@@ -59,6 +65,8 @@ namespace ExerciseTracker.Brozda.UserInteraction
             table.AddRow(GetTableRow(exercise));
 
             AnsiConsole.Write(table);
+        }
+
         public int GetRecordId(List<ExerciseDto> exercises)
         {
             PrintExercises(exercises);
@@ -72,6 +80,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
 
             return selectedId;
         }
+
         public ExerciseDto GetExercise(ExerciseType exerciseType, ExerciseDto? existing = null)
         {
             string name = GetString(AppStrings.IoExerciseName, existing?.Name);
@@ -92,8 +101,8 @@ namespace ExerciseTracker.Brozda.UserInteraction
                 Duration = duration,
                 Comments = comments
             };
-
         }
+
         public void PrintExerciseTypes(List<ExerciseType> exTypes)
         {
             var table = new Table();
@@ -104,6 +113,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
             }
             AnsiConsole.Write(table);
         }
+
         public int GetExerciseTypeId(List<ExerciseType> exTypes)
         {
             var validIds = exTypes.Select(x => x.Id);
@@ -115,8 +125,9 @@ namespace ExerciseTracker.Brozda.UserInteraction
 
             return AnsiConsole.Prompt(prompt);
         }
+
         /// <summary>
-        /// Retrieves <see cref="DateTime"/> value from user input 
+        /// Retrieves <see cref="DateTime"/> value from user input
         /// </summary>
         /// <param name="prompt">A <see cref="string"/> reprenting prompt</param>
         /// <param name="defaultVal">A optional argument containing defaul value</param>
@@ -136,9 +147,8 @@ namespace ExerciseTracker.Brozda.UserInteraction
             var dateString = AnsiConsole.Prompt(textPrompt);
 
             return DateTime.ParseExact(dateString, _dateFormat, CultureInfo.InvariantCulture);
-
-
         }
+
         /// <summary>
         /// Validates <see cref="DateTime"/> value
         /// </summary>
@@ -166,9 +176,8 @@ namespace ExerciseTracker.Brozda.UserInteraction
 
                 return ValidationResult.Success();
             }
-
-
         }
+
         /// <summary>
         /// Retrieves <see cref="double"/> value from user input
         /// </summary>
@@ -185,8 +194,8 @@ namespace ExerciseTracker.Brozda.UserInteraction
             }
 
             return AnsiConsole.Prompt(textPrompt);
-
         }
+
         /// <summary>
         /// Retrieves <see cref="string"/> value from user input
         /// </summary>
@@ -203,8 +212,8 @@ namespace ExerciseTracker.Brozda.UserInteraction
             }
 
             return AnsiConsole.Prompt(textPrompt);
-
         }
+
         /// <summary>
         /// Retrieves a <see cref="string"/> value from user input or null value
         /// </summary>
@@ -226,8 +235,8 @@ namespace ExerciseTracker.Brozda.UserInteraction
             return (input == AppStrings.IoNullValueChar || input == string.Empty)
                 ? null
                 : input;
-
         }
+
         /// <summary>
         /// Maps <see cref="Exercise"/> to <see cref="string"/> array containing values from record values
         /// </summary>
@@ -244,12 +253,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
                 dto.DateEnd.ToString(_dateFormat),
                 TimeSpan.FromSeconds(dto.Duration!.Value).ToString(),
                 dto.Comments ?? AppStrings.IoNullValueChar
-
             };
         }
-        
-
     }
 }
-
-

@@ -1,8 +1,7 @@
 ﻿using ExerciseTracker.Brozda.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 using System.Text.Json;
-
 
 namespace ExerciseTracker.Brozda.Data
 {
@@ -10,7 +9,7 @@ namespace ExerciseTracker.Brozda.Data
     /// Represent database context for EF core for Excercise Tracker application
     /// </summary>
     /// <remarks>
-    /// Context uses MSSQL server. On configuration it will automatically seed data from SeedData.json located in Resources folder within root folder (if present). 
+    /// Context uses MSSQL server. On configuration it will automatically seed data from SeedData.json located in Resources folder within root folder (if present).
     /// This can be overriden by setting env. variable "PROJECT_ROOT" to different location
     /// </remarks>
     internal class ExerciseTrackerContext : DbContext
@@ -25,27 +24,30 @@ namespace ExerciseTracker.Brozda.Data
         /// <param name="optionsBuilder">The options builder used to configure the context.</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            string connection_string = @"Data Source=(localdb)\LOCALDB;Initial Catalog=ExcerciseTracker;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False";
+            var configuration = new ConfigurationBuilder()
+                .AddUserSecrets<Program>()
+                .Build();
 
-            optionsBuilder.UseSqlServer(connection_string)
+            string connectionString = configuration.GetConnectionString("DefaultConnection")!;
+
+            optionsBuilder
+                .UseSqlServer(connectionString)
                 .UseSeeding((dbContext, _) =>
                 {
                     var projectRoot = Environment.GetEnvironmentVariable("PROJECT_ROOT");
 
                     var path = Path.Combine(projectRoot ?? Directory.GetCurrentDirectory(), "Resources", "SeedData.json");
 
-                    
-
-                    AutoSeedHelper(dbContext, path);   
+                    AutoSeedHelper(dbContext, path);
                 });
-
         }
+        
         /// <summary>
         /// Static method managing autoseed functionality
         /// </summary>
         /// <param name="context">DB context used for DB access</param>
         /// <param name="jsonPath">string path to JSON file</param>
-        static void AutoSeedHelper(DbContext context, string jsonPath)
+        private static void AutoSeedHelper(DbContext context, string jsonPath)
         {
             if (File.Exists(jsonPath))
             {
@@ -67,12 +69,12 @@ namespace ExerciseTracker.Brozda.Data
                 }
             }
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Exercise>().ToTable("ExercisesWeight");
 
             modelBuilder.Entity<ExerciseType>().HasIndex(et => et.Name).IsUnique();
         }
-
     }
 }
