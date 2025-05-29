@@ -181,8 +181,6 @@ namespace ExerciseTracker.Brozda
 
             int id = await GetIdFromUser();
 
-            var exTypes = await _activeService.GetExerciseTypes();
-
             var getByIdResult = await _activeService.GetByIdAsync(id);
 
             if (!getByIdResult.IsSucessul || getByIdResult.Data is null)
