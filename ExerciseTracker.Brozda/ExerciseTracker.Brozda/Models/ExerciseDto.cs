@@ -16,24 +16,6 @@
         public long? Duration { get; set; }
         public string? Comments { get; set; }
 
-        /// <summary>
-        /// Maps DTO to valid database model
-        /// </summary>
-        /// <returns>Mapped <see cref="Exercise"/> object </returns>
-        public Exercise MapFromDto()
-        {
-            return new Exercise
-            {
-                Id = this.Id,
-                Name = this.Name,
-                TypeId = this.TypeId,
-                Volume = this.Volume,
-                DateStart = this.DateStart,
-                DateEnd = this.DateEnd,
-                Duration = this.Duration,
-                Comments = this.Comments,
-            };
-        }
     }
 
     

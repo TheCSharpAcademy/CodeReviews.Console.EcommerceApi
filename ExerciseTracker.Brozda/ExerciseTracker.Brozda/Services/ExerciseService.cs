@@ -23,11 +23,11 @@ namespace ExerciseTracker.Brozda.Services
 
         public async Task<RepositoryResult<ExerciseDto>> CreateAsync(ExerciseDto dto)
         {
-            var model = dto.MapFromDto();
+            var model = Exercise.MapFromDto(dto);
 
             return await ExecuteSafeAsync(
                 () => _repository.Create(model),
-                x => x.MapToDto());
+                result => Exercise.MapToDto(result));
 
         }
         public async Task<RepositoryResult<List<ExerciseDto>>> ViewAllAsync()
@@ -35,7 +35,7 @@ namespace ExerciseTracker.Brozda.Services
 
             return await ExecuteSafeAsync(
                 () => _repository.GetAll(),
-                result => result.Select(x => x.MapToDto())
+                result => result.Select(x => Exercise.MapToDto(x))
                 .ToList()
                 );
         }
@@ -43,7 +43,7 @@ namespace ExerciseTracker.Brozda.Services
         {
             return await ExecuteSafeAsync(
                 () => _repository.GetById(id),
-                result => result!.MapToDto());
+                result => Exercise.MapToDto(result!));
 
         }
         public async Task<RepositoryResult<ExerciseDto>> EditAsync(int id, ExerciseDto updatedEntity)
@@ -53,11 +53,11 @@ namespace ExerciseTracker.Brozda.Services
                 return RepositoryResult<ExerciseDto>.Fail(AppStrings.ServiceErrorUpdateIdMismatch); 
             }
 
-            var entity = updatedEntity.MapFromDto();
+            var entity = Exercise.MapFromDto(updatedEntity);
 
             return await ExecuteSafeAsync(
                 () => _repository.Edit(entity),
-                result => result!.MapToDto());
+                result => Exercise.MapToDto(result!));
         }
         public async Task<RepositoryResult<bool>> DeleteAsync(int id)
         {

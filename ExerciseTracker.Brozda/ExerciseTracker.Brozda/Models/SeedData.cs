@@ -10,8 +10,4 @@
         public List<Exercise> ExercisesCardio { get; set; } = null!;
     }
 
-    internal class SeedDataDapper
-    {
-        
-    }
 }

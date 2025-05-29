@@ -1,5 +1,7 @@
 ﻿
 
+using System.Runtime.CompilerServices;
+
 namespace ExerciseTracker.Brozda.Models
 {
     /// <summary>
@@ -34,23 +36,41 @@ namespace ExerciseTracker.Brozda.Models
         /// Maps values from database model to DTO
         /// </summary>
         /// <returns>Mapped <see cref="ExerciseDto"/> object</returns>
-        public ExerciseDto MapToDto()
+        public static ExerciseDto MapToDto(Exercise model)
         {
-
             return new ExerciseDto
             {
-                Id = this.Id,
-                Name = this.Name,
-                TypeId = this.TypeId,
-                TypeName = this.Type.Name,
-                Unit = this.Type.Unit,
-                Volume = this.Volume,
-                DateStart = this.DateStart,
-                DateEnd = this.DateEnd,
-                Duration = this.Duration,
-                Comments = this.Comments,
+                Id = model.Id,
+                Name = model.Name,
+                TypeId = model.TypeId,
+                TypeName = model.Type.Name,
+                Unit = model.Type.Unit,
+                Volume = model.Volume,
+                DateStart = model.DateStart,
+                DateEnd = model.DateEnd,
+                Duration = model.Duration,
+                Comments = model.Comments,
             };
         }
+        /// <summary>
+        /// Maps DTO to valid database model
+        /// </summary>
+        /// <returns>Mapped <see cref="Exercise"/> object </returns>
+        public static Exercise MapFromDto(ExerciseDto dto)
+        {
+            return new Exercise
+            {
+                Id = dto.Id,
+                Name = dto.Name,
+                TypeId = dto.TypeId,
+                Volume = dto.Volume,
+                DateStart = dto.DateStart,
+                DateEnd = dto.DateEnd,
+                Duration = dto.Duration,
+                Comments = dto.Comments,
+            };
+        } 
+
     }
     
 }
