@@ -34,9 +34,12 @@ namespace ExerciseTracker.Brozda.Repositories.Interfaces
         /// Retrieves single record from database based on provided record Id
         /// </summary>
         /// <param name="id">Id of record to be retrieved</param>
-        /// <returns>Valied <see cref="Exercise"/> record if it exists, false otherwise</returns>
+        /// <returns>Valid <see cref="Exercise"/> record if it exists, false otherwise</returns>
         Task<Exercise?> GetById(int id);
-
+        /// <summary>
+        /// Retrieves all exercise types from the database
+        /// </summary>
+        /// <returns><see cref="List{}"/> containing all <see cref="ExerciseType"/> records</returns>
         Task<List<ExerciseType>> GetExerciseTypes();
     }
 }

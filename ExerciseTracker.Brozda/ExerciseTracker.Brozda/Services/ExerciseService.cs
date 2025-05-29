@@ -1,7 +1,9 @@
-﻿using ExerciseTracker.Brozda.Helpers;
+﻿using Azure.Core;
+using ExerciseTracker.Brozda.Helpers;
 using ExerciseTracker.Brozda.Models;
 using ExerciseTracker.Brozda.Repositories.Interfaces;
 using ExerciseTracker.Brozda.Services.Interfaces;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace ExerciseTracker.Brozda.Services
 {
@@ -71,12 +73,23 @@ namespace ExerciseTracker.Brozda.Services
         /// <param name="action">Action to be run against the repository</param>
         /// <returns>A Task result contains <see cref="RepositoryResult{T}"/> with expected data based on the request
         /// Can return Successful result, NotFound result or Fail in case of any error</returns>
+        /// 
         public async Task<RepositoryResult<List<ExerciseType>>> GetExerciseTypes()
         {
             return await ExecuteSafeAsync(
                 () => _repository.GetExerciseTypes(),
                 x => x);
         }
+
+        /// <summary>
+        /// Safely executes action and return data in form of <see cref="RepositoryResult{TOut}"/>
+        /// </summary>
+        /// <typeparam name="TIn">Type returned from repository</typeparam>
+        /// <typeparam name="TOut">Type received from repository mapped to DTO/typeparam>
+        /// <param name="dbCall">Action to be run against the repository</param>
+        /// <param name="mapToResult">Mapping function used to map returned data to respective DTO</param>
+        ///<returns>A Task result contains<see cref="RepositoryResult{T}"/> with expected data based on the request
+        /// Can return Successful result, NotFound result or Fail in case of any error</returns>
         private async Task<RepositoryResult<TOut>> ExecuteSafeAsync<TIn, TOut>(
             Func<Task<TIn>> dbCall,
             Func<TIn,TOut> mapToResult)
@@ -99,6 +112,12 @@ namespace ExerciseTracker.Brozda.Services
                 return RepositoryResult<TOut>.Fail($"{AppStrings.ServiceErrorOcurred}: {ex.Message}");
             }
         }
+        /// <summary>
+        /// Safely executes action returning <see cref="bool"/> and return data in form of <see cref="RepositoryResult{TOut}"/> containing
+        /// bool data
+        /// </summary>
+        /// <param name="dbCall">Action to be run against the repository returning <see cref="bool"/></param>
+        /// <returns>A Task result contains<see cref="RepositoryResult{T}"/></returns>
         private async Task<RepositoryResult<bool>> ExecuteSafeAsync(Func<Task<bool>> dbCall)
         {
             try
@@ -107,7 +126,7 @@ namespace ExerciseTracker.Brozda.Services
 
                 return result
                     ? RepositoryResult<bool>.Success(result)
-                    : RepositoryResult<bool>.Fail("Operation failed");
+                    : RepositoryResult<bool>.NotFound();
             }
             catch (Exception ex)
             {

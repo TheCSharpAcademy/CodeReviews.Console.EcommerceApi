@@ -1,7 +1,7 @@
 ﻿namespace ExerciseTracker.Brozda.Models
 {
     /// <summary>
-    /// Represent DTO of DB model presented to the user
+    /// Represents record in Excercises table passed to from the service
     /// </summary>
     internal class ExerciseDto
     {

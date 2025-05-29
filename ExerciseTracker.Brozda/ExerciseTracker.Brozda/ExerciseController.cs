@@ -25,20 +25,18 @@ namespace ExerciseTracker.Brozda
             ExitApp = 101,
         }
 
-        /// <summary>
-        /// A Map of menu options to label - text defining the option and <see cref="Func<<see cref="Task"/>>"/> defining an action to be performed for each option
-        /// </summary>
-        /// 
+        
         private readonly Dictionary<int, string> _menuOptions = new Dictionary<int, string>();
         private readonly Dictionary<int, Func<Task>> _menuActions = new Dictionary<int, Func<Task>>();
 
         private readonly IWeightExerciseService _weightExerciseService;
         private readonly ICardioExerciseService _cardioExerciseService;
+        private readonly IUserInputOutput _ui;
 
         private IExerciseService? _activeService;
         private ExerciseType? _activeExerciseType;
 
-        private readonly IUserInputOutput _ui;
+        
 
         /// <summary>
         /// Initializes new instance of <see cref="ExerciseController"/>
@@ -57,6 +55,8 @@ namespace ExerciseTracker.Brozda
         /// </summary>
         private void MapMenu()
         {
+            //This could be Dictionary <int, (string, Func<Task>)> but I found it less readable
+
             _menuOptions.Add((int)MenuOptions.ViewAll, AppStrings.ControllerViewAll);
             _menuOptions.Add((int)MenuOptions.CreateRecord, AppStrings.ControllerCreate);
             _menuOptions.Add((int)MenuOptions.EditRecord, AppStrings.ControllerEdit);
@@ -72,6 +72,10 @@ namespace ExerciseTracker.Brozda
             _menuActions.Add((int)MenuOptions.ExitApp, ProcessExitApp);
 
         }
+        /// <summary>
+        /// Sets activeService and activeExercise type used to DB access and data modification
+        /// </summary>
+        /// <returns></returns>
         private async Task ProcessSelectExerciseType()
         {
             var exTypes = await _weightExerciseService.GetExerciseTypes();

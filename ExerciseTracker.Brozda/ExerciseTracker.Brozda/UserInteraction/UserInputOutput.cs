@@ -16,40 +16,20 @@ namespace ExerciseTracker.Brozda.UserInteraction
         {
             Console.Clear();
         }
-
-        /// <summary>
-        /// Prints provided text to the console
-        /// </summary>
-        /// <param name="text">Text to be printed</param>
         public void PrintText(string text)
         {
             Console.WriteLine(text);
         }
-        /// <summary>
-        /// Prints provided error message to the console
-        /// </summary>
-        /// <param name="errorMsg">Error message to be printed</param>
         public void PrintError(string? errorMsg)
         {
             Console.WriteLine(errorMsg ?? AppStrings.IoUnhandledError);
         }
-        /// <summary>
-        /// Prints "Press any Key to continue" and awaits user input, effectively pausing the app flow
-        /// </summary>
         public void PrintPressAnyKeyToContinue()
         {
             Console.WriteLine(AppStrings.IoPressAnyKeyToContinue);
             Console.ReadKey();
             Console.Clear();
         }
-        /// <summary>
-        /// Prints the menu and awaits user choice
-        /// </summary>
-        /// <param name="menuOptions"><see cref="Dictionary{TKey, TValue}"/>; 
-        /// Keys are <see cref="int"/> representing menu options enumeration
-        /// Values are <see cref="string"/> representing option lable
-        /// </param>
-        /// <returns><see cref="int"/> representing menu options enumeration</returns>
         public int ShowMenuAndGetInput(Dictionary<int, string> menuOptions)
         {
             var input = AnsiConsole.Prompt(
@@ -61,10 +41,6 @@ namespace ExerciseTracker.Brozda.UserInteraction
 
             return input;
         }
-        /// <summary>
-        /// Prints exercises to the user console in form of Table
-        /// </summary>
-        /// <param name="exercises">A List of <see cref="Exercise"/> to be printed</param>
         public void PrintExercises(List<ExerciseDto> exercises)
         {
             var table = new Table();
@@ -76,10 +52,6 @@ namespace ExerciseTracker.Brozda.UserInteraction
 
             AnsiConsole.Write(table);
         }
-        /// <summary>
-        /// Prints a single exercise to the user console in form of Table
-        /// </summary>
-        /// <param name="exercise"> <see cref="Exercise"/> to be printed</param>
         public void PrintExercise(ExerciseDto exercise)
         {
             var table = new Table();
@@ -87,15 +59,6 @@ namespace ExerciseTracker.Brozda.UserInteraction
             table.AddRow(GetTableRow(exercise));
 
             AnsiConsole.Write(table);
-        }
-        /// <summary>
-        /// Prints out all records to the console and awaits user input representing his choice
-        /// </summary>
-        /// <param name="exercises">A List of <see cref="Exercise"/> from which user can choose</param>
-        /// <param name="prompt">A <see cref="string"/> representing the prompt for the choice</param>
-        /// <returns>A <see cref="int"/> representing valid record Id</returns>
-        /// <remarks> User input is validated and only valid choice is possible
-        /// </remarks>
         public int GetRecordId(List<ExerciseDto> exercises)
         {
             PrintExercises(exercises);
@@ -109,37 +72,6 @@ namespace ExerciseTracker.Brozda.UserInteraction
 
             return selectedId;
         }
-        /// <summary>
-        /// Retrieves values for <see cref="Exercise"/> 
-        /// </summary>
-        /// <param name="existing">Optional argument of existing <see cref="Exercise"/>. If present then its values will be used as default values</param>
-        /// <returns>A <see cref="Exercise"/> containing values from user input</returns>
-        /*public ExerciseDto GetExercise(List<ExerciseType> exTypes, ExerciseDto? existing = null)
-        {
-            string name = GetString(AppStrings.IoExerciseName, existing?.Name);
-            int typeId = GetExerciseTypeId(exTypes, existing);
-
-            string unit = exTypes.Find(x => x.Id == typeId)!.Unit;
-
-            double volume = GetDouble($"{AppStrings.IoVolume} ({unit}): ", existing?.Volume);
-            DateTime start = GetDate(AppStrings.IoDateStart, existing?.DateStart); ;
-            DateTime end = GetDate(AppStrings.IoDateEnd, existing?.DateEnd, start); ;
-            long duration = (long)(end - start).TotalSeconds;
-            string? comments = GetNullableString(AppStrings.IoComment, existing?.Comments);
-
-            return new ExerciseDto()
-            {
-                Name = name,
-                TypeId = typeId,
-                Volume = volume,
-                DateStart = start,
-                DateEnd = end,
-                Duration = duration,
-                Comments = comments
-            };
-
-        }*/
-
         public ExerciseDto GetExercise(ExerciseType exerciseType, ExerciseDto? existing = null)
         {
             string name = GetString(AppStrings.IoExerciseName, existing?.Name);
@@ -172,7 +104,7 @@ namespace ExerciseTracker.Brozda.UserInteraction
             }
             AnsiConsole.Write(table);
         }
-        public int GetExerciseTypeId(List<ExerciseType> exTypes, ExerciseDto? existing = null!)
+        public int GetExerciseTypeId(List<ExerciseType> exTypes)
         {
             var validIds = exTypes.Select(x => x.Id);
 
@@ -180,11 +112,6 @@ namespace ExerciseTracker.Brozda.UserInteraction
 
             var prompt = new TextPrompt<int>(AppStrings.IoSelectExerciseType)
                 .Validate(x => validIds.Contains(x));
-            
-            if(existing is not null)
-            {
-                prompt.DefaultValue(existing.TypeId);
-            }
 
             return AnsiConsole.Prompt(prompt);
         }
