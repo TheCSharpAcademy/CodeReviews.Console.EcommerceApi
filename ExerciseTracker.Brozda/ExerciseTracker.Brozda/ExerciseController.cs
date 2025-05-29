@@ -152,7 +152,6 @@ namespace ExerciseTracker.Brozda
                 return;
             }
 
-            var exTypes = await _activeService.GetExerciseTypes();
             var exercise = _ui.GetExercise(_activeExerciseType, null);
 
             var createResult = await _activeService.CreateAsync(exercise);

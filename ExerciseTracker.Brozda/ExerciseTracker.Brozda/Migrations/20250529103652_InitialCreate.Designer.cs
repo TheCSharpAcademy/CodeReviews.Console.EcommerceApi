@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExerciseTracker.Brozda.Migrations
 {
     [DbContext(typeof(ExerciseTrackerContext))]
-    [Migration("20250528183039_initialCreate")]
-    partial class initialCreate
+    [Migration("20250529103652_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

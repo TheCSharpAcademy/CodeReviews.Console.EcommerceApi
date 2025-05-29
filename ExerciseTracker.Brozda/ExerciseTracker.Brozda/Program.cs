@@ -11,7 +11,7 @@ namespace ExerciseTracker.Brozda
 {
     internal class Program
     {
-        private static async Task Main(string[] args)
+        private static async Task Main()
         {
             var services = new ServiceCollection();
 

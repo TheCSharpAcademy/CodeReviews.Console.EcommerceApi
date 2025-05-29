@@ -86,8 +86,8 @@ namespace ExerciseTracker.Brozda.UserInteraction
             string name = GetString(AppStrings.IoExerciseName, existing?.Name);
 
             double volume = GetDouble($"{AppStrings.IoVolume} ({exerciseType.Unit}): ", existing?.Volume);
-            DateTime start = GetDate(AppStrings.IoDateStart, existing?.DateStart); ;
-            DateTime end = GetDate(AppStrings.IoDateEnd, existing?.DateEnd, start); ;
+            DateTime start = GetDate(AppStrings.IoDateStart, existing?.DateStart); 
+            DateTime end = GetDate(AppStrings.IoDateEnd, existing?.DateEnd, start);
             long duration = (long)(end - start).TotalSeconds;
             string? comments = GetNullableString(AppStrings.IoComment, existing?.Comments);
 
