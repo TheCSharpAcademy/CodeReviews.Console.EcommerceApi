@@ -16,10 +16,10 @@ public static class UserInput
         while (!areDatesValid)
         {
             var startDate = AnsiConsole.Prompt(
-                new TextPrompt<string>("What is the start date? (yyyy/MM/dd HH:m:s)")
+                new TextPrompt<string>("What is the start date? (yyyy/MM/dd HH:mm:ss UTC)")
                     .Validate(input =>
                     {
-                        return DateTime.TryParseExact(input, "yyyy/MM/dd HH:m:s", 
+                        return DateTime.TryParseExact(input, "yyyy/MM/dd HH:mm:ss UTC", 
                             CultureInfo.InvariantCulture, DateTimeStyles.None, out var _)
                             ? ValidationResult.Success()
                             : ValidationResult.Error("[red]Invalid date format[/]");
@@ -27,17 +27,17 @@ public static class UserInput
             );
             
             var endDate = AnsiConsole.Prompt(
-                new TextPrompt<string>("What is the end date? (yyyy/MM/dd HH:m:s)")
+                new TextPrompt<string>("What is the end date? (yyyy/MM/dd HH:mm:ss UTC)")
                     .Validate(input =>
                     {
-                        return DateTime.TryParseExact(input, "yyyy/MM/dd HH:m:s", 
+                        return DateTime.TryParseExact(input, "yyyy/MM/dd HH:mm:ss UTC", 
                             CultureInfo.InvariantCulture, DateTimeStyles.None, out var _)
                             ? ValidationResult.Success()
                             : ValidationResult.Error("[red]Invalid date format[/]");
                     })
             );
-            var parsedStartDate= DateTime.ParseExact(startDate, "yyyy/MM/dd HH:m:s", CultureInfo.InvariantCulture);
-            var parsedEndDate = DateTime.ParseExact(endDate, "yyyy/MM/dd HH:m:s", CultureInfo.InvariantCulture);
+            var parsedStartDate= DateTime.ParseExact(startDate, "yyyy/MM/dd HH:mm:ss UTC", CultureInfo.InvariantCulture);
+            var parsedEndDate = DateTime.ParseExact(endDate, "yyyy/MM/dd HH:mm:ss UTC", CultureInfo.InvariantCulture);
             areDatesValid = parsedStartDate <= parsedEndDate;
             startExerciseDate = parsedStartDate;
             endExerciseDate = parsedEndDate;
