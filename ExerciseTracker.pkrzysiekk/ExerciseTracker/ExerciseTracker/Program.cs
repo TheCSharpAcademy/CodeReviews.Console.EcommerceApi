@@ -8,6 +8,7 @@ using ExerciseTracker.Repository;
 using ExerciseTracker.Services;
 
 ExerciseContext context = new ExerciseContext();
+context.Database.EnsureCreated();
 IRepository<Exercise> repository = new ExerciseRepository(context);
 IExerciseService  service = new ExerciseService(repository);
 ExerciseController controller = new ExerciseController(service);

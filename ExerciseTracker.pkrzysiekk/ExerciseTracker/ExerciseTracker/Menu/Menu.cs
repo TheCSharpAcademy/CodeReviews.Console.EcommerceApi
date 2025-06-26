@@ -36,7 +36,8 @@ public class Menu
             {
                 case MenuChoicesEnum.AddExercise:
                     var ex = UserInput.GetExercise();
-                    Console.WriteLine(ex);
+                    await _controller.AddExercise(ex);
+                    AnsiConsole.MarkupLine($"[Green]Exercise added[/]");
                     break;
                 case MenuChoicesEnum.DeleteExercise:
                     //
@@ -45,7 +46,10 @@ public class Menu
                     //
                     break;
                 case MenuChoicesEnum.GetAllExercises:
-                    //
+                   var list= await _controller.GetAll();
+                   if(!list.Any()) return;
+                   TableHelper.Show(list);
+                    
                     break;
             }    
         }
