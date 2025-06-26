@@ -1,3 +1,16 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
-Console.WriteLine("Hello, World!");
+using ExerciseTracker.Controllers;
+using ExerciseTracker.Data;
+using ExerciseTracker.Menu;
+using ExerciseTracker.Models;
+using ExerciseTracker.Repository;
+using ExerciseTracker.Services;
+
+ExerciseContext context = new ExerciseContext();
+IRepository<Exercise> repository = new ExerciseRepository(context);
+IExerciseService  service = new ExerciseService(repository);
+ExerciseController controller = new ExerciseController(service);
+Menu menu = new Menu(controller);
+await 
+    menu.ShowMenu();

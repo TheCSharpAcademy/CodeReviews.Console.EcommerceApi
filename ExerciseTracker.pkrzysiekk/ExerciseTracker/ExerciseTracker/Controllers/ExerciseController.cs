@@ -1,34 +1,35 @@
 using ExerciseTracker.Models;
 using ExerciseTracker.Repository;
+using ExerciseTracker.Services;
 
 namespace ExerciseTracker.Controllers;
 
 public class ExerciseController
 {
-    private readonly IRepository<Exercise> _repository;
+    private readonly IExerciseService  _service;
     
-    public ExerciseController(IRepository<Exercise> repository)
+    public ExerciseController(IExerciseService service)
     {
-       _repository = repository; 
+       _service = service;
     }
 
     public async Task AddExercise(Exercise exercise)
     {
-        await _repository.Insert(exercise);
+        await _service.AddExercise(exercise);
     }
 
     public async Task UpdateExercise(Exercise exercise)
     {
-        await _repository.Update(exercise);
+        await _service.EditExercise(exercise);  
     }
 
     public async Task DeleteExercise(Exercise exercise)
     {
-        await _repository.Delete(exercise);
+        await _service.DeleteExercise(exercise);
     }
 
     public async Task<IEnumerable<Exercise>> GetAll()
     {
-        return await _repository.GetAll();
+        return await _service.GetAllExercises();
     }
 }

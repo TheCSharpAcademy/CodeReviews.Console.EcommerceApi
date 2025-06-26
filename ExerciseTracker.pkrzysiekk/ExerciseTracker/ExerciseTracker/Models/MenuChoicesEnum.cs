@@ -12,4 +12,6 @@ public enum MenuChoicesEnum
     DeleteExercise,
     [Description("List all Exercises")]
     GetAllExercises,
+    [Description("Exit")]
+    Exit
 }
