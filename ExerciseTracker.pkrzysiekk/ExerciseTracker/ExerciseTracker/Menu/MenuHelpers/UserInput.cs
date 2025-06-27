@@ -13,6 +13,7 @@ public static class UserInput
         bool areDatesValid = false;
         DateTime startExerciseDate=DateTime.MinValue;
         DateTime endExerciseDate=DateTime.MaxValue;
+        
         while (!areDatesValid)
         {
             var startDate = AnsiConsole.Prompt(
@@ -48,9 +49,7 @@ public static class UserInput
             Description = Description,
             DateStart = startExerciseDate,
             DateEnd = endExerciseDate,
-
         };
-
     }
     
 }

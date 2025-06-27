@@ -12,11 +12,12 @@ public static class TableHelper
         table.AddColumn("Description");
         table.AddColumn("Start Date");
         table.AddColumn("End Date");
+        table.AddColumn("ID");
         foreach (var exercise in exercises)
         {
             table.AddRow(exercise.Description,
                 exercise.DateStart.ToString("yyyy/MM/dd HH:mm:ss UTC")
-                ,exercise.DateEnd.ToString("yyyy/MM/dd HH:mm:ss UTC"));
+                ,exercise.DateEnd.ToString("yyyy/MM/dd HH:mm:ss UTC"),exercise.Id.ToString());
      
             
         } 
