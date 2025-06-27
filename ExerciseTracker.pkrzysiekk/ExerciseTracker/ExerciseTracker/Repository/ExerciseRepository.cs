@@ -7,12 +7,12 @@ namespace ExerciseTracker.Repository;
 public class ExerciseRepository : IRepository<Exercise>
 {
     private readonly ExerciseContext _context;
-    
+
     public ExerciseRepository(ExerciseContext context)
     {
-     _context = context;    
+        _context = context;
     }
-    
+
     public async Task<Exercise?> GetById(int id)
     {
         var exercise = await _context.Exercises.FindAsync(id);
@@ -46,11 +46,11 @@ public class ExerciseRepository : IRepository<Exercise>
     public async Task Delete(Exercise entity)
     {
         var exercise = await GetById(entity.Id);
-        if (exercise != null) {
+        if (exercise != null)
+        {
             _context.Exercises.Remove(exercise);
             await SaveChanges();
         }
-        
     }
 
     public async Task SaveChanges()
