@@ -1,0 +1,6 @@
+@ExerciseTracker.HemanthSharma_HostAddress = http://localhost:5086
+
+GET {{ExerciseTracker.HemanthSharma_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
