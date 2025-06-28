@@ -10,8 +10,8 @@ using ExerciseTracker.Services;
 ExerciseContext context = new ExerciseContext();
 context.Database.EnsureCreated();
 IRepository<Exercise> repository = new ExerciseRepository(context);
-IExerciseService  service = new ExerciseService(repository);
+IExerciseService service = new ExerciseService(repository);
 ExerciseController controller = new ExerciseController(service);
 Menu menu = new Menu(controller);
-await 
+await
     menu.ShowMenu();

@@ -6,10 +6,10 @@ namespace ExerciseTracker.Services;
 public class ExerciseService : IExerciseService
 {
     private readonly IRepository<Exercise> _repository;
-    
-    public ExerciseService(IRepository<Exercise> repository) 
+
+    public ExerciseService(IRepository<Exercise> repository)
     {
-       _repository = repository; 
+        _repository = repository;
     }
 
     public async Task AddExercise(Exercise exercise)
