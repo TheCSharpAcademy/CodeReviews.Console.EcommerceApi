@@ -2,6 +2,8 @@ using ExerciseTracker.Models;
 using Spectre.Console;
 using System.Globalization;
 
+using System.Globalization;
+
 namespace ExerciseTracker.Menu.MenuHelpers;
 
 public static class UserInput
@@ -40,7 +42,7 @@ public static class UserInput
             );
             var parsedStartDate = DateTime.ParseExact(startDate, "yyyy/MM/dd HH:mm:ss UTC", CultureInfo.InvariantCulture);
             var parsedEndDate = DateTime.ParseExact(endDate, "yyyy/MM/dd HH:mm:ss UTC", CultureInfo.InvariantCulture);
-            areDatesValid = parsedStartDate <= parsedEndDate;
+            areDatesValid = parsedStartDate <= parsedEndDate && parsedEndDate <= DateTime.Now;
             startExerciseDate = parsedStartDate;
             endExerciseDate = parsedEndDate;
         }
