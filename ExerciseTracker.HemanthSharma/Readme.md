@@ -13,6 +13,13 @@
 - Data persistence for workout records
 
 ## Getting Started
+## Build Instructions
+### DataBaseConnectionString
+Change the Connection string in appsettings.json in ExerciseTracker API project to map to your local Db and run migration.
+### BaseUrl in in Console project
+Chnage the BaseUrl in ExerciseTracker.UI project in app.Config file. to point to the localhost port where your webAPI project runs
+### Running Both the Projects as Startup Projects
+right click on any of project-> Configure StartUp projects-> select Multiple Startup projects-> select both the projects listed as Start projects
 
 ### Prerequisites
 
