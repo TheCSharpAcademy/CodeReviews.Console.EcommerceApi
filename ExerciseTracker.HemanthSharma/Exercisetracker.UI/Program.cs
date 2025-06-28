@@ -1,13 +1,12 @@
 ﻿using ExerciseTracker.UI;
 
-namespace Exercisetracker.UI
+namespace Exercisetracker.UI;
+
+internal class Program
 {
-    internal class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            bool isRunning = true;
-            UserInterface.MainMenu();
-        }
+        bool isRunning = true;
+        UserInterface.MainMenu();
     }
 }

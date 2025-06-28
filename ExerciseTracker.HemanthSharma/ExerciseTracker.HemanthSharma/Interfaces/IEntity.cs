@@ -1,7 +1,6 @@
-﻿namespace ExerciseTracker.HemanthSharma.Interfaces
+﻿namespace ExerciseTracker.HemanthSharma.Interfaces;
+
+public interface IEntity<T>
 {
-    public interface IEntity<T>
-    {
-        int Id { get; set; }
-    }
+    int Id { get; set; }
 }

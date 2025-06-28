@@ -1,22 +1,21 @@
 ﻿using System.Configuration;
 
-namespace ExerciseTracker.UI
+namespace ExerciseTracker.UI;
+
+public class HttpClientService
 {
-    public class HttpClientService
+    private string BaseUrl { get; set; }
+    public HttpClientService()
     {
-        private string BaseUrl { get; set; }
-        public HttpClientService()
-        {
-            BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
-        }
-        public string GetBaseURL()
-        {
-            return BaseUrl;
-        }
-        public HttpClient GetHttpClient()
-        {
-            HttpClient client = new HttpClient();
-            return client;
-        }
+        BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
+    }
+    public string GetBaseURL()
+    {
+        return BaseUrl;
+    }
+    public HttpClient GetHttpClient()
+    {
+        HttpClient client = new HttpClient();
+        return client;
     }
 }

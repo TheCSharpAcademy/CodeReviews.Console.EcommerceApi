@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 
-namespace ExerciseTracker.Study.ValidationsMethods
-{
+namespace ExerciseTracker.Study.ValidationsMethods;
+
     public class Validations
     {
         public static bool ValidDate(string Datestring)
@@ -13,4 +13,4 @@ namespace ExerciseTracker.Study.ValidationsMethods
             return DateTime.TryParseExact(Timestring, "HH:mm", null, DateTimeStyles.None, out DateTime ShiftDate);
         }
     }
-}
+

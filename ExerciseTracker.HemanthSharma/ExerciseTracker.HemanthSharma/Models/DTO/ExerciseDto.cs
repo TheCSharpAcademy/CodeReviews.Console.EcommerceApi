@@ -1,7 +1,6 @@
-﻿namespace ExerciseTracker.Study.Models.DTO
+﻿namespace ExerciseTracker.Study.Models.DTO;
+
+public class ExerciseDto
 {
-    public class ExerciseDto
-    {
-        public string Name { get; set; }
-    }
+    public string Name { get; set; }
 }
