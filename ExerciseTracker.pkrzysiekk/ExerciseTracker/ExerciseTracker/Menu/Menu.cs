@@ -25,11 +25,12 @@ public class Menu
 
     public async Task ShowMenu()
     {
-        var choice = GetMenuChoice();
-
+        var choice = default(MenuChoicesEnum);
         while (choice != MenuChoicesEnum.Exit)
         {
             choice = GetMenuChoice();
+            AnsiConsole.Clear();
+
             switch (choice)
             {
                 case MenuChoicesEnum.AddExercise:
@@ -87,7 +88,6 @@ public class Menu
                         continue;
                     }
                     TableHelper.Show(list);
-
                     break;
             }
         }
