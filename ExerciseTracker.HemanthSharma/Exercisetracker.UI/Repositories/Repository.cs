@@ -6,18 +6,18 @@ namespace ExerciseTracker.UI.Repositories;
 
 public class Repository<T> where T : class
 {
-    public string BaseURL { get; set; }
+    public string BaseUrl { get; set; }
     HttpClientService ClientService = new();
     HttpClient Client;
     public Repository()
     {
         if (typeof(T).Name == "ExerciseShiftDto")
         {
-            BaseURL = ClientService.GetBaseURL() + "ExerciseShift";
+            BaseUrl = ClientService.GetBaseUrl() + "ExerciseShift";
         }
         else
         {
-            BaseURL = ClientService.GetBaseURL() + typeof(T).Name;
+            BaseUrl = ClientService.GetBaseUrl() + typeof(T).Name;
         }
         Client = ClientService.GetHttpClient();
     }
@@ -27,8 +27,8 @@ public class Repository<T> where T : class
         {
             //https://localhost:7249/api/Exercise
             //https://localhost:7249/api/ExerciseShift
-            string Stringresponse = await Client.GetStringAsync(BaseURL);
-            using (var response = await Client.GetStreamAsync(BaseURL))
+            string Stringresponse = await Client.GetStringAsync(BaseUrl);
+            using (var response = await Client.GetStreamAsync(BaseUrl))
             {
                 ResponseDto<T> GetResponse = JsonSerializer.Deserialize<ResponseDto<T>>(response);
                 return GetResponse;
@@ -50,7 +50,7 @@ public class Repository<T> where T : class
     {
         try
         {
-            using (var response = await Client.GetStreamAsync(BaseURL + $"/{Id}"))
+            using (var response = await Client.GetStreamAsync(BaseUrl + $"/{Id}"))
             {
                 ResponseDto<T> GetResponse = JsonSerializer.Deserialize<ResponseDto<T>>(response);
                 return GetResponse;
@@ -72,7 +72,7 @@ public class Repository<T> where T : class
     {
         try
         {
-            var response = await Client.PostAsJsonAsync(BaseURL, Entity);
+            var response = await Client.PostAsJsonAsync(BaseUrl, Entity);
             using (var StreamResponse = await response.Content.ReadAsStreamAsync())
             {
                 ResponseDto<T> Response = await JsonSerializer.DeserializeAsync<ResponseDto<T>>(StreamResponse);
@@ -97,7 +97,7 @@ public class Repository<T> where T : class
     {
         try
         {
-            var response = await Client.PutAsJsonAsync(BaseURL + $"/{Id}", Entity);
+            var response = await Client.PutAsJsonAsync(BaseUrl + $"/{Id}", Entity);
             using (var StreamResponse = await response.Content.ReadAsStreamAsync())
             {
                 ResponseDto<T> Response = await JsonSerializer.DeserializeAsync<ResponseDto<T>>(StreamResponse);
@@ -120,7 +120,7 @@ public class Repository<T> where T : class
     {
         try
         {
-            var response = await Client.DeleteAsync(BaseURL + $"/{Id}");
+            var response = await Client.DeleteAsync(BaseUrl + $"/{Id}");
             using (var StreamResponse = await response.Content.ReadAsStreamAsync())
             {
                 ResponseDto<T> Response = await JsonSerializer.DeserializeAsync<ResponseDto<T>>(StreamResponse);

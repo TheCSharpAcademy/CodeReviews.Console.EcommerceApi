@@ -9,7 +9,7 @@ public class HttpClientService
     {
         BaseUrl = ConfigurationManager.AppSettings["BaseUrl"];
     }
-    public string GetBaseURL()
+    public string GetBaseUrl()
     {
         return BaseUrl;
     }
