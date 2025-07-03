@@ -78,7 +78,6 @@ public class RepositoryClass<T> : IRepository<T> where T : class, IEntity<T>
                 Data = []
             };
         }
-
     }
 
     public async Task<ResponseDto<T>> GetAll()

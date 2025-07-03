@@ -41,7 +41,7 @@ public class ExerciseService
         int? UserChoice = UserInputs<Exercise>.GetExerciseById(Exercises);
         ResponseDto<Exercise> Response = Repo.GetEntiryById(UserChoice).GetAwaiter().GetResult();
         Exercise UpdatedExercise = UserInputs<Exercise>.GetUpdatedEntity(Response.Data);
-        ResponseDto<Exercise> DeleteResponse = Repo.UpdateEntity(UpdatedExercise, UserChoice).GetAwaiter().GetResult();
-        UserOutputs<Exercise>.ShowResponse(Response);
+        ResponseDto<Exercise> UpdatedResponse = Repo.UpdateEntity(UpdatedExercise, UserChoice).GetAwaiter().GetResult();
+        UserOutputs<Exercise>.ShowResponse(UpdatedResponse);
     }
 }

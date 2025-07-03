@@ -34,6 +34,7 @@ public static class UserOutputs<T> where T : class
                 "DELETE" => "Details of the Entity Deleted",
                 _ => "Unknown"
             };
+
             if (Response.Data.Count() == 0)
             {
                 ResponseString = $"[yellow]Response Method:{Response.ResponseMethod}\nCurrently No Data Found For the requested Entityy in DataBase[/]";

@@ -15,17 +15,20 @@ public class ExerciseShiftController : ControllerBase
     {
         ShiftService = service;
     }
+
     [HttpGet]
     public async Task<ActionResult<ResponseDto<ExerciseShift>>> GetAllShifts()
     {
         return await ShiftService.GetAll();
     }
+
     [HttpGet]
     [Route("{Id:int}")]
     public async Task<ActionResult<ResponseDto<ExerciseShift>>> GetById([FromRoute] int Id)
     {
         return await ShiftService.GetById(Id);
     }
+
     [HttpPost]
     public async Task<ActionResult<ResponseDto<ExerciseShift>>> CreateShift([FromBody] ExerciseShiftDto NewExerciseDto)
     {
@@ -43,6 +46,7 @@ public class ExerciseShiftController : ControllerBase
         }
         return await ShiftService.Create(NewExerciseShift);
     }
+
     [HttpPut]
     [Route("{Id:int}")]
     public async Task<ActionResult<ResponseDto<ExerciseShift>>> UpdateShift([FromRoute] int Id, [FromBody] ExerciseShiftDto UpdateExerciseDto)
@@ -61,6 +65,7 @@ public class ExerciseShiftController : ControllerBase
         UpdateExerciseShift.Id = Id;
         return await ShiftService.Update(UpdateExerciseShift);
     }
+
     [HttpDelete]
     [Route("{Id:int}")]
     public async Task<ActionResult<ResponseDto<ExerciseShift>>> DeleteShift([FromRoute] int Id)

@@ -21,13 +21,11 @@ public class Repository<T> where T : class
         }
         Client = ClientService.GetHttpClient();
     }
+
     public async Task<ResponseDto<T>> GetAllEntities()
     {
         try
         {
-            //https://localhost:7249/api/Exercise
-            //https://localhost:7249/api/ExerciseShift
-            string Stringresponse = await Client.GetStringAsync(BaseUrl);
             using (var response = await Client.GetStreamAsync(BaseUrl))
             {
                 ResponseDto<T> GetResponse = JsonSerializer.Deserialize<ResponseDto<T>>(response);
@@ -46,6 +44,7 @@ public class Repository<T> where T : class
             };
         }
     }
+
     public async Task<ResponseDto<T>> GetEntiryById(int? Id)
     {
         try
@@ -68,6 +67,7 @@ public class Repository<T> where T : class
             };
         }
     }
+
     public async Task<ResponseDto<T>> CreateEntity(T Entity)
     {
         try
@@ -93,6 +93,7 @@ public class Repository<T> where T : class
         }
     }
 
+
     public async Task<ResponseDto<T>> UpdateEntity(T Entity, int? Id)
     {
         try
@@ -116,6 +117,7 @@ public class Repository<T> where T : class
             };
         }
     }
+
     public async Task<ResponseDto<T>> DeleteEntity(int? Id)
     {
         try
@@ -139,5 +141,4 @@ public class Repository<T> where T : class
             };
         }
     }
-
 }

@@ -12,9 +12,11 @@ public class HelperClass
         {
             return null;
         }
+
         DateTime ShiftStartTime = DateTime.ParseExact(ExerciseDto.StartTime, "HH:mm", null);
         DateTime ShiftEndTime = DateTime.ParseExact(ExerciseDto.EndTime, "HH:mm", null);
         DateTime ShiftDate = DateTime.ParseExact(ExerciseDto.ExerciseDate, "dd-MM-yyyy", null);
+
         ExerciseShift NewExercise = new ExerciseShift
         {
             ExerciseId = ExerciseDto.ExerciseId,

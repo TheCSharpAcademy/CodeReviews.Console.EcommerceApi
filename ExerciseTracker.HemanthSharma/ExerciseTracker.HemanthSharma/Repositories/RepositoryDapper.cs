@@ -47,8 +47,6 @@ public class RepositoryDapper : IRepository<Exercise>
                 Message = e.Message
             };
         }
-
-
     }
 
     public async Task<ResponseDto<Exercise>> Delete(int Id)

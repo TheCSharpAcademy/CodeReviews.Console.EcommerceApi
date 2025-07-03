@@ -14,17 +14,20 @@ public class ExerciseController : ControllerBase
     {
         Service = service;
     }
+
     [HttpGet]
     public async Task<ActionResult<ResponseDto<Exercise>>> GetAllExercises()
     {
         return await Service.GetAll();
     }
+
     [HttpGet]
     [Route("{Id:int}")]
     public async Task<ActionResult<ResponseDto<Exercise>>> GetExerciseById([FromRoute] int Id)
     {
         return await Service.GetById(Id);
     }
+
     [HttpPost]
     public async Task<ActionResult<ResponseDto<Exercise>>> Create([FromBody] ExerciseDto NewExercise)
     {
@@ -35,6 +38,7 @@ public class ExerciseController : ControllerBase
         }
         );
     }
+
     [HttpPut]
     [Route("{Id:int}")]
     public async Task<ActionResult<ResponseDto<Exercise>>> Update([FromRoute] int Id, [FromBody] ExerciseDto UpdateExerciseDto)
@@ -46,6 +50,7 @@ public class ExerciseController : ControllerBase
         };
         return await Service.Update(UpdateExercise);
     }
+
     [HttpDelete]
     [Route("{Id:int}")]
     public async Task<ActionResult<ResponseDto<Exercise>>> Delete([FromRoute] int Id)

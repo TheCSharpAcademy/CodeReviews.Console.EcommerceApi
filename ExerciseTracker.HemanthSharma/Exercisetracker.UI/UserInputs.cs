@@ -16,6 +16,7 @@ public class UserInputs<T> where T : class
             .AddChoices(UserChoices));
         return Entities.Where(x => x.name == UserOption).Select(x => x.id).FirstOrDefault();
     }
+
     internal static int GetShiftById(List<ExerciseShiftDto> Entities)
     {
         if (Entities.Count() == 0)
@@ -25,6 +26,7 @@ public class UserInputs<T> where T : class
             Console.ReadLine();
             return -1;
         }
+
         List<string> UserChoices = new();
         UserChoices = Entities.Select(x => $"ShiftId={x.Id};ShiftDate={x.ExerciseDate};ShiftStartTime={x.StartTime}").ToList();
         var UserOption = AnsiConsole.Prompt(new SelectionPrompt<string>().Title("Please Choose an option")
