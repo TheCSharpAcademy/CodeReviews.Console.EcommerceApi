@@ -29,14 +29,10 @@ public class ExerciseController
 
     public async Task DeleteExerciseAsync()
     {
-        var idInput = AnsiConsole.Ask<string>("Type Exercise's ID:");
-        if (!int.TryParse(idInput, out int id))
-        {
-            AnsiConsole.MarkupLine("[red]Invalid ID.[/]");
-            return;
-        }
+        var id = UserInputHandler.GetId();
+        if (id == null) return;
 
-        if (!await ExerciseValidator.ExerciseExistsById(id))
+        if (!await ExerciseValidator.ExerciseExistsById(id.Value))
         {
             AnsiConsole.MarkupLine("[red]Failed to delete exercise.[/]");
             return;
@@ -57,5 +53,21 @@ public class ExerciseController
         }
 
         Display.ShowExercises(exercises);
+    }
+
+    public async Task GetExerciseByIdAsync()
+    {
+        var id = UserInputHandler.GetId();
+        if (id == null) return;
+
+        var exercise = await _service.GetExerciseByIdAsync(id.Value);
+
+        if (exercise == null)
+        {
+            AnsiConsole.MarkupLine("[red]No exercise found.[/]");
+            return;
+        }
+
+        Display.ShowExercise(exercise);
     }
 }
