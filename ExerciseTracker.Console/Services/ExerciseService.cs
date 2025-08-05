@@ -33,7 +33,7 @@ public class ExerciseService
         return await _repository.GetAllAsync();
     }
 
-    public async Task<Exercise?> GetExerciseByIdAsync(int id)
+    public async Task<Exercise?> GetExercisesByIdAsync(int id)
     {
         return await _repository.GetByIdAsync(id);
     }

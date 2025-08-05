@@ -29,6 +29,6 @@ public static class ExerciseValidator
 
     public static async Task<bool> ExerciseExistsById(int id)
     {
-        return await _service.GetExerciseByIdAsync(id) != null;
+        return await _service.GetExercisesByIdAsync(id) != null;
     }
 }
