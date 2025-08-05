@@ -1,7 +1,7 @@
-﻿using ExerciseTracker.Console.Models;
+﻿using ExerciseTracker.Niasua.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ExerciseTracker.Console.Data;
+namespace ExerciseTracker.Niasua.Data;
 
 public class ExerciseContext : DbContext
 {

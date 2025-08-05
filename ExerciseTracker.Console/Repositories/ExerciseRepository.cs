@@ -1,8 +1,8 @@
-﻿using ExerciseTracker.Console.Data;
-using ExerciseTracker.Console.Models;
+﻿using ExerciseTracker.Niasua.Data;
+using ExerciseTracker.Niasua.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace ExerciseTracker.Console.Repositories;
+namespace ExerciseTracker.Niasua.Repositories;
 
 public class ExerciseRepository : IExerciseRepository
 {

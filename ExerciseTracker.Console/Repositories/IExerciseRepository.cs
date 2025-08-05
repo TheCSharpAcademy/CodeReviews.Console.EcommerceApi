@@ -1,6 +1,6 @@
-﻿using ExerciseTracker.Console.Models;
+﻿using ExerciseTracker.Niasua.Models;
 
-namespace ExerciseTracker.Console.Repositories;
+namespace ExerciseTracker.Niasua.Repositories;
 
 public interface IExerciseRepository
 {

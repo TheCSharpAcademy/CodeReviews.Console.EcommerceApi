@@ -1,4 +1,4 @@
-﻿namespace ExerciseTracker.Console.Models;
+﻿namespace ExerciseTracker.Niasua.Models;
 
 public class Exercise
 {

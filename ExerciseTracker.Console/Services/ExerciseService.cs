@@ -1,20 +1,26 @@
-﻿using ExerciseTracker.Console.Models;
-using ExerciseTracker.Console.Repositories;
+﻿using ExerciseTracker.Niasua.Models;
+using ExerciseTracker.Niasua.Repositories;
 
-namespace ExerciseTracker.Console.Services;
+namespace ExerciseTracker.Niasua.Services;
 
 public class ExerciseService
 {
-    private readonly ExerciseRepository _repository;
+    private readonly IExerciseRepository _repository;
 
-    public ExerciseService(ExerciseRepository repository)
+    public ExerciseService(IExerciseRepository repository)
     {
         _repository = repository;
     }
 
-    public async Task CreateExerciseAsync(Exercise exercise)
+    public async Task<bool> CreateExerciseAsync(Exercise exercise)
     {
+        if (!Validators.ExerciseValidator.IsValid(exercise))
+        {
+            return false;
+        }
+
         await _repository.AddAsync(exercise);
+        return true;
     }
 
     public async Task DeleteExerciseAsync(int id)
@@ -32,8 +38,14 @@ public class ExerciseService
         return await _repository.GetByIdAsync(id);
     }
 
-    public async Task UpdateExercisesAsync(Exercise exercise)
+    public async Task<bool> UpdateExercisesAsync(Exercise exercise)
     {
+        if (!Validators.ExerciseValidator.IsValid(exercise))
+        {
+            return false;
+        }
+
         await _repository.UpdateAsync(exercise);
+        return true;
     }
 }
