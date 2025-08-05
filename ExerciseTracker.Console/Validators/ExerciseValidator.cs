@@ -1,9 +1,15 @@
 ﻿using ExerciseTracker.Niasua.Models;
+using ExerciseTracker.Niasua.Repositories;
+using ExerciseTracker.Niasua.Services;
+using Spectre.Console;
+using System.Threading.Tasks;
 
 namespace ExerciseTracker.Niasua.Validators;
 
 public static class ExerciseValidator
 {
+    private static readonly ExerciseService _service;
+
     public static bool IsValid(Exercise exercise)
     {
         if (exercise.DateEnd <= exercise.DateStart)
@@ -19,5 +25,10 @@ public static class ExerciseValidator
         }
 
         return true;
+    }
+
+    public static async Task<bool> ExerciseExistsById(int id)
+    {
+        return await _service.GetExercisesByIdAsync(id) != null;
     }
 }
