@@ -1,4 +1,5 @@
 ﻿using ExerciseTracker.Niasua.Models;
+using Spectre.Console;
 
 namespace ExerciseTracker.Niasua.UserInput;
 
@@ -34,5 +35,37 @@ public static class UserInputHandler
 
             Console.WriteLine("Invalid format. Please use format like: yyyy-mm-dd hh:mm");
         }
+    }
+
+    public static int? GetId()
+    {
+        while (true)
+        {
+            var idInput = AnsiConsole.Ask<string>("Type Exercise's ID (0 to cancel):");
+
+            if (idInput == "0")
+            {
+                return null; 
+            }
+
+            if (int.TryParse(idInput, out int id) && id > 0)
+            {
+                return id;
+            }
+
+            AnsiConsole.MarkupLine("[red]Invalid ID. Please enter a positive number or 0 to cancel.[/]");
+        }
+    }
+
+    public static DateTime? GetDateTime(string prompt)
+    {
+        var input = AnsiConsole.Ask<string>(prompt);
+        if (string.IsNullOrWhiteSpace(input)) return null;
+
+        if (DateTime.TryParse(input, out var date))
+            return date;
+
+        AnsiConsole.MarkupLine("[red]Invalid date format.[/]");
+        return GetDateTime(prompt);
     }
 }

@@ -33,12 +33,12 @@ public class ExerciseService
         return await _repository.GetAllAsync();
     }
 
-    public async Task<Exercise?> GetExercisesByIdAsync(int id)
+    public async Task<Exercise?> GetExerciseByIdAsync(int id)
     {
         return await _repository.GetByIdAsync(id);
     }
 
-    public async Task<bool> UpdateExercisesAsync(Exercise exercise)
+    public async Task<bool> UpdateExerciseAsync(Exercise exercise)
     {
         if (!Validators.ExerciseValidator.IsValid(exercise))
         {
