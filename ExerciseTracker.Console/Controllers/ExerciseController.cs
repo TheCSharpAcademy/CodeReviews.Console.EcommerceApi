@@ -1,4 +1,5 @@
 ﻿using ExerciseTracker.Niasua.Services;
+using ExerciseTracker.Niasua.UI;
 using ExerciseTracker.Niasua.UserInput;
 using ExerciseTracker.Niasua.Validators;
 using Spectre.Console;
@@ -43,5 +44,18 @@ public class ExerciseController
 
         await _service.DeleteExerciseAsync(id);
         AnsiConsole.MarkupLine("[green]Exercise successfully deleted.[/]");
+    }
+
+    public async Task GetAllExercisesAsync()
+    {
+        var exercises = await _service.GetAllExercisesAsync();
+
+        if(exercises == null || exercises.Count == 0)
+        {
+            AnsiConsole.MarkupLine("[red]No exercises found.[/]");
+            return;
+        }
+
+        Display.ShowExercises(exercises);
     }
 }
