@@ -10,7 +10,7 @@ public static class UserInputHandler
         Console.WriteLine("Enter exercise start date and time (yyyy-mm-dd hh:mm)");
         DateTime start = ReadDateTime();
 
-        Console.WriteLine("Enter exercise start date and time (yyyy-mm-dd hh:mm)");
+        Console.WriteLine("Enter exercise end date and time (yyyy-mm-dd hh:mm)");
         DateTime end = ReadDateTime();
 
         Console.WriteLine("Enter any comments: ");
@@ -20,7 +20,8 @@ public static class UserInputHandler
         {
             DateStart = start,
             DateEnd = end,
-            Comments = comments
+            Comments = comments,
+            Duration = end - start
         };
     }
 
