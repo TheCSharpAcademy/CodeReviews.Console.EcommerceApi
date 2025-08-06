@@ -7,10 +7,10 @@ public static class UserInputHandler
 {
     public static Exercise GetExerciseInput()
     {
-        Console.WriteLine("Enter exercise start date and time (yyyy-mm-dd hh:mm)");
+        Console.WriteLine("Enter exercise start date and time (dd/mm/yyyy hh:mm):");
         DateTime start = ReadDateTime();
 
-        Console.WriteLine("Enter exercise end date and time (yyyy-mm-dd hh:mm)");
+        Console.WriteLine("Enter exercise end date and time (dd/mm/yyyy hh:mm):");
         DateTime end = ReadDateTime();
 
         Console.WriteLine("Enter any comments: ");
@@ -34,7 +34,7 @@ public static class UserInputHandler
             if (DateTime.TryParse(input, out var result))
                 return result;
 
-            Console.WriteLine("Invalid format. Please use format like: yyyy-mm-dd hh:mm");
+            Console.WriteLine("Invalid format. Please use format like: (dd/mm/yyyy hh:mm)");
         }
     }
 
@@ -44,15 +44,23 @@ public static class UserInputHandler
         {
             var idInput = AnsiConsole.Ask<string>("Type Exercise's ID (0 to cancel):");
 
-            if (idInput == "0")
+            if (!int.TryParse(idInput, out int id))
             {
-                return null; 
+                AnsiConsole.MarkupLine("[red]Invalid input. Please enter a number.[/]");
             }
-
-            if (int.TryParse(idInput, out int id) && id > 0)
+            else if (id == 0)
+            {
+                return null;
+            }
+            else if (id > 0)
             {
                 return id;
             }
+            else
+            {
+                AnsiConsole.MarkupLine("[red]ID must be a positive number or 0 to cancel.[/]");
+            }
+
 
             AnsiConsole.MarkupLine("[red]Invalid ID. Please enter a positive number or 0 to cancel.[/]");
         }
@@ -60,7 +68,11 @@ public static class UserInputHandler
 
     public static DateTime? GetDateTime(string prompt)
     {
-        var input = AnsiConsole.Ask<string>(prompt);
+        var input = AnsiConsole.Prompt(
+            new TextPrompt<string>(prompt)
+            .AllowEmpty()
+            .PromptStyle("green"));
+        
         if (string.IsNullOrWhiteSpace(input)) return null;
 
         if (DateTime.TryParse(input, out var date))
