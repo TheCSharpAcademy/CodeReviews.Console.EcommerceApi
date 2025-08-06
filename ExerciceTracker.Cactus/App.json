@@ -1,5 +1,0 @@
-{
-  "ConnectionStrings": {
-    "LocalDbConnection": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ExerciseDB;Integrated Security=True;"
-  }
-}
