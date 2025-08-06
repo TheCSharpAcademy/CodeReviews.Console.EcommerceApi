@@ -8,8 +8,6 @@ namespace ExerciseTracker.Niasua.Validators;
 
 public static class ExerciseValidator
 {
-    private static readonly ExerciseService _service;
-
     public static bool IsValid(Exercise exercise)
     {
         if (exercise.DateEnd <= exercise.DateStart)
@@ -27,8 +25,8 @@ public static class ExerciseValidator
         return true;
     }
 
-    public static async Task<bool> ExerciseExistsById(int id)
+    public static async Task<bool> ExerciseExistsById(int id, ExerciseService service)
     {
-        return await _service.GetExerciseByIdAsync(id) != null;
+        return await service.GetExerciseByIdAsync(id) != null;
     }
 }
