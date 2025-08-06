@@ -24,13 +24,13 @@ public class ExerciseController
             var success = await _service.CreateExerciseAsync(exercise);
 
             if (success)
-                AnsiConsole.MarkupLine("[green]Exercise successfully added.[/]");
+                AnsiConsole.MarkupLine("\n[green]Exercise successfully added.[/]");
             else
-                AnsiConsole.MarkupLine("[red]Failed to add exercise.[/]");
+                AnsiConsole.MarkupLine("\n[red]Failed to add exercise.[/]");
         }
         catch (Exception ex)
         {
-            AnsiConsole.MarkupLine($"[red]Error:[/] {ex.Message}");
+            AnsiConsole.MarkupLine($"\n[red]Error:[/] {ex.Message}");
             Console.ReadKey();
         }
     }
@@ -45,18 +45,28 @@ public class ExerciseController
             var id = UserInputHandler.GetId();
             if (id == null) return;
 
-            if (!await ExerciseValidator.ExerciseExistsById(id.Value))
+            if (!await ExerciseValidator.ExerciseExistsById(id.Value, _service))
             {
-                AnsiConsole.MarkupLine("[red]Failed to delete exercise.[/]");
+                AnsiConsole.MarkupLine("\n[red]Failed to delete exercise.[/]");
                 return;
             }
 
-            await _service.DeleteExerciseAsync(id.Value);
-            AnsiConsole.MarkupLine("[green]Exercise successfully deleted.[/]");
+            var confirmation = AnsiConsole.Prompt(
+                new SelectionPrompt<string>()
+                    .Title($"\nAre you sure you want to delete [yellow]Exercise {id}?[/]")
+                    .AddChoices(new[] {
+                        "Yes", "No"
+                    }));
+
+            if (confirmation == "Yes")
+            {
+                await _service.DeleteExerciseAsync(id.Value);
+                AnsiConsole.MarkupLine("\n[green]Exercise successfully deleted.[/]");
+            }
         }
         catch (Exception ex)
         {
-            AnsiConsole.MarkupLine($"[red]Error:[/] {ex.Message}");
+            AnsiConsole.MarkupLine($"\n[red]Error:[/] {ex.Message}");
             Console.ReadKey();
         }
     }
@@ -69,7 +79,7 @@ public class ExerciseController
 
             if (exercises == null || exercises.Count == 0)
             {
-                AnsiConsole.MarkupLine("[red]No exercises found.[/]");
+                AnsiConsole.MarkupLine("\n[red]No exercises found.[/]");
                 return;
             }
 
@@ -77,7 +87,7 @@ public class ExerciseController
         }
         catch (Exception ex)
         {
-            AnsiConsole.MarkupLine($"[red]Error:[/] {ex.Message}");
+            AnsiConsole.MarkupLine($"\n[red]Error:[/] {ex.Message}");
             Console.ReadKey();
         }
     }
@@ -100,7 +110,7 @@ public class ExerciseController
         }
         catch (Exception ex)
         {
-            AnsiConsole.MarkupLine($"[red]Error:[/] {ex.Message}");
+            AnsiConsole.MarkupLine($"\n[red]Error:[/] {ex.Message}");
             Console.ReadKey();
         }
     }
@@ -119,7 +129,7 @@ public class ExerciseController
 
             if (exercise == null)
             {
-                AnsiConsole.MarkupLine("[red]No exercise found.[/]");
+                AnsiConsole.MarkupLine("\n[red]No exercise found.[/]");
                 return;
             }
 
@@ -137,13 +147,13 @@ public class ExerciseController
 
             var success = await _service.UpdateExerciseAsync(exercise);
             if (success)
-                AnsiConsole.MarkupLine("[green]Exercise successfully updated.[/]");
+                AnsiConsole.MarkupLine("\n[green]Exercise successfully updated.[/]");
             else
-                AnsiConsole.MarkupLine("[red]Update failed. Please check the input data.[/]");
+                AnsiConsole.MarkupLine("\n[red]Update failed. Please check the input data.[/]");
         }
         catch (Exception ex)
         {
-            AnsiConsole.MarkupLine($"[red]Error:[/] {ex.Message}");
+            AnsiConsole.MarkupLine($"\n[red]Error:[/] {ex.Message}");
             Console.ReadKey();
         }
     }
