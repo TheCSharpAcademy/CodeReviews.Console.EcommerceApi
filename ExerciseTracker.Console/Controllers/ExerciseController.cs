@@ -20,6 +20,8 @@ public class ExerciseController
         try
         {
             var exercise = UserInputHandler.GetExerciseInput();
+            if (exercise == null)
+                return;
 
             var success = await _service.CreateExerciseAsync(exercise);
 
@@ -141,7 +143,8 @@ public class ExerciseController
             var newEnd = UserInputHandler.GetDateTime("New End Date (leave empty to keep current):");
             if (newEnd != null) exercise.DateEnd = newEnd.Value;
 
-            var newComments = AnsiConsole.Ask<string>("New comments (leave empty to keep current):");
+            AnsiConsole.MarkupLine("New Comments: (leave empty to keep current):");
+            var newComments = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(newComments))
                 exercise.Comments = newComments;
 

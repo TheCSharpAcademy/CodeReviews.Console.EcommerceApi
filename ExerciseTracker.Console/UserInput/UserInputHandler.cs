@@ -5,37 +5,43 @@ namespace ExerciseTracker.Niasua.UserInput;
 
 public static class UserInputHandler
 {
-    public static Exercise GetExerciseInput()
+    public static Exercise? GetExerciseInput()
     {
-        Console.WriteLine("Enter exercise start date and time (dd/mm/yyyy hh:mm):");
-        DateTime start = ReadDateTime();
+        Console.WriteLine("Enter exercise start date and time (dd/mm/yyyy hh:mm) (0 to leave):");
+        DateTime? start = ReadDateTime();
+        if (start == null)
+            return null;
 
-        Console.WriteLine("Enter exercise end date and time (dd/mm/yyyy hh:mm):");
-        DateTime end = ReadDateTime();
+        Console.WriteLine("Enter exercise end date and time (dd/mm/yyyy hh:mm) (0 to leave):");
+        DateTime? end = ReadDateTime();
+        if (end == null)
+            return null;
 
-        Console.WriteLine("Enter any comments: ");
+        Console.WriteLine("Enter any comments:");
         string? comments = Console.ReadLine();
 
         return new Exercise
         {
-            DateStart = start,
-            DateEnd = end,
+            DateStart = start.Value,
+            DateEnd = end.Value,
             Comments = comments,
-            Duration = end - start
+            Duration = end.Value - start.Value
         };
     }
 
-    private static DateTime ReadDateTime()
+
+    public static DateTime? ReadDateTime()
     {
-        while (true)
-        {
-            var input = Console.ReadLine();
+        string input = Console.ReadLine()?.Trim() ?? "";
 
-            if (DateTime.TryParse(input, out var result))
-                return result;
+        if (input == "0" || string.IsNullOrWhiteSpace(input))
+            return null;
 
-            Console.WriteLine("Invalid format. Please use format like: (dd/mm/yyyy hh:mm)");
-        }
+        if (DateTime.TryParse(input, out DateTime result))
+            return result;
+
+        Console.WriteLine("Invalid date format. Try again.");
+        return ReadDateTime();
     }
 
     public static int? GetId()
@@ -70,10 +76,13 @@ public static class UserInputHandler
     {
         var input = AnsiConsole.Prompt(
             new TextPrompt<string>(prompt)
-            .AllowEmpty()
-            .PromptStyle("green"));
-        
-        if (string.IsNullOrWhiteSpace(input)) return null;
+                .AllowEmpty()
+                .PromptStyle("green"));
+
+        input = input.Trim();
+
+        if (string.IsNullOrWhiteSpace(input) || input == "0")
+            return null;
 
         if (DateTime.TryParse(input, out var date))
             return date;
@@ -81,4 +90,5 @@ public static class UserInputHandler
         AnsiConsole.MarkupLine("[red]Invalid date format.[/]");
         return GetDateTime(prompt);
     }
+
 }
