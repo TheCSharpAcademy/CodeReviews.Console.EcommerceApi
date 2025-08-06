@@ -5,20 +5,27 @@ using ExerciseTracker.Niasua.Services;
 using ExerciseTracker.Niasua.UI.Menus;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 
 var config = new ConfigurationBuilder()
     .SetBasePath(AppContext.BaseDirectory)
     .AddJsonFile("appsettings.json", optional: false)
     .Build();
 
-var connectionString = config.GetConnectionString("DefaultConnection");
+var services = new ServiceCollection();
 
-var optionsBuilder = new DbContextOptionsBuilder<ExerciseContext>();
-optionsBuilder.UseSqlServer(connectionString, options =>
-{
-    options.EnableRetryOnFailure();
-});
+services.AddSingleton<IConfiguration>(config);
 
-using var context = new ExerciseContext(optionsBuilder.Options);
+services.AddDbContext<ExerciseContext>(options =>
+    options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
-await MainMenu.Show(new ExerciseController(new ExerciseService(new ExerciseRepository(context))));
+services.AddScoped<IExerciseRepository, ExerciseRepository>();
+services.AddScoped<ExerciseService>();
+services.AddScoped<ExerciseController>();
+
+var serviceProvider = services.BuildServiceProvider();
+
+var controller = serviceProvider.GetRequiredService<ExerciseController>();
+
+await MainMenu.Show(controller);
+
