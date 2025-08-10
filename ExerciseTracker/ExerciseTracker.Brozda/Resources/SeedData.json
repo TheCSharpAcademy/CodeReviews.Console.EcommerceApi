@@ -1,0 +1,77 @@
+{
+  "ExerciseTypes": [
+    {
+      "Name": "Weight",
+      "Unit": "Kg"
+    },
+    {
+      "Name": "Cardio",
+      "Unit": "Km"
+    }
+  ],
+  "ExercisesWeight": [
+    {
+      "Name": "Bench Press",
+      "TypeId": 1,
+      "Volume": 80,
+      "DateStart": "2025-05-12T10:20",
+      "DateEnd": "2025-05-12T11:20",
+      "Comments": "Incline Bench Press"
+    },
+    {
+      "Name": "DeadLift",
+      "TypeId": 1,
+      "Volume": 150,
+      "DateStart": "2025-05-12T10:50",
+      "DateEnd": "2025-05-12T11:20"
+    },
+    {
+      "Name": "Overhead press",
+      "TypeId": 1,
+      "Volume": 50,
+      "DateStart": "2025-05-12T10:25",
+      "DateEnd": "2025-05-12T10:40",
+      "Comments": "Strict"
+    },
+    {
+      "Name": "Squat",
+      "TypeId": 1,
+      "Volume": 80,
+      "DateStart": "2025-05-13T10:00",
+      "DateEnd": "2025-05-13T10:30",
+      "Comments": "Barbell squat"
+    },
+    {
+      "Name": "Bicep curl",
+      "TypeId": 1,
+      "Volume": 20,
+      "DateStart": "2025-05-13T10:30",
+      "DateEnd": "2025-05-13T10:40"
+    }
+  ],
+  "ExercisesCardio": [
+    {
+      "Name": "Walking",
+      "TypeId": 2,
+      "Volume": 8,
+      "DateStart": "2025-05-13T10:30",
+      "DateEnd": "2025-05-13T12:20",
+      "Comments": "Walk with GF"
+    },
+    {
+      "Name": "Tempo run",
+      "TypeId": 2,
+      "Volume": 6,
+      "DateStart": "2025-05-13T10:30",
+      "DateEnd": "2025-05-13T11:10"
+    },
+    {
+      "Name": "Long run",
+      "TypeId": 2,
+      "Volume": 28,
+      "DateStart": "2025-05-13T10:30",
+      "DateEnd": "2025-05-13T13:28",
+      "Comments": "Mountain long run"
+    }
+  ]
+}
