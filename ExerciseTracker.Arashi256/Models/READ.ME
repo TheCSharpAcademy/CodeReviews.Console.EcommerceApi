@@ -1,0 +1,16 @@
+﻿READ.ME
+-------
+
+An C# Console-based exercise tracker using SQL Server. App settings are configured in App.config - please change to suit your testing requirements.
+
+Developer's note:
+All challenges complete for this project. The last challenge will use the default EF-Core based Repository if the exercise Type is "HIKING", if the exercise Type is "CARDIO", it will use the Dapper-based Repository. 
+This only applies to Create and Update CRUD operations. Retreive and Delete operations would need to know the Type ahead of Retreiving it. There was an issue where updates made with Dapper do not show in the listing of exercise sessions unless:-
+
+List<ExerciseSession> sessions = _context.ExerciseSessions.ToList();
+
+was changed to:-
+
+List<ExerciseSession> sessions = _context.ExerciseSessions.AsNoTracking.ToList();
+
+...to get the changes executed by the Dapper Repository seen immediately by the Retrieve operation performed by EF Core Repository. I recognise that in the real-world, this would not be necessary as you'd not be mixing and matching Dapper and EF Core in the same application like this.

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "ExerciseTracker.frockett": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\itscr\\source\\repos\\CodeReviews.Console.ExerciseTracker\\ExerciseTracker.frockett\\ExerciseTracker.frockett"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExerciseTracker.StanimalTheMan", "ExerciseTracker.StanimalTheMan\ExerciseTracker.StanimalTheMan.csproj", "{DB73124F-DEF5-4B4B-A063-A584B07321CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB73124F-DEF5-4B4B-A063-A584B07321CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB73124F-DEF5-4B4B-A063-A584B07321CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB73124F-DEF5-4B4B-A063-A584B07321CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB73124F-DEF5-4B4B-A063-A584B07321CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E155E30D-137B-4659-8325-CB0E44F43F73}
+	EndGlobalSection
+EndGlobal

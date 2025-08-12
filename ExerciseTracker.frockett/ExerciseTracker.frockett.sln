@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34622.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExerciseTracker.frockett", "ExerciseTracker.frockett\ExerciseTracker.frockett.csproj", "{068B8931-C1DE-4309-91EF-E7F13B2DBCB4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{068B8931-C1DE-4309-91EF-E7F13B2DBCB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{068B8931-C1DE-4309-91EF-E7F13B2DBCB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{068B8931-C1DE-4309-91EF-E7F13B2DBCB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{068B8931-C1DE-4309-91EF-E7F13B2DBCB4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {26FBB31B-1E8D-45E3-9995-7A879AD11F9D}
+	EndGlobalSection
+EndGlobal

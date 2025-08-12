@@ -1,0 +1,3 @@
+﻿using ExerciseTracker;
+
+UserInterface.MainMenu();
