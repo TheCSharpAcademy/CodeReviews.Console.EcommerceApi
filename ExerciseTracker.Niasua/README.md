@@ -1,8 +1,8 @@
 # Exercise Tracker Console App
 
-A simple console-based application built with **.NET 8**, designed to track physical 
-exercises using a clean architecture. The project implements the **Repository Pattern**, 
-**Dependency Injection**, and uses **Entity Framework Core** for data access. 
+A simple console-based application built with **.NET 8**, designed to track physical
+exercises using a clean architecture. The project implements the **Repository Pattern**,
+**Dependency Injection**, and uses **Entity Framework Core** for data access.
 It also uses **Spectre.Console** to enhance the user interface.
 
 ---
