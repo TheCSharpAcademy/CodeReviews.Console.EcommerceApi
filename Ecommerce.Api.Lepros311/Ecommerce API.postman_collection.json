@@ -1,0 +1,765 @@
+{
+	"info": {
+		"_postman_id": "a41fbdd1-f8b1-49f0-be65-b1e128c40f8e",
+		"name": "Ecommerce API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "45055274",
+		"_collection_link": "https://andrewstrickland.postman.co/workspace/Andrew-Strickland's-Workspace~bbe62028-fd77-4407-88e4-a7c7ff76f1df/collection/45055274-a41fbdd1-f8b1-49f0-be65-b1e128c40f8e?action=share&source=collection_link&creator=45055274"
+	},
+	"item": [
+		{
+			"name": "GetPagedCategories",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/categories?page=1&pageSize=10",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"categories"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "categoryname",
+							"value": "pants"
+						}
+					]
+				}
+			},
+			"response": [],
+			"description": "Retrieve a paginated list of categories with optional search and sort parameters.",
+			"parameters": {
+				"categoryname": {
+					"description": "Search term to filter categories by their name.",
+					"example": "pants"
+				},
+				"sortBy": {
+					"description": "Field to sort the results by. Acceptable values: 'categoryname' and 'categoryid'. Default sort is by categoryId, descending. Other sortBy values default sort ascending.",
+					"example": "categoryname"
+				},
+				"sortAscending": {
+					"description": "Control the sort direction. Default is ascending unless the sortBy is categoryid.",
+					"example": "false"
+				},
+				"page": {
+					"description": "Page number for pagination. Default is 1.",
+					"example": "1"
+				},
+				"pageSize": {
+					"description": "Number of results per page. Default is 10",
+					"example": "10"
+				}
+			}
+		},
+		{
+			"name": "GetCategoryById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/categories/{{CategoryId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"categories",
+						"{{CategoryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateCategory",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"categoryName\": \"{{CategoryName}}\"\r\n}"
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/categories",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateCategory",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"categoryName\": \"{{CategoryName}}\"\r\n}"
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/categories/{{CategoryId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"categories",
+						"{{CategoryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteCategory",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/categories/{{CategoryId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"categories",
+						"{{CategoryId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPagedProducts",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "page",
+						"value": "1",
+						"type": "text"
+					},
+					{
+						"key": "pageSize",
+						"value": "10",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseURL}}/api/products?page=1&pageSize=10",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "productname",
+							"value": "jeans"
+						},
+						{
+							"key": "categoryname",
+							"value": "pants"
+						},
+						{
+							"key": "minprice",
+							"value": "10"
+						},
+						{
+							"key": "maxprice",
+							"value": "75"
+						}
+					]
+				}
+			},
+			"response": [],
+			"description": "Retrieve a paginated list of products with optional search and sort parameters.",
+			"parameters": {
+				"productname": {
+					"description": "Search term to filter products by their name.",
+					"example": "jeans"
+				},
+				"categoryname": {
+					"description": "Search term to filter products by their category name.",
+					"example": "pants"
+				},
+				"minprice": {
+					"description": "Return products with price equal to or higher than a given number.",
+					"example": "10"
+				},
+				"maxprice": {
+					"description": "Return products with price equal to or lower than a given number.",
+					"example": "75"
+				},
+				"sortBy": {
+					"description": "Field to sort the results by. Acceptable values: 'productname', 'categoryname', 'price', or ''productid'. Default sort is by productid, descending. Other sortBy values default sort ascending.",
+					"example": "productname"
+				},
+				"sortAscending": {
+					"description": "Control the sort direction. Default is ascending unless the sortBy is productid.",
+					"example": "false"
+				},
+				"page": {
+					"description": "Page number for pagination. Default is 1.",
+					"example": "1"
+				},
+				"pageSize": {
+					"description": "Number of results per page. Default is 10",
+					"example": "10"
+				}
+			}
+		},
+		{
+			"name": "GetProductById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/products/{{ProductId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"{{ProductId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateProduct",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productName\": \"{{ProductName}}\",\r\n  \"price\": {{Price}},\r\n  \"categoryId\": {{CategoryId}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/products",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateProduct",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productName\": \"{{ProductName}}\",\r\n  \"price\": {{Price}},\r\n  \"categoryId\": {{CategoryId}}\r\n}"
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/products/{{ProductId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"{{ProductId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteProduct",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/products/{{ProductId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"{{ProductId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPagedSales",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/sales?page=1&pageSize=10",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"sales"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "minprice",
+							"value": "10"
+						},
+						{
+							"key": "maxprice",
+							"value": "75"
+						},
+						{
+							"key": "lineitemid",
+							"value": "8"
+						},
+						{
+							"key": "minlineitems",
+							"value": "2"
+						},
+						{
+							"key": "maxlineitems",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": [],
+			"description": "Retrieve a paginated list of sales with optional search and sort parameters.",
+			"parameters": {
+				"minprice": {
+					"description": "Return sales with total price equal to or higher than a given number.",
+					"example": "10"
+				},
+				"maxprice": {
+					"description": "Return sales with total price equal to or lower than a given number.",
+					"example": "75"
+				},
+				"lineitemid": {
+					"description": "Return sale with the matching line item id",
+					"example": "8"
+				},
+				"minlineitems": {
+					"description": "Return sales with number of line items that are equal to or higher than the given number.",
+					"example": "2"
+				},
+				"maxlineitems": {
+					"description": "Return sales with number of line items that are equal to or lower than the given number.",
+					"example": "2"
+				},
+				"sortBy": {
+					"description": "Field to sort the results by. Acceptable values: 'totalprice', 'lineitemcount', or 'saleid'. Default sort is by saleid, descending. Other sortBy values default sort ascending.",
+					"example": "totalprice"
+				},
+				"sortAscending": {
+					"description": "Control the sort direction. Default is ascending unless the sortBy is saleid.",
+					"example": "false"
+				},
+				"page": {
+					"description": "Page number for pagination. Default is 1.",
+					"example": "1"
+				},
+				"pageSize": {
+					"description": "Number of results per page. Default is 10",
+					"example": "10"
+				}
+			}
+		},
+		{
+			"name": "GetSaleById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/sales/{{SaleId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"{{SaleId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateSale",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"lineItems\": [\r\n    {\r\n      \"productId\": {{ProductId}},\r\n      \"quantity\": {{Quantity}}\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/sales",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"sales"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateSale",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"lineItems\": [\r\n    {\r\n      \"lineItemId\": {{LineItemId}},\r\n      \"productId\": {{ProductId}},\r\n      \"quantity\": {{Quantity}}\r\n    }\r\n  ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/sales/{{SaleId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"{{SaleId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteSale",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/sales/{{SaleId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"sales",
+						"{{SaleId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPagedLineItems",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/lineitems?page=1&pageSize=10",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"lineitems"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "1"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						},
+						{
+							"key": "productname",
+							"value": "jeans"
+						},
+						{
+							"key": "categoryname",
+							"value": "pants"
+						},
+						{
+							"key": "minprice",
+							"value": "10"
+						},
+						{
+							"key": "maxprice",
+							"value": "75"
+						},
+						{
+							"key": "minquantity",
+							"value": "2"
+						},
+						{
+							"key": "maxquantity",
+							"value": "4"
+						},
+						{
+							"key": "productid",
+							"value": "7"
+						},
+						{
+							"key": "saleid",
+							"value": "9"
+						}
+					]
+				}
+			},
+			"response": [],
+			"description": "Retrieve a paginated list of line items with optional search and sort parameters.",
+			"parameters": {
+				"productname": {
+					"description": "Return line items that contain a matching string in the product name.",
+					"example": "jeans"
+				},
+				"categoryname": {
+					"description": "Return line items that contain a matching string in the category name.",
+					"example": "pants"
+				},
+				"minprice": {
+					"description": "Return line items with a unit price equal to or higher than a given price.",
+					"example": "10"
+				},
+				"maxprice": {
+					"description": "Return line items with a unit price equal to or lower than a given price.",
+					"example": "75"
+				},
+				"minquantity": {
+					"description": "Return line items with a quantity equal to or higher than a given price.",
+					"example": "2"
+				},
+				"maxquantity": {
+					"description": "Return line items with a quantity equal to or lower than a given price.",
+					"example": "3"
+				},
+				"productid": {
+					"description": "Return line items with the matching product id",
+					"example": "8"
+				},
+				"saleid": {
+					"description": "Return line items with the matching sale id",
+					"example": "7"
+				},
+				"sortBy": {
+					"description": "Field to sort the results by. Acceptable values: 'productname', 'categoryname', 'unitprice', 'quantity', 'productid', or 'saleid'. Default sort is by lineitemid, descending. Other sortBy values default sort ascending.",
+					"example": "totalprice"
+				},
+				"sortAscending": {
+					"description": "Control the sort direction. Default is ascending unless the sortBy is lineitemid.",
+					"example": "false"
+				},
+				"page": {
+					"description": "Page number for pagination. Default is 1.",
+					"example": "1"
+				},
+				"pageSize": {
+					"description": "Number of results per page. Default is 10",
+					"example": "10"
+				}
+			}
+		},
+		{
+			"name": "GetLineItemById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/lineitems/{{LineItemId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"lineitems",
+						"{{LineItemId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateLineItem",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productId\": {{ProductId}},\r\n  \"quantity\": {{Quantity}},\r\n  \"saleId\": {{SaledId}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/lineitems",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"lineitems"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateLineItem",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productId\": {{ProductId}},\r\n  \"quantity\": {{Quantity}},\r\n  \"saleId\": {{SaledId}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseURL}}/api/lineitems/{{LineItemId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"lineitems",
+						"{{LineItemId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteLineItem",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{baseURL}}/api/lineitems/{{LineItemId}}",
+					"host": [
+						"{{baseURL}}"
+					],
+					"path": [
+						"api",
+						"lineitems",
+						"{{LineItemId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://localhost:7150"
+		}
+	]
+}
