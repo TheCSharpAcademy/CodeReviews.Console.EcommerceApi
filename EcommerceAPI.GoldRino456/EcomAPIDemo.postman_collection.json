@@ -1,0 +1,570 @@
+{
+	"info": {
+		"_postman_id": "638987f7-5aab-44df-8d42-ea9d7d8226f5",
+		"name": "EcomAPIDemo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "47473440"
+	},
+	"item": [
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "All Categories",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/games/categories?pageNumber=1&pageSize=50",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"games",
+								"categories"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "50"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Category By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/games/categories/:categoryId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"games",
+								"categories",
+								":categoryId"
+							],
+							"variable": [
+								{
+									"key": "categoryId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{$randomProductName}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/games/categories",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"games",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Category By Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"API CATEGORY TEST PUT 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/games/categories/:categoryId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"games",
+								"categories",
+								":categoryId"
+							],
+							"variable": [
+								{
+									"key": "categoryId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Games",
+			"item": [
+				{
+					"name": "All Games",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/games?pageNumber=1&pageSize=25",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"games"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "25"
+								},
+								{
+									"key": "categoryId",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "minPrice",
+									"value": "0.00",
+									"disabled": true
+								},
+								{
+									"key": "maxPrice",
+									"value": "85.00",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Game By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/games/:gameId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"games",
+								":gameId"
+							],
+							"variable": [
+								{
+									"key": "gameId",
+									"value": "14"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Game",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"try {\r",
+									"    const response = await pm.sendRequest({\r",
+									"        url: \"https://localhost:8080/api/games/categories?pageNumber=1&pageSize=50\",\r",
+									"        method: \"GET\"\r",
+									"    });\r",
+									"\r",
+									"    console.log(response.json());\r",
+									"\r",
+									"    if(response.json().totalRecords == 0)\r",
+									"    {\r",
+									"        pm.variables.set(\"randomCategories\", JSON.stringify([]));\r",
+									"        return;\r",
+									"    }\r",
+									"\r",
+									"    const categories = response.json().data;\r",
+									"    const ids = categories.map(c => c.id);\r",
+									"\r",
+									"    const arrLength = Math.floor(Math.random() * 5);\r",
+									"    const shuffledList = ids.sort(() => 0.5 - Math.random());\r",
+									"    const randomIds = shuffledList.slice(0, arrLength);\r",
+									"\r",
+									"    pm.variables.set(\"randomCategories\", JSON.stringify(randomIds));\r",
+									"\r",
+									"} catch (err) {\r",
+									"    console.error(err);\r",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"{{$randomFileName}}\",\r\n  \"description\": \"{{$randomLoremSentences}}\",\r\n  \"gameCategoryIds\": {{randomCategories}},\r\n  \"developer\": \"{{$randomCompanyName}}\",\r\n  \"publisher\": \"{{$randomCompanyName}}\",\r\n  \"releaseDate\": \"{{$isoTimestamp}}\",\r\n  \"price\": {{$randomPrice}},\r\n  \"fileSize\": {{$randomPrice}},\r\n  \"systemRequirements\": \"{{$randomLoremSentences}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/games",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"games"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Game By Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"title\": \"API TEST GAME PUT\",\r\n  \"description\": \"This should be updated.\",\r\n  \"gameCategoryIds\": [\r\n    29, 12, 15\r\n  ],\r\n  \"developer\": \"DEMO\",\r\n  \"publisher\": \"TEST\",\r\n  \"releaseDate\": \"2023-12-22T20:26:18.524Z\",\r\n  \"fileSize\": 33.5,\r\n  \"systemRequirements\": \"A really, really strong pc.\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/games/:gameId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"games",
+								":gameId"
+							],
+							"variable": [
+								{
+									"key": "gameId",
+									"value": "15"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sales",
+			"item": [
+				{
+					"name": "All Sales",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/sales?pageNumber=1&pageSize=10",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"sales"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								},
+								{
+									"key": "gameProductId",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "lastFourOfPaymentCard",
+									"value": "1234",
+									"disabled": true
+								},
+								{
+									"key": "transactionDate",
+									"value": "{{$randomDateRecent}}",
+									"disabled": true
+								},
+								{
+									"key": "minTransactionValue",
+									"value": "0",
+									"disabled": true
+								},
+								{
+									"key": "maxTransactionValue",
+									"value": "100",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sale By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/sales/:saleId",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"sales",
+								":saleId"
+							],
+							"variable": [
+								{
+									"key": "saleId",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Sale",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"try {\r",
+									"    const response = await pm.sendRequest({\r",
+									"        url: \"https://localhost:8080/api/games?pageNumber=1&pageSize=50\",\r",
+									"        method: \"GET\"\r",
+									"    });\r",
+									"\r",
+									"    console.log(response.json());\r",
+									"\r",
+									"    if(response.json().totalRecords == 0)\r",
+									"    {\r",
+									"        pm.variables.set(\"randomGames\", JSON.stringify([]));\r",
+									"        return;\r",
+									"    }\r",
+									"\r",
+									"    const categories = response.json().data;\r",
+									"    const ids = categories.map(c => c.id);\r",
+									"\r",
+									"    const arrLength = Math.floor(Math.random() * 5);\r",
+									"    const shuffledList = ids.sort(() => 0.5 - Math.random());\r",
+									"    const randomIds = shuffledList.slice(0, arrLength);\r",
+									"\r",
+									"    pm.variables.set(\"randomGames\", JSON.stringify(randomIds));\r",
+									"\r",
+									"} catch (err) {\r",
+									"    console.error(err);\r",
+									"}\r",
+									"\r",
+									"const randomCardType = Math.floor(Math.random() * 3);\r",
+									"const randomLastFour = Math.floor(1000 + Math.random() * 9000);\r",
+									"\r",
+									"pm.variables.set(\"randomCardType\", JSON.stringify(randomCardType));\r",
+									"pm.variables.set(\"randomLastFourCC\", JSON.stringify(randomLastFour));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"purchasedGameIds\": {{randomGames}},\r\n  \"creditCardType\": {{randomCardType}},\r\n  \"lastFourDigitsOfPaymentCard\": {{randomLastFourCC}},\r\n  \"subTotal\": {{$randomPrice}},\r\n  \"salesTax\": {{$randomPrice}},\r\n  \"total\": {{$randomPrice}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseURL}}/api/sales",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"sales"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refund Transaction Amount From Sale",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{baseURL}}/api/sales/:saleId?refundAmount=3",
+							"host": [
+								"{{baseURL}}"
+							],
+							"path": [
+								"api",
+								"sales",
+								":saleId"
+							],
+							"query": [
+								{
+									"key": "refundAmount",
+									"value": "3"
+								}
+							],
+							"variable": [
+								{
+									"key": "saleId",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "https://localhost:8080"
+		},
+		{
+			"key": "randomCategories",
+			"value": ""
+		},
+		{
+			"key": "randomGames",
+			"value": ""
+		},
+		{
+			"key": "randomLastFourCC",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "randomCardType",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
