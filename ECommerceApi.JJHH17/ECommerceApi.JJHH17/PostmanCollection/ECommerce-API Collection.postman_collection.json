@@ -1,0 +1,296 @@
+{
+	"info": {
+		"_postman_id": "774cbdb7-e2d2-4f7e-9a7b-696f4ae3b86c",
+		"name": "ECommerce-API Collection",
+		"description": "A collection used for testing endpoints created in the ECommerce API.\n\nThis project was built following the C# Academy course: [https://www.thecsharpacademy.com/project/18/ecommerce-api](https://www.thecsharpacademy.com/project/18/ecommerce-api)\n\nThe collection contains 3 main endpoints:\n\n- Products\n    \n- Categories\n    \n- Sales\n    \n\nProduct -> Categories - many to one relationship.\n\nProduct -> Sales - many to many relationship.\n\n**Variables**\n\n- You'll see a full list of variables under the \"Variables\" title in Postman.\n    \n- This includes the port used during the API's lifecycle, as well as any relevant ID's for endpoints which can be altered at any point.\n    \n\nPlease see below \"View Complete Documentation\" on Postman for further endpoint information.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31055143"
+	},
+	"item": [
+		{
+			"name": "Category",
+			"item": [
+				{
+					"name": "Get Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:{{port}}/api/Categories/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"Categories",
+								""
+							]
+						},
+						"description": "This returns a list of all categories that exist."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Category by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:{{port}}/api/Categories/{{categoryId}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"Categories",
+								"{{categoryId}}"
+							]
+						},
+						"description": "This returns a category based on its ID, as well as the products that fall under the category."
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Postman Test new\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:{{port}}/api/Categories/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"Categories",
+								""
+							]
+						},
+						"description": "This allows you to add a new category - Please use the \"Body - RAW Json\" section of Postman to do this, before sending the request.\n\nThis is a simple format, \"name\": \"string\" as noted in the placeholder value below."
+					},
+					"response": []
+				}
+			],
+			"description": "This is used as a parent for Products, each product has one category and a category can have mny products.\n\nThis section contains:\n\n- Fetching all Categories\n    \n- Fetching categories from their ID\n    \n- Creating a new category\n    \n\nPlease note that you can't have duplicate categories in the database, so you'll receive a relevant response if you attempt to create a category that exists."
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "Get Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:{{port}}/api/Products/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"Products",
+								""
+							]
+						},
+						"description": "Returns a list of all products that exist."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Product by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:{{port}}/api/Products/{{productId}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"Products",
+								"{{productId}}"
+							]
+						},
+						"description": "Returns a product based on its ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"New Product Postman\",\r\n  \"price\": 20.50,\r\n  \"categoryId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:{{port}}/api/Products/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"Products",
+								""
+							]
+						},
+						"description": "This allows you to add a new product- Please use the \"Body - RAW Json\" section of Postman to do this, before sending the request.\n\nBelow is an example of the JSON that can be used, which includes a \"name\", \"price\" and \"categoryID\" field.\n\nThe Category ID should be that of the category that you wish to link the product to."
+					},
+					"response": []
+				}
+			],
+			"description": "A product is an individual item that belongs to a category as a child item - a product can only belong to a single category, and contains a name, price, and category information.\n\nThis section contains:\n\n- Fetching all Products\n    \n- Fetching a product from their ID\n    \n- Creating a new product"
+		},
+		{
+			"name": "Sale",
+			"item": [
+				{
+					"name": "Get Sales",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:{{port}}/api/Sales/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"Sales",
+								""
+							]
+						},
+						"description": "This fetches a list of all sales."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Sale by ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:{{port}}/api/Sales/{{SaleId}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"Sales",
+								"{{SaleId}}"
+							]
+						},
+						"description": "This fetches an individual sale, based on its ID."
+					},
+					"response": []
+				},
+				{
+					"name": "Add New Sale",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"productIds\": [\r\n    1\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:{{port}}/api/Sales/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"Sales",
+								""
+							]
+						},
+						"description": "This allows you to add a new sale- Please use the \"Body - RAW Json\" section of Postman to do this, before sending the request.\n\nThe JSON used is essentially a list of product IDs, and can be used by appending a comma between each product ID entered.\n\nBelow is an example use case."
+					},
+					"response": []
+				}
+			],
+			"description": "A sale is an event whereby individual products are purchased.\n\nDuring a sale, the client enters the product id's that they wish to purchase, and those products are then added to the sale event.\n\nThe quantity of items and overrall cost of the sale is calculated once the data is sent by the client."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "port",
+			"value": ""
+		},
+		{
+			"key": "categoryId",
+			"value": ""
+		},
+		{
+			"key": "productId",
+			"value": ""
+		},
+		{
+			"key": "SaleId",
+			"value": ""
+		}
+	]
+}
