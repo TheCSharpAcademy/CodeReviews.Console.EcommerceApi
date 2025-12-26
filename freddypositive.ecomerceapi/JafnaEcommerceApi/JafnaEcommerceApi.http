@@ -1,0 +1,6 @@
+@JafnaEcommerceApi_HostAddress = http://localhost:5083
+
+GET {{JafnaEcommerceApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

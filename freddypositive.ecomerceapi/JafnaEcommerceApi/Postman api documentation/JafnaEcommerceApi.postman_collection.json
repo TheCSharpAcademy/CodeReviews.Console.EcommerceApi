@@ -1,0 +1,360 @@
+	{
+	"info": {
+		"_postman_id": "jafna-ecommerce-api-collection",
+		"name": "JafnaEcommerceApi (Aquarium Store)",
+		"description": "Postman Collection for JafnaEcommerceApi covering Products, Categories, and Sales. Tailored for a Pet Store Aquarium domain. Updated to match verified routing.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Categories",
+			"item": [
+				{
+					"name": "Get All Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Category?pageNumber=1&pageSize=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Category"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Freshwater Fish\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/Category",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Aquariums & Tanks\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/Category/{{id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Category",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Category/{{id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Category",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Product?pageNumber=1&pageSize=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Product"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Products By Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Product/{{categoryId}}?pageNumber=1&pageSize=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Product",
+								"{{categoryId}}"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Goldfish (Common)\",\n  \"description\": \"Healthy standard goldfish, great for beginners.\",\n  \"price\": 5.99,\n  \"image\": \"http://example.com/goldfish.jpg\",\n  \"categoryId\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/Product",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Product"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Betta Fish (Veintail)\",\n  \"description\": \"Vibrant blue veintail betta.\",\n  \"price\": 12.50,\n  \"image\": \"http://example.com/betta_v2.jpg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/Product/{{id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Product",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Product/{{id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Product",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sales",
+			"item": [
+				{
+					"name": "Get All Sales",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Sales?pageNumber=1&pageSize=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Sales"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Sale Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/Sales/{{id}}/details?pageNumber=1&pageSize=10",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Sales",
+								"{{id}}",
+								"details"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Sale",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"saleItems\": [\n    {\n      \"productId\": 1,\n      \"productQuantity\": 3\n    },\n    {\n      \"productId\": 2,\n      \"productQuantity\": 1\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/Sales",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"Sales"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://localhost:7210",
+			"type": "string"
+		},
+		{
+			"key": "id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "categoryId",
+			"value": "1",
+			"type": "string"
+		}
+	]
+}
