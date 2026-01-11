@@ -1,0 +1,20 @@
+<Project>
+  <PropertyGroup>
+    <!-- Build Performance Optimizations -->
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+    
+    <!-- Exclude bin/obj from content by default -->
+    <DefaultItemExcludes>$(DefaultItemExcludes);bin\**;obj\**;tests\**\bin\**;tests\**\obj\**</DefaultItemExcludes>
+    <EnableDefaultContentItems>false</EnableDefaultContentItems>
+    
+    <!-- Optimize for build speed -->
+    <DebugType Condition="'$(Configuration)' == 'Debug'">portable</DebugType>
+    <DebugType Condition="'$(Configuration)' != 'Debug'">none</DebugType>
+    <DebugSymbols Condition="'$(Configuration)' != 'Debug'">false</DebugSymbols>
+    
+    <!-- Deterministic builds -->
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+</Project>

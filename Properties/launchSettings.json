@@ -1,0 +1,13 @@
+{
+  "profiles": {
+    "ECommerceApp.RyanW84": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "launchUrl": "scalar/v1",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:51679;http://localhost:51680"
+    }
+  }
+}
