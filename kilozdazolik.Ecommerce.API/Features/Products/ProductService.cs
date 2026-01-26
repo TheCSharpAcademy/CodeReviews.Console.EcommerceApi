@@ -70,23 +70,56 @@ namespace kilozdazolik.Ecommerce.API.Features.Products
                     .FirstOrDefaultAsync();
         }
 
-        public async Task<IEnumerable<ProductDto>> GetProductsAsync(int pageIndex, int pageSize)
+        public async Task<IEnumerable<ProductDto>> GetProductsAsync(ProductParameters parameters)
         {
-            return await  dbContext.Products
+            var query = dbContext.Products
                 .AsNoTracking()
-                    .Where(p => !p.IsDeleted)
-                    .OrderBy(p => p.Name)
-                    .Skip((pageIndex - 1) * pageSize)
-                    .Take(pageSize)
-                    .Select(p => new ProductDto(
-                        p.Id,
-                        p.Category.Id,     
-                        p.Category.Name,  
-                        p.Name,
-                        p.Price,
-                        p.IsDeleted
+                .Include(p => p.Category) 
+                .AsQueryable(); 
+
+
+            if (!string.IsNullOrWhiteSpace(parameters.SearchTerm))
+            {
+                query = query.Where(p => p.Name.ToLower().Contains(parameters.SearchTerm.ToLower()));
+            }
+
+            if (parameters.CategoryId.HasValue)
+            {
+                query = query.Where(p => p.CategoryId == parameters.CategoryId.Value);
+            }
+
+            if (parameters.MinPrice.HasValue)
+            {
+                query = query.Where(p => p.Price >= parameters.MinPrice.Value);
+            }
+
+            if (parameters.MaxPrice.HasValue)
+            {
+                query = query.Where(p => p.Price <= parameters.MaxPrice.Value);
+            }
+
+            query = parameters.SortBy?.ToLower() switch
+            {
+                "price_asc" => query.OrderBy(p => p.Price),      
+                "price_desc" => query.OrderByDescending(p => p.Price),
+                "name_desc" => query.OrderByDescending(p => p.Name),  
+                _ => query.OrderBy(p => p.Name) 
+            };
+
+            var products = await query
+                    .Skip((parameters.PageIndex - 1) * parameters.PageSize)
+                    .Take(parameters.PageSize)
+                    .Select(product => new ProductDto(
+                        product.Id,                                     
+                        product.CategoryId,                             
+                        product.Category != null ? product.Category.Name : "N/A", 
+                        product.Name,                                 
+                        product.Price,                                 
+                        product.IsDeleted                              
                     ))
                     .ToListAsync();
+
+            return products;
         }
 
         public async Task RestoreProductAsync(Guid id)

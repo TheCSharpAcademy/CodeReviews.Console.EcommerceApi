@@ -28,10 +28,9 @@ namespace kilozdazolik.Ecommerce.API.Features.Products
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts(
-        [FromQuery] int pageIndex = 1,
-        [FromQuery] int pageSize = 10)
+            [FromQuery] ProductParameters parameters)
         {
-            var products = await service.GetProductsAsync(pageIndex, pageSize);
+            var products = await service.GetProductsAsync(parameters);
             return Ok(products);
         }
 
