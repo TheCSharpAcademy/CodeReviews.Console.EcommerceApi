@@ -60,17 +60,63 @@ namespace kilozdazolik.Ecommerce.API.Features.Sales
                 sale.TotalAmount,
                 sale.SaleDetails.Select(sd => new SaleDetailsDto(
                     sd.ProductId,
-                    products.First(p => p.Id == sd.ProductId).Name, 
+                    products.First(p => p.Id == sd.ProductId).Name,
                     sd.Quantity,
                     sd.UnitPrice,
-                    sd.Quantity * sd.UnitPrice 
+                    sd.Quantity * sd.UnitPrice
                 )).ToList()
             );
         }
 
         public async Task<SaleDto?> GetSaleByIdAsync(Guid saleId)
         {
-            throw new NotImplementedException();
+            var sale = await dbContext.Sales
+                .AsNoTracking()
+                .IgnoreQueryFilters()
+                .Include(s => s.SaleDetails)
+                .ThenInclude(sd => sd.Product)
+                .FirstOrDefaultAsync(s => s.Id == saleId);
+
+            if (sale == null) return null;
+
+
+            return new SaleDto(
+                sale.Id,
+                sale.Date,
+                sale.TotalAmount,
+                sale.SaleDetails.Select(sd => new SaleDetailsDto(
+                    sd.ProductId,
+                    sd.Product.Name ?? "Unknown",
+                    sd.Quantity,
+                    sd.UnitPrice,
+                    sd.Quantity * sd.UnitPrice
+                )).ToList()
+            );
+        }
+
+        public async Task<IEnumerable<SaleDto>> GetSalesAsync(int pageIndex, int pageSize)
+        {
+            return await dbContext.Sales
+                .AsNoTracking()
+                .IgnoreQueryFilters()                          
+                .Include(s => s.SaleDetails)
+                .ThenInclude(sd => sd.Product)
+                .OrderByDescending(s => s.Date) 
+                .Skip((pageIndex - 1) * pageSize)
+                .Take(pageSize)
+                .Select(sale => new SaleDto(
+                    sale.Id,
+                    sale.Date,
+                    sale.TotalAmount,
+                    sale.SaleDetails.Select(sd => new SaleDetailsDto(
+                        sd.ProductId,
+                        sd.Product.Name ?? "Unknown", 
+                        sd.Quantity,
+                        sd.UnitPrice,
+                        sd.Quantity * sd.UnitPrice
+                    )).ToList()
+                ))
+                .ToListAsync();
         }
     }
 }
