@@ -4,6 +4,11 @@ using kilozdazolik.Ecommerce.API.Features.Products;
 using kilozdazolik.Ecommerce.API.Features.Sales;
 using kilozdazolik.Ecommerce.API.Middlewares;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
+
+var cultureInfo = new CultureInfo("en-US");
+CultureInfo.DefaultThreadCurrentCulture = cultureInfo;
+CultureInfo.DefaultThreadCurrentUICulture = cultureInfo;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +26,13 @@ builder.Services.AddProblemDetails();
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    var context = services.GetRequiredService<AppDbContext>();
+    DbInitializer.Initialize(context);
+}
 
 app.MapControllers();
 app.UseExceptionHandler();
