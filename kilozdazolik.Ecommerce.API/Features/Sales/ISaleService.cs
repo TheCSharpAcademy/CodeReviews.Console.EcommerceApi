@@ -4,6 +4,6 @@
     {
         Task<SaleDto> CreateSaleAsync(CreateSaleDto createSaleDto);
         Task<SaleDto?> GetSaleByIdAsync(Guid saleId);
-        Task<IEnumerable<SaleDto>> GetSalesAsync(int pageIndex, int pageSize);
+        Task<IEnumerable<SaleDto>> GetSalesAsync(SaleParameters parameters);
     }
 }

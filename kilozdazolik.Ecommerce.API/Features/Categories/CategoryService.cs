@@ -41,12 +41,27 @@ public class CategoryService(AppDbContext dbContext) : ICategoryService
         
     }
 
-    public async Task<IEnumerable<CategoryDto>> GetCategoriesAsync()
+    public async Task<IEnumerable<CategoryDto>> GetCategoriesAsync(CategoryParameters parameters)
     {
-        return await dbContext.Categories
+        var query = dbContext.Categories
             .AsNoTracking()
-            .OrderByDescending(c => c.Name)
-            .Select(c => new CategoryDto(c.Id,  c.Name))
+            .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(parameters.SearchTerm))
+        {
+            query = query.Where(c => c.Name.ToLower().Contains(parameters.SearchTerm.ToLower()));
+        }
+
+        query = parameters.SortBy?.ToLower() switch
+        {
+            "name_desc" => query.OrderByDescending(c => c.Name),
+            _ => query.OrderBy(c => c.Name) 
+        };
+
+        return await query
+            .Skip((parameters.PageIndex - 1) * parameters.PageSize)
+            .Take(parameters.PageSize)
+            .Select(c => new CategoryDto(c.Id, c.Name))
             .ToListAsync();
     }
 

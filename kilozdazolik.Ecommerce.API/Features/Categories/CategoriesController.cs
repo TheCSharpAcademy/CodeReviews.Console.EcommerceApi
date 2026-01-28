@@ -14,9 +14,10 @@ public class CategoriesController(ICategoryService service) : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<CategoryDto>>> GetCategories()
+    public async Task<ActionResult<IEnumerable<CategoryDto>>> GetCategories(
+        [FromQuery] CategoryParameters parameters)
     {
-        var categories = await service.GetCategoriesAsync();
+        var categories = await service.GetCategoriesAsync(parameters);
         return Ok(categories);
     }
 

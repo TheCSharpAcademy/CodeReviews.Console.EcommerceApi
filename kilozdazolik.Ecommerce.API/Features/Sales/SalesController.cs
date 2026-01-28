@@ -27,11 +27,10 @@ namespace kilozdazolik.Ecommerce.API.Features.Sales
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SaleDto>>> GetSalesAsync(
-            [FromQuery] int pageIndex = 1,
-            [FromQuery] int pageSize = 10)
+        public async Task<ActionResult<IEnumerable<SaleDto>>> GetSales(
+            [FromQuery] SaleParameters parameters) 
         {
-            var sales = await service.GetSalesAsync(pageIndex, pageSize);
+            var sales = await service.GetSalesAsync(parameters);
             return Ok(sales);
         }
 

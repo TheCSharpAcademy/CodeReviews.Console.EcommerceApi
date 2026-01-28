@@ -94,23 +94,54 @@ namespace kilozdazolik.Ecommerce.API.Features.Sales
             );
         }
 
-        public async Task<IEnumerable<SaleDto>> GetSalesAsync(int pageIndex, int pageSize)
+        public async Task<IEnumerable<SaleDto>> GetSalesAsync(SaleParameters parameters)
         {
-            return await dbContext.Sales
+            var query = dbContext.Sales
                 .AsNoTracking()
-                .IgnoreQueryFilters()                          
+                .IgnoreQueryFilters() 
                 .Include(s => s.SaleDetails)
                 .ThenInclude(sd => sd.Product)
-                .OrderByDescending(s => s.Date) 
-                .Skip((pageIndex - 1) * pageSize)
-                .Take(pageSize)
+                .AsQueryable();
+
+
+            if (parameters.FromDate.HasValue)
+            {
+                query = query.Where(s => s.Date >= parameters.FromDate.Value);
+            }
+
+            if (parameters.ToDate.HasValue)
+            {
+                query = query.Where(s => s.Date <= parameters.ToDate.Value);
+            }
+
+            if (parameters.MinAmount.HasValue)
+            {
+                query = query.Where(s => s.TotalAmount >= parameters.MinAmount.Value);
+            }
+
+            if (parameters.ProductId.HasValue)
+            {
+                query = query.Where(s => s.SaleDetails.Any(sd => sd.ProductId == parameters.ProductId.Value));
+            }
+
+            query = parameters.SortBy?.ToLower() switch
+            {
+                "amount_desc" => query.OrderByDescending(s => s.TotalAmount), 
+                "amount_asc" => query.OrderBy(s => s.TotalAmount),           
+                "date_asc" => query.OrderBy(s => s.Date),                     
+                _ => query.OrderByDescending(s => s.Date)                    
+            };
+
+            return await query
+                .Skip((parameters.PageIndex - 1) * parameters.PageSize)
+                .Take(parameters.PageSize)
                 .Select(sale => new SaleDto(
                     sale.Id,
                     sale.Date,
                     sale.TotalAmount,
                     sale.SaleDetails.Select(sd => new SaleDetailsDto(
                         sd.ProductId,
-                        sd.Product.Name ?? "Unknown", 
+                        sd.Product != null ? sd.Product.Name : "Unknown Product",
                         sd.Quantity,
                         sd.UnitPrice,
                         sd.Quantity * sd.UnitPrice
