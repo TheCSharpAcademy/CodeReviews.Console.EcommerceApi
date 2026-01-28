@@ -1,0 +1,1021 @@
+{
+  "info": {
+    "_postman_id": "e6738a6d-1021-4813-90a1-e8e025d05c0f",
+    "name": "Ecommerce API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Filters",
+          "item": [
+            {
+              "name": "Get Category By Search Term",
+              "id": "1ffff0a8-b33a-4863-8959-5868a2192c0a",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": ""
+                }
+              },
+              "response": []
+            }
+          ],
+          "id": "e999a532-b0aa-43f8-9e5d-4fb5ec6b043e"
+        },
+        {
+          "name": "Sorting",
+          "item": [
+            {
+              "name": "Get Categories Name DESC",
+              "id": "bb08421d-5bcc-445a-a1c7-9a9c1d69ee35",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://localhost:7254/api/categories?sortBy=name_desc",
+                  "protocol": "https",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7254",
+                  "path": [
+                    "api",
+                    "categories"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortBy",
+                      "value": "name_desc"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Categories Name ASC",
+              "id": "e146a98e-edba-4177-be54-41e55ca40818",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "https://localhost:7254/api/categories?sortBy=name_desc",
+                  "protocol": "https",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7254",
+                  "path": [
+                    "api",
+                    "categories"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortBy",
+                      "value": "name_desc"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "id": "0de710ba-18cd-4253-988a-eda3534cab9a"
+        },
+        {
+          "name": "Get All Categories",
+          "id": "9632f335-52aa-426b-ae7d-7d064bdbdb29",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7254/api/categories",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7254",
+              "path": [
+                "api",
+                "categories"
+              ]
+            },
+            "description": "# Get All Categories\n\n## Overview\n\nRetrieves a list of all categories available in the e-commerce system. This endpoint returns all active categories that can be used for product classification and organization.\n\n## Request Details\n\n**Method:** `GET`  \n**Endpoint:** `https://localhost:7254/api/categories`\n\n### Headers\n\nNo special headers required for this endpoint.\n\n### Query Parameters\n\nNone\n\n### Request Body\n\nThis endpoint does not require a request body.\n\n## Response\n\n### Success Response\n\n**Status Code:** `200 OK`\n\n**Response Format:** JSON Array\n\n**Response Schema:**\n\n``` json\n[\n  {\n    \"id\": \"integer\",\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"createdAt\": \"datetime\",\n    \"updatedAt\": \"datetime\"\n  }\n]\n\n ```\n\n### Example Response\n\n**Empty Categories List:**\n\n``` json\n[]\n\n ```\n\n**Categories List with Data:**\n\n``` json\n[\n  {\n    \"id\": 1,\n    \"name\": \"Electronics\",\n    \"description\": \"Electronic devices and accessories\",\n    \"createdAt\": \"2024-01-15T10:30:00Z\",\n    \"updatedAt\": \"2024-01-15T10:30:00Z\"\n  },\n  {\n    \"id\": 2,\n    \"name\": \"Clothing\",\n    \"description\": \"Apparel and fashion items\",\n    \"createdAt\": \"2024-01-16T14:20:00Z\",\n    \"updatedAt\": \"2024-01-16T14:20:00Z\"\n  }\n]\n\n ```\n\n## Response Codes\n\n| Status Code | Description |\n| --- | --- |\n| 200 | Successfully retrieved the list of categories |\n| 500 | Internal server error |\n\n## Notes\n\n- This endpoint returns an empty array `[]` when no categories exist in the system\n    \n- The response includes both active and inactive categories (if applicable)\n    \n- No authentication is required for this endpoint (update if authentication is needed)\n    \n- This is a read-only operation and does not modify any data"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Category By ID",
+          "id": "42fe20c1-c9e0-4a61-824f-5a23d81be61c",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7254/api/categories/7f1fc5f0-f9a1-4255-919a-091fa5aa776f",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7254",
+              "path": [
+                "api",
+                "categories",
+                "7f1fc5f0-f9a1-4255-919a-091fa5aa776f"
+              ]
+            },
+            "description": "# Get Category By ID\n\n## Description\n\nRetrieves a specific category by its unique identifier (UUID). This endpoint returns detailed information about a single category from the system.\n\n## Path Parameters\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `id` | UUID | Yes | The unique identifier of the category to retrieve (e.g., `7f1fc5f0-f9a1-4255-919a-091fa5aa776f`) |\n\n## Response Format\n\nThe endpoint returns a JSON object containing the category details:\n\n``` json\n{\n  \"id\": \"string (UUID)\",\n  \"name\": \"string\"\n}\n\n ```\n\n### Response Fields\n\n- **id**: The unique identifier (UUID) of the category\n    \n- **name**: The name/title of the category\n    \n\n## Success Response\n\n**Status Code:** `200 OK`\n\n**Example Response:**\n\n``` json\n{\n  \"id\": \"7f1fc5f0-f9a1-4255-919a-091fa5aa776f\",\n  \"name\": \"Notebook\"\n}\n\n ```\n\n## Usage Notes\n\n- The category ID must be a valid UUID format\n    \n- If the category with the specified ID does not exist, the endpoint may return a 404 Not Found error\n    \n- This endpoint is typically used to fetch category details for display or validation purposes\n    \n- The response includes only active/non-deleted categories unless otherwise specified"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Category",
+          "id": "ffc5c30f-7fb0-4890-b1d9-d97e90fe5a1a",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Laptop\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7254/api/categories",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7254",
+              "path": [
+                "api",
+                "categories"
+              ]
+            },
+            "description": "# Create Category\n\nCreates a new category in the system.\n\n## Request\n\n**Method:** `POST`  \n**URL:** `https://localhost:7254/api/categories`\n\n### Request Body\n\nThe request body must be in JSON format with the following structure:\n\n```json\n{\n  \"name\": \"string\"\n}\n```\n\n**Required Fields:**\n- `name` (string): The name of the category to create\n\n**Example:**\n```json\n{\n  \"name\": \"Laptop\"\n}\n```\n\n## Response\n\n**Status Code:** `201 Created`\n\n### Response Body\n\nReturns the newly created category object with the following structure:\n\n```json\n{\n  \"id\": \"string\",\n  \"name\": \"string\"\n}\n```\n\n**Fields:**\n- `id` (string): The unique identifier (UUID) assigned to the created category\n- `name` (string): The name of the category\n\n**Example Response:**\n```json\n{\n  \"id\": \"7f1fc5f0-f9a1-4255-919a-091fa5aa776f\",\n  \"name\": \"Laptop\"\n}\n```\n\n## Usage Notes\n\n- The category name should be unique and descriptive\n- A successful creation returns HTTP status 201 with the complete category object including the auto-generated ID\n- The ID is automatically generated by the server and returned in the response"
+          },
+          "response": []
+        },
+        {
+          "name": "Update Category",
+          "id": "5359d4e8-70f9-4b8f-8d3e-28b26f435c4b",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Notebook\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7254/api/categories/7f1fc5f0-f9a1-4255-919a-091fa5aa776f",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7254",
+              "path": [
+                "api",
+                "categories",
+                "7f1fc5f0-f9a1-4255-919a-091fa5aa776f"
+              ]
+            },
+            "description": "# Update Category\n\n## Overview\nThis endpoint updates an existing category in the system. It allows you to modify the properties of a category identified by its unique ID.\n\n## HTTP Method & Endpoint\n```\nPUT /api/categories/{categoryId}\n```\n\n## Path Parameters\n\n| Parameter | Type | Required | Description |\n|-----------|------|----------|-------------|\n| `categoryId` | UUID | Yes | The unique identifier of the category to update. Must be a valid UUID format (e.g., `7f1fc5f0-f9a1-4255-919a-091fa5aa776f`) |\n\n## Request Body\n\nThe request body must be in JSON format and include the following fields:\n\n```json\n{\n  \"name\": \"string\"\n}\n```\n\n### Fields\n\n| Field | Type | Required | Description |\n|-------|------|----------|-------------|\n| `name` | string | Yes | The new name for the category |\n\n### Example Request Body\n```json\n{\n  \"name\": \"Notebook\"\n}\n```\n\n## Response Codes\n\n| Status Code | Description |\n|-------------|-------------|\n| `200 OK` | Category successfully updated. Returns the updated category object |\n| `400 Bad Request` | Invalid request body or malformed data (e.g., missing required fields, invalid JSON) |\n| `404 Not Found` | Category with the specified ID does not exist |\n| `422 Unprocessable Entity` | Validation error (e.g., duplicate category name, invalid field values) |\n| `500 Internal Server Error` | Server error occurred while processing the request |\n\n## Example Usage Scenario\n\n**Scenario:** You need to rename the \"Notebooks\" category to \"Notebook\" to maintain consistency in your product catalog.\n\n1. Identify the category ID you want to update (e.g., `7f1fc5f0-f9a1-4255-919a-091fa5aa776f`)\n2. Send a PUT request to `/api/categories/7f1fc5f0-f9a1-4255-919a-091fa5aa776f`\n3. Include the updated category name in the request body\n4. The API will validate the data and update the category\n5. Upon success, you'll receive the updated category object in the response\n\n## Notes\n- Ensure the category ID in the URL path is valid and exists in the system\n- The category name should be unique to avoid conflicts\n- This is a full update operation; include all required fields in the request body"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Category",
+          "id": "897484eb-c61d-4c73-9af9-fa445a344429",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7254/api/categories/7f1fc5f0-f9a1-4255-919a-091fa5aa776f",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7254",
+              "path": [
+                "api",
+                "categories",
+                "7f1fc5f0-f9a1-4255-919a-091fa5aa776f"
+              ]
+            },
+            "description": "# Delete Category\n\n## Purpose\n\nThis endpoint soft deletes a category from the system using its unique identifier. The category is marked as deleted but remains in the database and can be restored later if needed.\n\n## URL Structure\n\n```\nDELETE /api/categories/{categoryId}\n\n ```\n\n### Path Parameters\n\n- **categoryId** (UUID, required): The unique identifier of the category to soft delete\n    - Example: `7f1fc5f0-f9a1-4255-919a-091fa5aa776f`\n        \n\n## Response Codes\n\n| Status Code | Description |\n| --- | --- |\n| **204 No Content** | Category successfully soft deleted. No response body returned. |\n| **404 Not Found** | Category with the specified ID does not exist. |\n| **400 Bad Request** | Invalid category ID format provided. |\n| **401 Unauthorized** | Authentication required to perform this operation. |\n| **403 Forbidden** | User does not have permission to delete categories. |\n| **500 Internal Server Error** | An unexpected error occurred on the server. |\n\n## Important Notes\n\n- ℹ️ **This is a soft delete operation** - the category is marked as deleted but not permanently removed from the database\n    \n- The soft deleted category can be restored later using the restore endpoint\n    \n- Soft deleted categories are typically hidden from normal queries but remain accessible for recovery\n    \n- Ensure the category is not actively associated with products or other entities before soft deletion\n    \n- The categoryId must be a valid UUID format\n    \n- Upon successful soft deletion, no response body is returned (204 status)"
+          },
+          "response": []
+        },
+        {
+          "name": "Restore Category",
+          "id": "3db8191a-3acd-49e9-aa63-f79abaafc91f",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7254/api/categories/7f1fc5f0-f9a1-4255-919a-091fa5aa776f/restore",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7254",
+              "path": [
+                "api",
+                "categories",
+                "7f1fc5f0-f9a1-4255-919a-091fa5aa776f",
+                "restore"
+              ]
+            },
+            "description": "# Overview\n\nThis endpoint restores a soft-deleted category in the e-commerce system. When a category is soft-deleted, it is marked as deleted but not permanently removed from the database. This endpoint allows you to undo that deletion and make the category active again.\n\n## Endpoint Details\n\n- **HTTP Method:** `PUT`\n    \n- **URL Pattern:** `/api/categories/{categoryId}/restore`\n    \n- **Base URL:** `https://localhost:7254`\n    \n\n## Path Parameters\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `categoryId` | UUID | Yes | The unique identifier of the category to restore. Must be a valid UUID format (e.g., `7f1fc5f0-f9a1-4255-919a-091fa5aa776f`) |\n\n## Response Codes\n\n| Status Code | Description |\n| --- | --- |\n| `200 OK` | Category was successfully restored and is now active |\n| `400 Bad Request` | Invalid category ID format (not a valid UUID) |\n| `404 Not Found` | Category with the specified ID does not exist or was never soft-deleted |\n| `500 Internal Server Error` | An unexpected error occurred on the server |\n\n## Usage Notes\n\n### When to Use This Endpoint\n\n- **Accidental Deletion Recovery:** When a category was soft-deleted by mistake and needs to be recovered\n    \n- **Seasonal Reactivation:** Restoring seasonal categories that were temporarily removed\n    \n- **Data Management:** Undoing bulk deletion operations where some categories need to be restored\n    \n- **Administrative Actions:** When reviewing deleted items and deciding to reinstate certain categories\n    \n\n### Important Considerations\n\n- This endpoint only works for soft-deleted categories. If a category was hard-deleted (permanently removed), it cannot be restored\n    \n- Restoring a category may also require restoring related data or checking dependencies\n    \n- Ensure proper authorization before allowing users to restore categories\n    \n- Consider logging restore operations for audit purposes"
+          },
+          "response": []
+        }
+      ],
+      "id": "6f1854d7-66ee-4ed2-bf66-6b4ec74ebbcb",
+      "description": "# 🛒 Ecommerce API - Category Management\n\nThis collection is designed to test the **Category** module of the Ecommerce web application. It allows you to create, list, modify, delete, and restore categories.\n\n---\n\n## ⚙️ Prerequisites\n\nThe .NET backend application must be running.  \n**Base URL:** `https://localhost:{PORT}/api`  \n_(Replace_ `_{PORT}_` _with the port number shown in your terminal, e.g., 7254)_\n\n---\n\n## Endpoints\n\n| Method | Endpoint | Description |\n| --- | --- | --- |\n| 🟢 **GET** | `/categories` | List all categories. |\n| 🟡 **POST** | `/categories` | Create a new category. |\n| 🟢 **GET** | `/categories/{id}` | Get a specific category by ID. |\n| 🟠 **PUT** | `/categories/{id}` | Rename an existing category. |\n| 🔴 **DELETE** | `/categories/{id}` | Delete a category (Soft delete). |\n| 🟣 **PUT** | `/categories/{id}/restore` | Restore a deleted category. |\n\n---"
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Filters",
+          "item": [
+            {
+              "name": "Get Product By Search Term",
+              "id": "b74220da-f8a6-461a-aac6-6219d1d4149b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryId\": \"c6d81f4f-426b-47f4-8d2e-a2b9a23c5096\",\n  \"name\": \"Gamer Egér\",\n  \"price\": 15000\n}"
+                },
+                "url": {
+                  "raw": "https://localhost:7254/api/product?searchTerm=asus",
+                  "protocol": "https",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7254",
+                  "path": [
+                    "api",
+                    "product"
+                  ],
+                  "query": [
+                    {
+                      "key": "searchTerm",
+                      "value": "asus"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Product by Price Range",
+              "id": "4eb215f1-a407-4de2-9e07-349df1d8033c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryId\": \"c6d81f4f-426b-47f4-8d2e-a2b9a23c5096\",\n  \"name\": \"Gamer Egér\",\n  \"price\": 15000\n}"
+                },
+                "url": {
+                  "raw": "https://localhost:7254/api/product?minPrice=10000&maxPrice=40000",
+                  "protocol": "https",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7254",
+                  "path": [
+                    "api",
+                    "product"
+                  ],
+                  "query": [
+                    {
+                      "key": "minPrice",
+                      "value": "10000"
+                    },
+                    {
+                      "key": "maxPrice",
+                      "value": "40000"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Products By Category",
+              "id": "37d22218-31b5-4100-8300-722898667661",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryId\": \"c6d81f4f-426b-47f4-8d2e-a2b9a23c5096\",\n  \"name\": \"Gamer Egér\",\n  \"price\": 15000\n}"
+                },
+                "url": {
+                  "raw": "https://localhost:7254/api/product?api/products?categoryId=GUID_HELYE",
+                  "protocol": "https",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7254",
+                  "path": [
+                    "api",
+                    "product"
+                  ],
+                  "query": [
+                    {
+                      "key": "api/products?categoryId",
+                      "value": "GUID_HELYE"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Product By Min Price",
+              "id": "86dccfae-9883-4f7b-9ccc-f8b611cbe0d5",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryId\": \"c6d81f4f-426b-47f4-8d2e-a2b9a23c5096\",\n  \"name\": \"Gamer Egér\",\n  \"price\": 15000\n}"
+                },
+                "url": {
+                  "raw": "https://localhost:7254/api/product?minPrice=15",
+                  "protocol": "https",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7254",
+                  "path": [
+                    "api",
+                    "product"
+                  ],
+                  "query": [
+                    {
+                      "key": "minPrice",
+                      "value": "15"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Product By Max Price",
+              "id": "8fd829e2-fae2-40ce-98d4-e9ae4b36d2bf",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryId\": \"c6d81f4f-426b-47f4-8d2e-a2b9a23c5096\",\n  \"name\": \"Gamer Egér\",\n  \"price\": 15000\n}"
+                },
+                "url": {
+                  "raw": "https://localhost:7254/api/product?maxPrice=100000",
+                  "protocol": "https",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7254",
+                  "path": [
+                    "api",
+                    "product"
+                  ],
+                  "query": [
+                    {
+                      "key": "maxPrice",
+                      "value": "100000"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "id": "8212ae25-9f61-4aaa-9bfc-31d62eb1206c"
+        },
+        {
+          "name": "Sorting",
+          "item": [
+            {
+              "name": "Get Products DESC",
+              "id": "8cd879ad-5ce6-4541-92d3-c98d8cf3615c",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryId\": \"c6d81f4f-426b-47f4-8d2e-a2b9a23c5096\",\n  \"name\": \"Gamer Egér\",\n  \"price\": 15000\n}"
+                },
+                "url": {
+                  "raw": "https://localhost:7254/api/product?api/products?sortBy=price_desc",
+                  "protocol": "https",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7254",
+                  "path": [
+                    "api",
+                    "product"
+                  ],
+                  "query": [
+                    {
+                      "key": "api/products?sortBy",
+                      "value": "price_desc"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Products ASC",
+              "id": "05eb309d-2028-4031-a26a-018407905c96",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryId\": \"c6d81f4f-426b-47f4-8d2e-a2b9a23c5096\",\n  \"name\": \"Gamer Egér\",\n  \"price\": 15000\n}"
+                },
+                "url": {
+                  "raw": "https://localhost:7254/api/product?api/products?sortBy=price_asc",
+                  "protocol": "https",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7254",
+                  "path": [
+                    "api",
+                    "product"
+                  ],
+                  "query": [
+                    {
+                      "key": "api/products?sortBy",
+                      "value": "price_asc"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "id": "b45cd087-c5fd-4288-bfed-70f2b86832cf"
+        },
+        {
+          "name": "Create Product",
+          "id": "7aa9c161-fdc1-447b-ba30-1ba6d1513866",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryId\": \"c6d81f4f-426b-47f4-8d2e-a2b9a23c5096\",\n  \"name\": \"Gamer Egér\",\n  \"price\": 15000\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7254/api/product",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7254",
+              "path": [
+                "api",
+                "product"
+              ]
+            },
+            "description": "# Create Product\n\nThis endpoint creates a new product in the e-commerce system.\n\n## Request Body Parameters\n\nThe request accepts a JSON payload with the following parameters:\n\n| Parameter | Type | Required | Description |\n| --- | --- | --- | --- |\n| `categoryId` | UUID | Yes | The unique identifier of the category this product belongs to. Must be a valid existing category ID. |\n| `name` | String | Yes | The name of the product. |\n| `price` | Number | Yes | The price of the product in the appropriate currency. |\n\n### Example Request Body\n\n``` json\n{\n  \"categoryId\": \"c6d81f4f-426b-47f4-8d2e-a2b9a23c5096\",\n  \"name\": \"Gamer Egér\",\n  \"price\": 15000\n}\n\n ```\n\n## Responses\n\n### Success Response\n\n- **Status Code**: `200 OK` or `201 Created`\n    \n- **Description**: Product successfully created\n    \n- **Body**: Returns the created product details\n    \n\n### Error Responses\n\n#### 400 Bad Request - Invalid Category ID\n\nOccurs when the provided `categoryId` does not exist in the system.\n\n**Response Body**:\n\n``` json\n{\n  \"type\": \"ArgumentException\",\n  \"title\": \"Invalid argument\",\n  \"status\": 400,\n  \"detail\": \"Invalid Category ID.\"\n}\n\n ```\n\n## Usage Notes\n\n- Ensure the category exists before creating a product. You can verify category existence using the \"Get Category By ID\" endpoint.\n    \n- The `categoryId` must be a valid UUID format.\n    \n- Price should be a positive number representing the product cost.\n    \n- Product names should be descriptive and unique within their category for better organization."
+          },
+          "response": []
+        },
+        {
+          "name": "Get Product By Id",
+          "id": "1253af03-d36e-48f8-ad0d-8ba71908a99f",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": ""
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Products",
+          "id": "3222d522-fe9f-4570-ad0a-688815cf5208",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryId\": \"c6d81f4f-426b-47f4-8d2e-a2b9a23c5096\",\n  \"name\": \"Gamer Egér\",\n  \"price\": 15000\n}"
+            },
+            "url": {
+              "raw": "https://localhost:7254/api/product?pageIndex=1&pageSize=5",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7254",
+              "path": [
+                "api",
+                "product"
+              ],
+              "query": [
+                {
+                  "key": "pageIndex",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Product",
+          "id": "661bcb27-78f1-4f6f-bd7c-622b4f3e3c5e",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7254/api/product/fa83e93f-c38a-4f16-bf18-5c6223f6997b",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7254",
+              "path": [
+                "api",
+                "product",
+                "fa83e93f-c38a-4f16-bf18-5c6223f6997b"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Restore Product",
+          "id": "a1bb9473-e3fe-4e16-b4b7-32ebb2790346",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7254/api/product/fa83e93f-c38a-4f16-bf18-5c6223f6997b/restore",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7254",
+              "path": [
+                "api",
+                "product",
+                "fa83e93f-c38a-4f16-bf18-5c6223f6997b",
+                "restore"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update Product",
+          "id": "68a31e5b-e4df-43e5-acb7-8fa7efe2a417",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7254/api/product/fa83e93f-c38a-4f16-bf18-5c6223f6997b",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7254",
+              "path": [
+                "api",
+                "product",
+                "fa83e93f-c38a-4f16-bf18-5c6223f6997b"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "id": "3da7c93b-1082-4dcd-872a-7ac8d131cd83"
+    },
+    {
+      "name": "Sales",
+      "item": [
+        {
+          "name": "Filters",
+          "item": [
+            {
+              "name": "Get Sales By Date Range",
+              "id": "03b6c5c0-8c2c-490a-9f0a-d2428f497376",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryId\": \"c6d81f4f-426b-47f4-8d2e-a2b9a23c5096\",\n  \"name\": \"Gamer Egér\",\n  \"price\": 15000\n}"
+                },
+                "url": {
+                  "raw": "https://localhost:7254/api/sales?fromDate=2025-01-01&toDate=2026-12-31",
+                  "protocol": "https",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7254",
+                  "path": [
+                    "api",
+                    "sales"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "2025-01-01"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "2026-12-31"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Sales By Min Amount",
+              "id": "6203e3a2-09b9-4d65-bed1-f73d3c7732bf",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryId\": \"c6d81f4f-426b-47f4-8d2e-a2b9a23c5096\",\n  \"name\": \"Gamer Egér\",\n  \"price\": 15000\n}"
+                },
+                "url": {
+                  "raw": "https://localhost:7254/api/sales?minAmount=50000",
+                  "protocol": "https",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7254",
+                  "path": [
+                    "api",
+                    "sales"
+                  ],
+                  "query": [
+                    {
+                      "key": "minAmount",
+                      "value": "50000"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Sales By Product",
+              "id": "7fdf5f7a-d7c2-4ac4-a8be-70ffac12d653",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryId\": \"c6d81f4f-426b-47f4-8d2e-a2b9a23c5096\",\n  \"name\": \"Gamer Egér\",\n  \"price\": 15000\n}"
+                },
+                "url": {
+                  "raw": "https://localhost:7254/api/sales?minAmount=50000",
+                  "protocol": "https",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7254",
+                  "path": [
+                    "api",
+                    "sales"
+                  ],
+                  "query": [
+                    {
+                      "key": "minAmount",
+                      "value": "50000"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "id": "f0aa66ff-600e-4f6a-9583-55754392aa4c"
+        },
+        {
+          "name": "Sorting",
+          "item": [
+            {
+              "name": "Get Sales By Amount DESC",
+              "id": "e0366aa9-ede9-4e37-a0f7-db288dd543d8",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryId\": \"c6d81f4f-426b-47f4-8d2e-a2b9a23c5096\",\n  \"name\": \"Gamer Egér\",\n  \"price\": 15000\n}"
+                },
+                "url": {
+                  "raw": "https://localhost:7254/api/sales?fromDate=2025-01-01&toDate=2026-12-31",
+                  "protocol": "https",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7254",
+                  "path": [
+                    "api",
+                    "sales"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "2025-01-01"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "2026-12-31"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Sales By Amount ASC",
+              "id": "b9be9bb5-9269-468d-8968-bdb7d20bb26b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryId\": \"c6d81f4f-426b-47f4-8d2e-a2b9a23c5096\",\n  \"name\": \"Gamer Egér\",\n  \"price\": 15000\n}"
+                },
+                "url": {
+                  "raw": "https://localhost:7254/api/sales?sortBy=amount_asc",
+                  "protocol": "https",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7254",
+                  "path": [
+                    "api",
+                    "sales"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortBy",
+                      "value": "amount_asc"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Sales By Date ASC",
+              "id": "3cda7759-4d72-4354-9826-ceaaaabcec55",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryId\": \"c6d81f4f-426b-47f4-8d2e-a2b9a23c5096\",\n  \"name\": \"Gamer Egér\",\n  \"price\": 15000\n}"
+                },
+                "url": {
+                  "raw": "https://localhost:7254/api/sales?sortBy=amount_asc",
+                  "protocol": "https",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7254",
+                  "path": [
+                    "api",
+                    "sales"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortBy",
+                      "value": "amount_asc"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Get Sales By Date DESC",
+              "id": "8c700c65-7148-497e-ba67-517bd696f83a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryId\": \"c6d81f4f-426b-47f4-8d2e-a2b9a23c5096\",\n  \"name\": \"Gamer Egér\",\n  \"price\": 15000\n}"
+                },
+                "url": {
+                  "raw": "https://localhost:7254/api/sales?sortBy=amount_asc",
+                  "protocol": "https",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "7254",
+                  "path": [
+                    "api",
+                    "sales"
+                  ],
+                  "query": [
+                    {
+                      "key": "sortBy",
+                      "value": "amount_asc"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            }
+          ],
+          "id": "503ef030-34c6-43d8-9c71-2cec63e5a7d3"
+        },
+        {
+          "name": "Get All Sales",
+          "id": "485fba47-91b0-428d-a9f3-cc4412dcdf37",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Laptop\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:7254/api/sales",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7254",
+              "path": [
+                "api",
+                "sales"
+              ]
+            },
+            "description": "# Get All Sales\n\n## Overview\nRetrieves a paginated list of sales records from the e-commerce system. This endpoint returns an array of sale transactions, each containing detailed information about the sale including the date, total amount, and line items purchased.\n\n## Endpoint Details\n- **Method:** `GET`\n- **URL:** `https://localhost:7254/api/sales`\n- **Authentication:** Not specified in current configuration\n\n## Query Parameters\n\n| Parameter | Type | Required | Description |\n|-----------|------|----------|-------------|\n| `pageIndex` | integer | No | The page number to retrieve (1-based indexing). Defaults to 1 if not specified. |\n| `pageSize` | integer | No | The number of sales records to return per page. Defaults to a server-defined value if not specified. |\n\n### Pagination Details\n\nThe endpoint supports pagination to efficiently handle large datasets of sales records:\n\n- **pageIndex**: Specifies which page of results to retrieve. Page numbering starts at 1 (first page).\n- **pageSize**: Controls how many sales records are returned in a single response. This allows you to balance between fewer requests (larger page size) and smaller response payloads (smaller page size).\n\n### Pagination Examples\n\n**First page with 5 records:**\n```\nGET https://localhost:7254/api/sales?pageIndex=1&pageSize=5\n```\n\n**Second page with 5 records:**\n```\nGET https://localhost:7254/api/sales?pageIndex=2&pageSize=5\n```\n\n**First page with 10 records:**\n```\nGET https://localhost:7254/api/sales?pageIndex=1&pageSize=10\n```\n\n**Third page with 20 records:**\n```\nGET https://localhost:7254/api/sales?pageIndex=3&pageSize=20\n```\n\n## Response Format\nThe endpoint returns a JSON array of sale objects with the following structure:\n\n### Sale Object Fields\n\n| Field | Type | Description |\n|-------|------|-------------|\n| `id` | string (UUID) | Unique identifier for the sale transaction |\n| `date` | string (ISO 8601) | Timestamp when the sale was created (e.g., \"2026-01-26T19:54:43.0300467\") |\n| `totalAmount` | number | Total monetary value of the entire sale |\n| `items` | array | Collection of line items included in this sale |\n\n### Sale Item Object Fields\n\nEach item in the `items` array contains:\n\n| Field | Type | Description |\n|-------|------|-------------|\n| `productId` | string (UUID) | Unique identifier of the product sold |\n| `productName` | string | Display name of the product |\n| `quantity` | number | Number of units sold |\n| `unitPrice` | number | Price per unit at the time of sale |\n| `lineTotal` | number | Total price for this line item (quantity × unitPrice) |\n\n## Example Response\n```json\n[\n  {\n    \"id\": \"9ce9559b-d8b2-44e2-9a89-5daa4896ed6d\",\n    \"date\": \"2026-01-26T19:54:43.0300467\",\n    \"totalAmount\": 30000,\n    \"items\": [\n      {\n        \"productId\": \"50eb0662-b540-4a1b-89cc-8b45e73f75c2\",\n        \"productName\": \"Gamer Asus\",\n        \"quantity\": 2,\n        \"unitPrice\": 15000,\n        \"lineTotal\": 30000\n      }\n    ]\n  }\n]\n```\n\n## Use Cases\n- **Sales Dashboard:** Display paginated sales transactions in an admin dashboard or reporting interface\n- **Sales Analytics:** Retrieve sales data in manageable chunks for analysis, reporting, and business intelligence\n- **Order History:** Show paginated sales history with navigation controls for browsing through multiple pages of results\n- **Performance Optimization:** Load sales data incrementally to improve application performance and reduce server load"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Sale By Id",
+          "id": "0c2ef178-2163-4371-82cd-f52f7e08b5b0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Laptop\"\n}"
+            },
+            "url": {
+              "raw": "https://localhost:7254/api/sales/id",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7254",
+              "path": [
+                "api",
+                "sales",
+                "id"
+              ]
+            },
+            "description": "# Get Sale By ID\n\n## Description\nRetrieves detailed information about a specific sale transaction by its unique identifier. This endpoint returns comprehensive sale data including the sale date, total amount, and a complete list of items purchased in the transaction.\n\n## URL Pattern\n```\nGET https://localhost:7254/api/sales/{saleId}\n```\n\n### Path Parameters\n- **saleId** (UUID, required): The unique identifier of the sale to retrieve\n  - Format: UUID (e.g., `9ce9559b-d8b2-44e2-9a89-5daa4896ed6d`)\n  - Location: URL path\n\n## Response Format\nReturns a JSON object with the following structure:\n\n### Response Fields\n- **id** (string): The unique identifier of the sale (UUID format)\n- **date** (string): The timestamp when the sale was created (ISO 8601 format)\n- **totalAmount** (number): The total monetary value of the sale\n- **items** (array): List of products included in this sale\n  - **productId** (string): Unique identifier of the product (UUID format)\n  - **productName** (string): Name of the product\n  - **quantity** (number): Number of units purchased\n  - **unitPrice** (number): Price per unit of the product\n  - **lineTotal** (number): Total price for this line item (quantity × unitPrice)\n\n## Example Response (200 OK)\n```json\n{\n  \"id\": \"9ce9559b-d8b2-44e2-9a89-5daa4896ed6d\",\n  \"date\": \"2026-01-26T19:54:43.0300467\",\n  \"totalAmount\": 30000,\n  \"items\": [\n    {\n      \"productId\": \"50eb0662-b540-4a1b-89cc-8b45e73f75c2\",\n      \"productName\": \"Gamer Asus\",\n      \"quantity\": 2,\n      \"unitPrice\": 15000,\n      \"lineTotal\": 30000\n    }\n  ]\n}\n```\n\n## Use Case Example\nThis endpoint is useful when you need to:\n- Display complete sale details on an order confirmation page\n- Generate invoices or receipts for a specific transaction\n- Audit or review historical sales data\n- Track which products were sold together in a single transaction\n- Calculate refunds or process returns for a specific sale"
+          },
+          "response": []
+        },
+        {
+          "name": "Create Sale",
+          "id": "a03eab34-2f2b-4541-980b-ffd777f43894",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"ProductId\": \"50eb0662-b540-4a1b-89cc-8b45e73f75c2\",\n  \"Quantity\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7254/api/sales",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7254",
+              "path": [
+                "api",
+                "sales"
+              ]
+            },
+            "description": "# Create Sale\n\n## Overview\nThis endpoint creates a new sale transaction in the e-commerce system. It processes an order by accepting a list of products with their quantities, calculates the total amount, and returns a complete sale record with all transaction details.\n\n## Request Details\n\n**Method:** `POST`  \n**Endpoint:** `https://localhost:7254/api/sales`  \n**Content-Type:** `application/json`\n\n## Request Body\n\nThe request body must contain an `items` array with one or more products to be purchased.\n\n### JSON Schema\n\n```json\n{\n  \"items\": [\n    {\n      \"productId\": \"string (UUID)\",\n      \"quantity\": \"integer\"\n    }\n  ]\n}\n```\n\n### Field Descriptions\n\n- **items** (array, required): List of products to include in the sale\n  - **productId** (string, required): UUID of the product to purchase\n  - **quantity** (integer, required): Number of units to purchase\n\n## Response Format\n\n### Success Response (200 OK)\n\nReturns a complete sale object with calculated totals and enriched product information.\n\n```json\n{\n  \"id\": \"string (UUID)\",\n  \"date\": \"string (ISO 8601 datetime)\",\n  \"totalAmount\": \"number\",\n  \"items\": [\n    {\n      \"productId\": \"string (UUID)\",\n      \"productName\": \"string\",\n      \"quantity\": \"integer\",\n      \"unitPrice\": \"number\",\n      \"lineTotal\": \"number\"\n    }\n  ]\n}\n```\n\n### Response Field Descriptions\n\n- **id**: Unique identifier for the created sale\n- **date**: Timestamp when the sale was created\n- **totalAmount**: Sum of all line totals in the sale\n- **items**: Array of sale line items with enriched product details\n  - **productId**: UUID of the product\n  - **productName**: Name of the product (retrieved from product catalog)\n  - **quantity**: Number of units purchased\n  - **unitPrice**: Price per unit at the time of sale\n  - **lineTotal**: Calculated as `quantity × unitPrice`\n\n## Example Usage\n\n### Request\n\n```json\nPOST https://localhost:7254/api/sales\nContent-Type: application/json\n\n{\n  \"items\": [\n    {\n      \"productId\": \"50eb0662-b540-4a1b-89cc-8b45e73f75c2\",\n      \"quantity\": 2\n    }\n  ]\n}\n```\n\n### Response\n\n```json\n{\n  \"id\": \"9ce9559b-d8b2-44e2-9a89-5daa4896ed6d\",\n  \"date\": \"2026-01-26T19:54:43.0300467Z\",\n  \"totalAmount\": 30000,\n  \"items\": [\n    {\n      \"productId\": \"50eb0662-b540-4a1b-89cc-8b45e73f75c2\",\n      \"productName\": \"Gamer Asus\",\n      \"quantity\": 2,\n      \"unitPrice\": 15000,\n      \"lineTotal\": 30000\n    }\n  ]\n}\n```\n\n## Notes\n\n- The API automatically retrieves product information (name and current price) based on the provided `productId`\n- **Line totals** are calculated server-side as `quantity × unitPrice`\n- **Total amount** is the sum of all line totals across all items in the sale\n- The sale is assigned a unique ID and timestamp upon creation\n- Product prices are captured at the time of sale, preserving historical pricing information"
+          },
+          "response": []
+        }
+      ],
+      "id": "56c57944-d2d5-48b9-899a-678b990b0d0d",
+      "description": "# Sales\n\n## Overview\n\nThe Sales provides endpoints for managing sales transactions in the e-commerce system. These endpoints allow you to create new sales, retrieve sales history, and access detailed information about individual transactions.\n\n## Available Endpoints\n\nThis folder contains three core endpoints:\n\n- **Get All Sales** - Retrieves a paginated list of all sales transactions\n    \n- **Get Sale By Id** - Fetches detailed information about a specific sale using its unique identifier\n    \n- **Create Sale** - Processes a new sale transaction with one or more products\n    \n\n## Common Use Cases\n\n- **Sales History & Reporting** - View and analyze past sales transactions with pagination support for large datasets\n    \n- **Order Confirmation** - Retrieve complete transaction details for customer receipts and order confirmations\n    \n- **Transaction Processing** - Create new sales by submitting product IDs and quantities, with automatic total calculation\n    \n- **Audit & Compliance** - Access historical sales data for financial reporting and inventory tracking\n    \n\n## Data Structure\n\nAll sales records follow a consistent structure:\n\n- **id** (UUID) - Unique identifier for the sale transaction\n    \n- **date** (ISO 8601) - Timestamp when the sale was created\n    \n- **totalAmount** (number) - Total monetary value of the sale\n    \n- **items** (array) - List of products included in the sale, each containing:\n    - Product ID and name\n        \n    - Quantity purchased\n        \n    - Unit price and line total\n        \n\n## Pagination Support\n\nThe **Get All Sales** endpoint supports pagination through query parameters:\n\n- `pageIndex` - Specifies which page to retrieve (1-based indexing)\n    \n- `pageSize` - Controls the number of records returned per page\n    \n\nThis allows efficient handling of large sales datasets by retrieving data in manageable chunks."
+    }
+  ]
+}
