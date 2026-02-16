@@ -1,0 +1,25 @@
+@EcommerceApi_HostAddress = http://localhost:5112
+
+GET {{EcommerceApi_HostAddress}}/api/categories/
+Accept: application/json
+### GET
+GET {{EcommerceApi_HostAddress}}/api/categories/1
+Accept: application/json
+### CREATE
+POST {{EcommerceApi_HostAddress}}/api/categories
+Accept: application/json
+Content-Type: application/json
+
+{
+  "Name":"Cat"
+}
+### GET PRODUCTS PAGE
+GET {{EcommerceApi_HostAddress}}/api/products/page/1
+Accept: application/json
+### GET SALES PAGE
+GET {{EcommerceApi_HostAddress}}/api/sales/page/1
+Accept: application/json
+### GET SALES
+GET {{EcommerceApi_HostAddress}}/api/sales/0
+Accept: application/json
+###
