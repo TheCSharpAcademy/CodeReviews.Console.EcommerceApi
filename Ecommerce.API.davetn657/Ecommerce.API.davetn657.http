@@ -1,0 +1,6 @@
+@Ecommerce.API.davetn657_HostAddress = http://localhost:5096
+
+GET {{Ecommerce.API.davetn657_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

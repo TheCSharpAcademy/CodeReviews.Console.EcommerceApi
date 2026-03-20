@@ -1,0 +1,320 @@
+{
+  "info": {
+    "_postman_id": "0c411631-dbc1-441e-95d7-36174ff7de70",
+    "name": "EcommerceAPI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53190867",
+    "_collection_link": "https://go.postman.co/collection/53190867-0c411631-dbc1-441e-95d7-36174ff7de70?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Categories Post",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"Name\":\"Socks\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:7265/api/Categories",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7265",
+          "path": [
+            "api",
+            "Categories"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Categories",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"Price\": 18.99,\r\n    \"Category\": \"Pants\"\r\n}"
+        },
+        "url": {
+          "raw": "https://localhost:7265/api/Categories",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7265",
+          "path": [
+            "api",
+            "Categories"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Category By Id",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"Price\": 18.99,\r\n    \"Category\": \"Pants\"\r\n}"
+        },
+        "url": {
+          "raw": "https://localhost:7265/api/Categories/id/1",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7265",
+          "path": [
+            "api",
+            "Categories",
+            "id",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Category",
+      "request": {
+        "method": "DELETE",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"Price\": 18.99,\r\n    \"Category\": \"Pants\"\r\n}"
+        },
+        "url": {
+          "raw": "https://localhost:7265/api/Categories/1",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7265",
+          "path": [
+            "api",
+            "Categories",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Products Post",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"Price\": 18.99,\r\n    \"Category\": \"Pants\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:7265/api/Products",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7265",
+          "path": [
+            "api",
+            "Products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Products",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"Price\": 18.99,\r\n    \"Category\": \"Pants\"\r\n}"
+        },
+        "url": {
+          "raw": "https://localhost:7265/api/Products",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7265",
+          "path": [
+            "api",
+            "Products"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Product By Category",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"Price\": 18.99,\r\n    \"Category\": \"Pants\"\r\n}"
+        },
+        "url": {
+          "raw": "https://localhost:7265/api/Products/category/shirts",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7265",
+          "path": [
+            "api",
+            "Products",
+            "category",
+            "shirts"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Product By Id",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"Price\": 18.99,\r\n    \"Category\": \"Pants\"\r\n}"
+        },
+        "url": {
+          "raw": "https://localhost:7265/api/Products/id/1",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7265",
+          "path": [
+            "api",
+            "Products",
+            "id",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Sales Post",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"Products\":[1,6]\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://localhost:7265/api/Sales",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7265",
+          "path": [
+            "api",
+            "Sales"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Sales",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"Products\":[\r\n        {\"id\":7, \"Price\":20.99, \"Category\":\"Shirts\"},\r\n        {\"id\":8, \"Price\": 12.99, \"Category\": \"Pants\"}\r\n    ]\r\n}"
+        },
+        "url": {
+          "raw": "https://localhost:7265/api/Sales",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7265",
+          "path": [
+            "api",
+            "Sales"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Sale By Id",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"Products\":[\r\n        {\"id\":7, \"Price\":20.99, \"Category\":\"Shirts\"},\r\n        {\"id\":8, \"Price\": 12.99, \"Category\": \"Pants\"}\r\n    ]\r\n}"
+        },
+        "url": {
+          "raw": "https://localhost:7265/api/Sales/id/1",
+          "protocol": "https",
+          "host": [
+            "localhost"
+          ],
+          "port": "7265",
+          "path": [
+            "api",
+            "Sales",
+            "id",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
