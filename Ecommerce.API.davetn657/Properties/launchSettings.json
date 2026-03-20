@@ -1,0 +1,22 @@
+{
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "http://localhost:5096"
+    },
+    "https": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\davei\\Documents\\.Coding\\.C#Academy\\.Backup\\Ecommerce.API.davetn657\\Ecommerce.API.davetn657",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "dotnetRunMessages": true,
+      "applicationUrl": "https://localhost:7265;http://localhost:5096"
+    }
+  },
+  "$schema": "https://json.schemastore.org/launchsettings.json"
+}
