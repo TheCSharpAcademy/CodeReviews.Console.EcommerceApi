@@ -1,0 +1,35 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:ECommerce.AvaloniaClient.TerrenceLGee.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="1000"
+        x:Class="ECommerce.AvaloniaClient.TerrenceLGee.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        WindowStartupLocation="CenterScreen"
+        WindowState="Maximized"
+        Width="1200"
+        Height="800"
+        Icon="/Assets/ecommerce.ico"
+        Title="ECommerce Client"
+        TransparencyLevelHint="Mica"
+        RequestedThemeVariant="Dark"
+        Background="Transparent">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+
+    <Window.Styles>
+		<Style Selector="Window">
+			<Setter Property="FontFamily" Value="Segoe UI, Arial, sans-serif"/>
+        </Style>
+    </Window.Styles>
+
+    <Border Background="#CC1E1E1E">
+		<ContentControl Content="{Binding CurrentView}"/>
+    </Border>
+
+</Window>

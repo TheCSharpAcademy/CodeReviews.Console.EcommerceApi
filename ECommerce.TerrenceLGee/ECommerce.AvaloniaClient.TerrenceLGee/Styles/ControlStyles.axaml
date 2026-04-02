@@ -1,0 +1,218 @@
+<Styles xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Style Selector="Button">
+		<Setter Property="Background" Value="#248ebf"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Padding" Value="16,8"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Cursor" Value="Hand"/>
+    </Style>
+
+    <Style Selector="Button.Danger">
+		<Setter Property="Background" Value="#B00020"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style Selector="Button.Success">
+		<Setter Property="Background" Value="#018786"/>
+        <Setter Property="Foreground" Value="White"/>
+    </Style>
+
+    <Style Selector="Button.Secondary">
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="Foreground" Value="#6200EE"/>
+		<Setter Property="BorderBrush" Value="#6200EE"/>
+		<Setter Property="BorderThickness" Value="2"/>
+    </Style>
+
+    <Style Selector="TextBox">
+		<Setter Property="Background" Value="{StaticResource SurfaceVariantBrush}"/>
+		<Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Padding" Value="10,8"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="CaretBrush" Value="{StaticResource AccentBrush}"/>
+    </Style>
+    <Style Selector="TextBox:focus">
+		<Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+    </Style>
+    <Style Selector="TextBox:pointerover">
+		<Setter Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+    </Style>
+
+
+    <Style Selector="ComboBox">
+		<Setter Property="Background" Value="{StaticResource SurfaceVariantBrush}"/>
+		<Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="CornerRadius" Value="4"/>
+		<Setter Property="Padding" Value="10,8"/>
+		<Setter Property="FontSize" Value="14"/>
+		<Setter Property="MinHeight" Value="40"/>
+    </Style>
+
+    <Style Selector="ComboBox:pointerover">
+		<Setter Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+    </Style>
+    <Style Selector="ComboBox:focus">
+		<Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+    </Style>
+
+    <Style Selector="ComboBoxItem">
+		<Setter Property="Background" Value="{StaticResource SurfaceVariantBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+        <Setter Property="Padding" Value="10,8"/>
+    </Style>
+
+    <Style Selector="ComboBoxItem:pointerover">
+		<Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+    </Style>
+
+    <Style Selector="ComboBoxItem:selected">
+		<Setter Property="Background" Value="{StaticResource PrimaryHoverBrush}"/>
+    </Style>
+
+    <Style Selector="NumericUpDown">
+		<Setter Property="Background" Value="{StaticResource SurfaceVariantBrush}"/>
+		<Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="CornerRadius" Value="4"/>
+		<Setter Property="Padding" Value="8,6"/>
+		<Setter Property="FontSize" Value="14"/>
+		<Setter Property="MinHeight" Value="40"/>
+    </Style>
+
+    <Style Selector="NumericUpDown:focus">
+		<Setter Property="BorderBrush" Value="{StaticResource PrimaryBrush}"/>
+        <Setter Property="BorderThickness" Value="2"/>
+    </Style>
+
+    <Style Selector="NumericUpDown:pointerover">
+		<Setter Property="BorderBrush" Value="{StaticResource AccentBrush}"/>
+    </Style>
+
+    <Style Selector="DataGrid">
+		<Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
+		<Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+		<Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+		<Setter Property="BorderThickness" Value="1"/>
+		<Setter Property="RowBackground" Value="{StaticResource SurfaceBrush}"/>
+		<Setter Property="HorizontalScrollBarVisibility" Value="Auto"/>
+		<Setter Property="VerticalScrollBarVisibility" Value="Auto"/>
+		<Setter Property="GridLinesVisibility" Value="Horizontal"/>
+		<Setter Property="FontSize" Value="13"/>
+    </Style>
+
+    <Style Selector="DataGridColumnHeader">
+		<Setter Property="Background" Value="{StaticResource SurfaceElevatedBrush}"/>
+		<Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
+		<Setter Property="FontWeight" Value="SemiBold"/>
+		<Setter Property="FontSize" Value="12"/>
+		<Setter Property="Padding" Value="12,10"/>
+		<Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+		<Setter Property="BorderThickness" Value="0,0,1,1"/>
+    </Style>
+
+    <Style Selector="DataGridColumnHeader:pointerover">
+		<Setter Property="Background" Value="{StaticResource PrimaryHoverBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+    </Style>
+
+    <Style Selector="DataGridCell">
+		<Setter Property="Padding" Value="12,8"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+    </Style>
+
+    <Style Selector="DataGridRow:pointerover">
+		<Setter Property="Background" Value="{StaticResource SurfaceElevatedBrush}"/>
+    </Style>
+
+    <Style Selector="DataGridRow:selected">
+		<Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+    </Style>
+
+    <Style Selector="CheckBox">
+		<Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="Padding" Value="8,4"/>
+    </Style>
+
+    <Style Selector="ListBox">
+		<Setter Property="Background" Value="{StaticResource SurfaceBrush}"/>
+        <Setter Property="BorderBrush" Value="{StaticResource BorderBrush}"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Padding" Value="4"/>
+    </Style>
+
+    <Style Selector="ListBoxItem">
+		<Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+        <Setter Property="Padding" Value="12,8"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Margin" Value="2"/>
+    </Style>
+
+    <Style Selector="ListBoxItem:pointerover">
+		<Setter Property="Background" Value="{StaticResource SurfaceElevatedBrush}"/>
+    </Style>
+
+    <Style Selector="ListBoxItem:selected">
+		<Setter Property="Background" Value="{StaticResource PrimaryBrush}"/>
+    </Style>
+
+    <Style Selector="ProgressBar">
+		<Setter Property="Background" Value="{StaticResource SurfaceVariantBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource PrimaryBrush}"/>
+        <Setter Property="CornerRadius" Value="4"/>
+        <Setter Property="Height" Value="4"/>
+        <Setter Property="Margin" Value="0,4"/>
+    </Style>
+
+    <Style Selector="TextBlock.Header">
+		<Setter Property="FontSize" Value="24"/>
+        <Setter Property="FontWeight" Value="ExtraBold"/>
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+        <Setter Property="Margin" Value="0,0,0,15"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style Selector="TextBlock.SubHeader">
+		<Setter Property="FontSize" Value="18"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource AccentBrush}"/>
+        <Setter Property="Margin" Value="0,0,0,10"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style Selector="TextBlock.Label">
+		<Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="Foreground" Value="{StaticResource TextSecondaryBrush}"/>
+        <Setter Property="Margin" Value="0,0,0,4"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style Selector="TextBlock.Error">
+		<Setter Property="Foreground" Value="{StaticResource DangerBrush}"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Margin" Value="0,2,0,4"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+    <Style Selector="TextBlock.Success">
+		<Setter Property="Foreground" Value="{StaticResource SuccessBrush}"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Margin" Value="0,2,0,4"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+    </Style>
+
+</Styles>

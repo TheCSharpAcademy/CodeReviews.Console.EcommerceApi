@@ -1,0 +1,63 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ECommerce.AvaloniaClient.TerrenceLGee.CustomerChooseAddressForUpdateView"
+             xmlns:vm="using:ECommerce.AvaloniaClient.TerrenceLGee.ViewModels"
+             x:DataType="vm:CustomerChooseAddressForUpdateViewModel">
+  <Grid RowDefinitions="Auto, Auto" 
+        Margin="10">
+	  <StackPanel Grid.Row="0">
+		  <TextBlock Text="Select An Address To Update" 
+                     Classes="Header"/>
+          <ProgressBar IsIndeterminate="True" 
+                       IsVisible="{Binding IsLoading}"/>
+          <StackPanel>
+			  <DataGrid ItemsSource="{Binding Addresses}"
+                        SelectedItem="{Binding SelectedAddress}"
+                        IsReadOnly="True">
+                  <DataGrid.Columns>
+                      <DataGridTextColumn Header="Address Line 1" 
+                                          Binding="{Binding AddressLine1}" 
+                                          Width="Auto"/>
+                      <DataGridTextColumn Header="Address Line 2" 
+                                          Binding="{Binding AddressLine2}" 
+                                          Width="Auto"/>
+                      <DataGridTextColumn Header="City" 
+                                          Binding="{Binding City}" 
+                                          Width="Auto"/>
+                      <DataGridTextColumn Header="Postal Code" 
+                                          Binding="{Binding PostalCode}" 
+                                          Width="Auto"/>
+                      <DataGridTextColumn Header="Country" 
+                                          Binding="{Binding Country}" 
+                                          Width="Auto"/>
+                      <DataGridTextColumn Header="Billing Address" 
+                                          Binding="{Binding IsBillingAddress}" 
+                                          Width="Auto"/>
+                      <DataGridTextColumn Header="Shipping Address" 
+                                          Binding="{Binding IsShippingAddress}" 
+                                          Width="Auto"/>
+                  </DataGrid.Columns>
+              </DataGrid>
+          </StackPanel>
+          <StackPanel Grid.Row="1" 
+                      Orientation="Horizontal" 
+                      HorizontalAlignment="Center" 
+                      Spacing="10">
+			  <Button Content="Previous" 
+                      Command="{Binding PreviousPageCommand}" 
+                      IsEnabled="{Binding HasPreviousPage}"/>
+              <TextBlock>
+				  <Run Text="{Binding Page}"/>
+                  <Run Text=" of "/>
+                  <Run Text="{Binding TotalPages}"/>
+              </TextBlock>
+              <Button Content="Next" 
+                      Command="{Binding NextPageCommand}" 
+                      IsEnabled="{Binding HasNextPage}"/>
+          </StackPanel>
+      </StackPanel>
+  </Grid>
+</UserControl>

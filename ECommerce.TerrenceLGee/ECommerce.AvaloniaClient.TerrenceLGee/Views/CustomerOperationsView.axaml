@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ECommerce.AvaloniaClient.TerrenceLGee.CustomerOperationsView"
+             xmlns:vm="using:ECommerce.AvaloniaClient.TerrenceLGee.ViewModels"
+             x:DataType="vm:CustomerOperationsViewModel">
+  <ScrollViewer>
+	  <Grid RowDefinitions="Auto, Auto">
+		  <StackPanel Grid.Row="0">
+			  <Image Source="/Assets/customers.jpg" 
+                     Height="600" 
+                     Width="600"/>
+          </StackPanel>
+          <StackPanel Grid.Row="1" 
+                      HorizontalAlignment="Center" 
+                      Orientation="Horizontal" 
+                      Spacing="30">
+              <Button Content="View Customers" 
+                      Command="{Binding ViewCustomersCommand}"/>
+          </StackPanel>
+      </Grid>
+  </ScrollViewer>
+</UserControl>

@@ -1,0 +1,90 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ECommerce.AvaloniaClient.TerrenceLGee.CheckoutView"
+             xmlns:vm="using:ECommerce.AvaloniaClient.TerrenceLGee.ViewModels"
+             x:DataType="vm:CheckoutViewModel">
+  <ScrollViewer>
+	  <Grid RowDefinitions="Auto, Auto, Auto" 
+            Margin="10">
+          <StackPanel Grid.Row="0">
+			  <TextBlock Text="Items in your order"
+                         Classes="SubHeader"/>
+              <TextBlock Text="You can edit the quantity of item ordered by clicking on the quantity and entering a new quantity"
+                         Classes="Label"/>
+              <TextBlock Text="You can remove an item by selecting it and pressing the remove item button"
+                         Classes="Label"/>
+              <StackPanel>
+				  <DataGrid ItemsSource="{Binding ShoppingCartForDisplay}"
+                            SelectedItem="{Binding SelectedItem}"
+                            IsReadOnly="False">
+                      <DataGrid.Columns>
+						  <DataGridTextColumn Header="Product"  
+                                              Binding="{Binding ProductName}" 
+                                              Width="Auto"/>
+                          <DataGridTextColumn Header="Quantity"  
+                                              Binding="{Binding Quantity}" 
+                                              Width="Auto"/>
+                          <DataGridTextColumn Header="Price"  
+                                              Binding="{Binding TotalAmount, StringFormat={}{0:C}}" 
+                                              Width="Auto"/>
+                      </DataGrid.Columns>
+                  </DataGrid>
+                  <WrapPanel>
+					  <TextBlock Text="Subtotal: " 
+                                 FontWeight="ExtraBold"/>
+                      <TextBlock Text="{Binding SubTotal, StringFormat={}{0:C}}"/>
+                  </WrapPanel>
+                  <StackPanel Orientation="Horizontal" 
+                              HorizontalAlignment="Center" 
+                              Spacing="10" 
+                              Margin="0,0,0,10">
+                      <Button Content="Previous" 
+                              Command="{Binding PreviousPageCommand}" 
+                              IsEnabled="{Binding HasPreviousPage}"/>
+                      <TextBlock>
+						  <Run Text="{Binding Page}"/>
+                          <Run Text=" of "/>
+                          <Run Text="{Binding TotalPages}"/>
+                      </TextBlock>
+                      <Button Content="Next" 
+                              Command="{Binding NextPageCommand}" 
+                              IsEnabled="{Binding HasNextPage}"/>
+                  </StackPanel>
+              </StackPanel>
+          </StackPanel>
+          <StackPanel Grid.Row="1" 
+                      Orientation="Horizontal" 
+                      HorizontalAlignment="Center" 
+                      Spacing="30">
+			  <Button Content="Complete Order" 
+                      Command="{Binding CheckoutCommand}" 
+                      Classes="Success"/>
+              <Button Content="Cancel Order" 
+                      Command="{Binding CancelOrderCommand}" 
+                      Classes="Danger"/>
+              <Button Content="Empty Cart" 
+                      Command="{Binding ClearCartCommand}" 
+                      Classes="Success"/>
+              <Button Content="Remove Item" 
+                      Command="{Binding RemoveItemCommand}" 
+                      Classes="Success"/>
+              <Button Content="Back" 
+                      Command="{Binding GoBackCommand}" 
+                      Classes="Secondary"/>
+          </StackPanel>
+          <StackPanel Grid.Row="2">
+			  <TextBlock Text="{Binding SuccessMessage}" 
+                         Classes="Success"
+                         IsVisible="{Binding !!SuccessMessage}"
+                         HorizontalAlignment="Center"/>
+              <TextBlock Text="{Binding ErrorMessage}" 
+                         Classes="Error" 
+                         IsVisible="{Binding !!ErrorMessage}"
+                         HorizontalAlignment="Center"/>
+          </StackPanel>
+      </Grid>
+  </ScrollViewer>
+</UserControl>

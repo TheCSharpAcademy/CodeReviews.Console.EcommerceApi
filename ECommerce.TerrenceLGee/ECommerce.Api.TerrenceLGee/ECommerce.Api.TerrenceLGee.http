@@ -1,0 +1,6 @@
+@ECommerce.Api.TerrenceLGee_HostAddress = http://localhost:5117
+
+GET {{ECommerce.Api.TerrenceLGee_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,92 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="ECommerce.AvaloniaClient.TerrenceLGee.DisplayAddressView"
+			 xmlns:vm="using:ECommerce.AvaloniaClient.TerrenceLGee.ViewModels"
+			 x:DataType="vm:DisplayAddressViewModel">
+	<ScrollViewer>
+		<Grid RowDefinitions="Auto, Auto, Auto, Auto"
+			  Margin="10">
+			<StackPanel Grid.Row="0">
+				<TextBlock Text="Address Information"
+						   Classes="Header"/>
+				<Border Padding="15"
+						CornerRadius="5">
+					<StackPanel>
+						<WrapPanel>
+							<TextBlock Text="Address Line 1: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Address.AddressLine1}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Address Line 2: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Address.AddressLine2}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="City: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Address.City}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="State: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Address.State}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Postal Code: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Address.PostalCode}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Country: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Address.Country}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Is Billing Address?: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Address.IsBillingAddress}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Is Shipping Address?: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Address.IsShippingAddress}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+					</StackPanel>
+				</Border>
+			</StackPanel>
+			<StackPanel Grid.Row="1">
+				<Button Content="Update Address"
+						Command="{Binding UpdateAddressCommand}"
+						Classes="Success"
+						HorizontalAlignment="Center"
+						Margin="0,0,0,15"/>
+			</StackPanel>
+			<StackPanel Grid.Row="2">
+				<Button Content="Delete Address"
+						Classes="Danger"
+						Command="{Binding DeleteAddressCommand}"
+						HorizontalAlignment="Center"
+						Margin="0,0,0,15"/>
+			</StackPanel>
+			<StackPanel Grid.Row="3">
+				<Button Content="Back"
+						Classes="Secondary"
+						Command="{Binding GoBackCommand}"
+						HorizontalAlignment="Center"
+						Margin="0,0,0,15"/>
+			</StackPanel>
+		</Grid>
+	</ScrollViewer>
+</UserControl>

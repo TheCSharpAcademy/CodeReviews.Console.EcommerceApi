@@ -1,0 +1,165 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="ECommerce.AvaloniaClient.TerrenceLGee.DisplayCustomerOrderDetailForAdminView"
+			 xmlns:vm="using:ECommerce.AvaloniaClient.TerrenceLGee.ViewModels"
+			 x:DataType="vm:DisplayCustomerOrderDetailForAdminViewModel">
+	<ScrollViewer>
+		<Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
+			  Margin="10">
+			<StackPanel Grid.Row="0">
+				<TextBlock Text="Order Details"
+						   Classes="Header"/>
+				<Border Padding="15"
+						CornerRadius="5">
+					<StackPanel Spacing="10">
+						<WrapPanel>
+							<TextBlock Text="Order Id: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Sale.Id}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Customer Id: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Sale.CustomerId}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Customer Name: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Sale.CustomerName}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Order Status: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Sale.SaleStatus}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Subtotal: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Sale.TotalBaseAmount, StringFormat={}{0:C}}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Total Discount: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Sale.TotalDiscountAmount, StringFormat={}{0:C}}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Total: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Sale.TotalAmount, StringFormat={}{0:C}}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Order Date: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Sale.CreatedAt}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Order Updated: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Sale.UpdatedAt}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+					</StackPanel>
+				</Border>
+			</StackPanel>
+			<StackPanel Grid.Row="1"
+						Margin="0,20,0,0">
+				<TextBlock Text="Items In Order"
+						   Classes="Header"/>
+				<StackPanel>
+					<DataGrid ItemsSource="{Binding OrderItemsForDisplay}"
+							  SelectedItem="{Binding SelectedItem}"
+							  IsReadOnly="True">
+						<DataGrid.Columns>
+							<DataGridTextColumn Header="Name"
+												Binding="{Binding ProductName}"
+												Width="Auto"/>
+							<DataGridTextColumn Header="Quantity"
+												Binding="{Binding Quantity}"
+												Width="Auto"/>
+							<DataGridTextColumn Header="Price"
+												Binding="{Binding Price, StringFormat={}{0:C}}"
+												Width="Auto"/>
+							<DataGridTextColumn Header="Discount"
+												Binding="{Binding Discount, StringFormat={}{0:C}}"
+												Width="Auto"/>
+							<DataGridTextColumn Header="Total"
+												Binding="{Binding TotalPrice, StringFormat={}{0:C}}"
+												Width="Auto"/>
+						</DataGrid.Columns>
+					</DataGrid>
+				</StackPanel>
+			</StackPanel>
+			<StackPanel Grid.Row="2"
+						Orientation="Horizontal"
+						HorizontalAlignment="Center"
+						Spacing="10"
+						Margin="0,0,0,10">
+				<Button Content="Previous"
+						Command="{Binding PreviousPageCommand}"
+						IsEnabled="{Binding HasPreviousPage}"/>
+				<TextBlock>
+					<Run Text="{Binding Page}"/>
+					<Run Text=" of "/>
+					<Run Text="{Binding TotalPages}"/>
+				</TextBlock>
+				<Button Content="Next"
+						Command="{Binding NextPageCommand}"
+						IsEnabled="{Binding HasNextPage}"/>
+			</StackPanel>
+			<StackPanel Grid.Row="3"
+						Orientation="Vertical"
+						HorizontalAlignment="Center"
+						Spacing="10"
+						Margin="0,0,0,10">
+				<TextBlock Text="Update Order Status"
+						   FontWeight="Bold"
+						   FontSize="20"/>
+				<ComboBox IsEditable="True"
+						  ItemsSource="{Binding Statuses}"
+						  SelectedItem="{Binding SelectedStatus}"
+						  PlaceholderText="Update Status..."/>
+				<StackPanel Orientation="Horizontal"
+							HorizontalAlignment="Center"
+							Margin="0,0,0,10">
+					<Button Content="Update Order Status"
+							Classes="Success"
+							Command="{Binding UpdateOrderCommand}"/>
+				</StackPanel>
+			</StackPanel>
+			<StackPanel Grid.Row="4"
+						Orientation="Horizontal"
+						HorizontalAlignment="Center"
+						Spacing="10"
+						Margin="0,0,0,10">
+				<TextBlock Text="{Binding SuccessMessage}"
+						   Classes="Success"
+						   IsVisible="{Binding !!SuccessMessage}"
+						   HorizontalAlignment="Center"/>
+				<TextBlock Text="{Binding ErrorMessage}"
+						   Classes="Error"
+						   IsVisible="{Binding !!ErrorMessage}"
+						   HorizontalAlignment="Center"/>
+			</StackPanel>
+			<StackPanel Grid.Row="5"
+						Orientation="Horizontal"
+						HorizontalAlignment="Center"
+						Spacing="20"
+						Margin="0,0,0,10">
+				<Button Content="Back"
+						Classes="Secondary"
+						Command="{Binding GoBackCommand}"/>
+			</StackPanel>
+		</Grid>
+	</ScrollViewer>
+</UserControl>

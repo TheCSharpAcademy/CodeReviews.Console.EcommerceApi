@@ -1,0 +1,1547 @@
+{
+  "info": {
+    "_postman_id": "fde7c673-14e0-431c-8790-f148aaf4911b",
+    "name": "ECommerce API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48089995"
+  },
+  "item": [
+    {
+      "name": "Address Requests",
+      "item": [
+        {
+          "name": "Add A New Address For Customer1",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"AddressLine1\" : \"321 Main Street\",\r\n    \"AddressLine2\" : null,\r\n    \"City\": \"New York City\",\r\n    \"State\": \"New York\",\r\n    \"PostalCode\": \"123456\",\r\n    \"Country\": \"USA\",\r\n    \"IsBillingAddress\": false,\r\n    \"IsShippingAddress\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7001/api/addresses/add",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "addresses",
+                "add"
+              ]
+            },
+            "description": "Add a new address for Customer1 ([tjones@example.com](https://mailto:tjones@example.com)) must provide the JWT token in the authorization header that was returned upon successful login"
+          },
+          "response": []
+        },
+        {
+          "name": "Update An Existing Address For Customer1",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"AddressLine1\" : \"321 Main Street\",\r\n    \"AddressLine2\" : null,\r\n    \"City\": \"New York City\",\r\n    \"State\": \"New York\",\r\n    \"PostalCode\": \"654321\",\r\n    \"Country\": \"USA\",\r\n    \"IsBillingAddress\": true,\r\n    \"IsShippingAddress\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7001/api/addresses/update/1",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "addresses",
+                "update",
+                "1"
+              ]
+            },
+            "description": "Update an address for Customer1 ([tjones@example.com](https://mailto:tjones@example.com)) must provide the JWT token in the authorization header that was returned upon successful login"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Address For Customer1",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/addresses/2",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "addresses",
+                "2"
+              ]
+            },
+            "description": "Delete an address for Customer1 ([tjones@example.com](https://mailto:tjones@example.com)) must provide the JWT token in the authorization header that was returned upon successful login"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Customer Addresses For Admin With Pagination",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/addresses/admin?page=2&pageSize=2",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "addresses",
+                "admin"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "2"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "2"
+                }
+              ]
+            },
+            "description": "Allows the admin user to retrieve all addresses in the database when providing the JWT token from login"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Customer Addresses For Admin Filter By City",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/addresses/admin?city=new york",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "addresses",
+                "admin"
+              ],
+              "query": [
+                {
+                  "key": "city",
+                  "value": "new york"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Customer Addresses For Admin Filter By Count Order By Postal Code With Pagination",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/addresses/admin?page=1&pageSize=3&country=usa&orderBy=postalCode",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "addresses",
+                "admin"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "3"
+                },
+                {
+                  "key": "country",
+                  "value": "usa"
+                },
+                {
+                  "key": "orderBy",
+                  "value": "postalCode"
+                }
+              ]
+            },
+            "description": "Allows the admin user to retrieve all addresses in the database when providing the JWT token from login"
+          },
+          "response": []
+        },
+        {
+          "name": "Customer1 Get Address By Id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/addresses/1",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "addresses",
+                "1"
+              ]
+            },
+            "description": "Allows Customer1 to retrieve an address by id (one of their own addresses) when providing the JWT token from login"
+          },
+          "response": []
+        },
+        {
+          "name": "Customer1 Gets All Addresses",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/addresses",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "addresses"
+              ]
+            },
+            "description": "Allows Customer1 to retrieve all of their addresses on record when providing the JWT token from login"
+          },
+          "response": []
+        },
+        {
+          "name": "Admin Get  A Customer Address",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"customerId\": \"de3c3a96-7089-4da3-9a17-1d5a6c9832cd\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7001/api/addresses/admin/1",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "addresses",
+                "admin",
+                "1"
+              ]
+            },
+            "description": "Admin gets a customer address by Id. Because of the random nature of the GUIDs assigned to customers I was unable to populate this in the JSON body, to test this endpoint, just as admin get all customer addresses from the endpoint and copy a customer id into the body of this requred and then you can test it that way. Also you must logged in as the admin user and be authorized with the JWT token from the login response. The reason this is a post instead of a get is because I am using JSON to add the customer address to the request"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth Requests",
+      "item": [
+        {
+          "name": "Admin Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"admin@example.com\",\r\n    \"password\": \"Pa$$w0rd\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7001/api/auth/login",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Logins in the admin user"
+          },
+          "response": []
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/auth/logout",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "auth",
+                "logout"
+              ]
+            },
+            "description": "Allows any user to logout when providing the JWT token from login"
+          },
+          "response": []
+        },
+        {
+          "name": "Register New Customer",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"firstName\": \"Homer\",\r\n    \"lastName\": \"Simpson\",\r\n    \"email\": \"hsimpson@example.com\",\r\n    \"dateOfBirth\": \"1956-05-12\",\r\n    \"billingAddress\": {\r\n        \"addressLine1\": \"430 Spalding Way\",\r\n        \"addressLine2\": null,\r\n        \"city\": \"Springfield\",\r\n        \"state\": \"Oregon\",\r\n        \"postalCode\": \"89922\",\r\n        \"country\": \"USA\",\r\n        \"isBillingAddress\": true,\r\n        \"isShippingAddress\": false\r\n    },\r\n    \"shippingAddress\": {\r\n        \"addressLine1\": \"742 Evergreen Terrace\",\r\n        \"addressLine2\": null,\r\n        \"city\": \"Springfield\",\r\n        \"state\": \"Oregon\",\r\n        \"postalCode\": \"89001\",\r\n        \"country\": \"USA\",\r\n        \"isBillingAddress\": false,\r\n        \"isShippingAddress\": true\r\n    },\r\n    \"password\": \"Pa$$w0rd\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7001/api/auth/register",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "auth",
+                "register"
+              ]
+            },
+            "description": "Registers a new customer"
+          },
+          "response": []
+        },
+        {
+          "name": "New Customer Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"hsimpson@example.com\",\r\n    \"password\": \"Pa$$w0rd\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7001/api/auth/login",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Testing the new customer hsimpson@example.com's login"
+          },
+          "response": []
+        },
+        {
+          "name": "Customer 1 Login",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"tjones@example.com\",\r\n    \"password\": \"Pa$$w0rd\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7001/api/auth/login",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Login for Customer1 which will also allow the testing of any endpoints that need a JWT token and that are authroized for the 'customer' role"
+          },
+          "response": []
+        },
+        {
+          "name": "New Customer Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"hsimpson@example.com\",\r\n    \"oldPassword\": \"Pa$$w0rd\",\r\n    \"newPassword\": \"Pa$$w0rd123\",\r\n    \"confirmPassword\": \"Pa$$w0rd123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7001/api/auth/reset",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "auth",
+                "reset"
+              ]
+            },
+            "description": "Allows the new customer (hsimpson@example.com) to reset his previous password to a new password, make sure the user is created first"
+          },
+          "response": []
+        },
+        {
+          "name": "New Customer Login With Reset Password",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"email\": \"hsimpson@example.com\",\r\n    \"password\": \"Pa$$w0rd123\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7001/api/auth/login",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "After the new customer's (hsimpson@example.com) password has been changed, login with the new password to make sure that this password reset was successful."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Category Requests",
+      "item": [
+        {
+          "name": "Admin Add New Category",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Automotive\",\r\n    \"description\": \"Everything from anti-freeze to zerk-fitting everything you could ever need for your automobile.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7001/api/categories/admin/add",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "categories",
+                "admin",
+                "add"
+              ]
+            },
+            "description": "Allows the admin to add a new category (if the category does not already exist) must be authorized by using the JWT token from the admin login in"
+          },
+          "response": []
+        },
+        {
+          "name": "Admin Update Existing Category",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Clothing\",\r\n    \"description\": \"A wide assortment of clothing in all sizes for the entire family.\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7001/api/categories/admin/update/1",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "categories",
+                "admin",
+                "update",
+                "1"
+              ]
+            },
+            "description": "Allows the admin to update an existing category must be authorized by using the JWT token from the admin login in"
+          },
+          "response": []
+        },
+        {
+          "name": "Admin Get Category By Id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/categories/admin/2",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "categories",
+                "admin",
+                "2"
+              ]
+            },
+            "description": "Allows the admin to view an existing category by id must be authorized by using the JWT token from the admin login in"
+          },
+          "response": []
+        },
+        {
+          "name": "Admin Get All Categories With Pagination, Filtering and Sorting",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/categories/admin?page=1&pageSize=3&orderBy=name asc&description=almost",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "categories",
+                "admin"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "3"
+                },
+                {
+                  "key": "orderBy",
+                  "value": "name asc"
+                },
+                {
+                  "key": "description",
+                  "value": "almost"
+                }
+              ]
+            },
+            "description": "Allows the admin to view categories that include information that would be relevant to the admin like creation time etc. must be authorized by using the JWT token from the admin login in"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Category By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/categories/1",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "categories",
+                "1"
+              ]
+            },
+            "description": "Get a category by id, no authorization needed"
+          },
+          "response": []
+        },
+        {
+          "name": "Get All Categories with Pagination and Sorting",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/categories?page=2&pageSize=3&orderBy=name desc",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "categories"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "2"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "3"
+                },
+                {
+                  "key": "orderBy",
+                  "value": "name desc"
+                }
+              ]
+            },
+            "description": "Get All Categories with Pagination and Sorting no authorization needed"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Customer Requests",
+      "item": [
+        {
+          "name": "Get Customer1 Profile",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/customers/profile",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "customers",
+                "profile"
+              ]
+            },
+            "description": "Login as Customer1 and copy the JWT token from the login response and use it for authorization"
+          },
+          "response": []
+        },
+        {
+          "name": "Admin Get All Customers",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/customers/admin?page=1&pageSize=2&orderBy=firstName desc",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "customers",
+                "admin"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "2"
+                },
+                {
+                  "key": "orderBy",
+                  "value": "firstName desc"
+                }
+              ]
+            },
+            "description": "Login as Admin and then use the JWT token for authorization. Retrieves all customers in the database, can be used with pagination, filtering, sorting etc."
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Product Requests",
+      "item": [
+        {
+          "name": "Admin Add A New Product",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"categoryId\": 4,\r\n    \"name\": \"Head First C#: A Learner's Guide to Real-World Programming with C# and .NET\",\r\n    \"description\": \"Dive right in and build a cross-platform game in chapter one using C# and .NET MAUI--running on Windows, macOS, Android, and iOS. Our readers have become professional developers, team leads, and coding streamers.\",\r\n    \"stockQuantity\": 50,\r\n    \"unitPrice\": 69.99,\r\n    \"discountPercentage\": 33,\r\n    \"isDeleted\" : false,\r\n    \"isInStock\": true,\r\n    \"imageUrl\": \"https://m.media-amazon.com/images/I/41oEi8theaL._SX342_SY445_FMwebp_.jpg\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7001/api/products/admin/add",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "products",
+                "admin",
+                "add"
+              ]
+            },
+            "description": "Allows admin to add a new product to an existing category. Must use the JWT Token from the admin login for authorization"
+          },
+          "response": []
+        },
+        {
+          "name": "Admin Update Product",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"categoryId\": 4,\r\n    \"name\": \"The C# Player's Guide (5th Edition)\",\r\n    \"description\": \"One of the best books for beginners looking to begin their exiting and rewarding journey into C# Programming. By RB Whitaker.\",\r\n    \"stockQuantity\": 75,\r\n    \"discountPercentage\": 15,\r\n    \"isDeleted\": false,\r\n    \"isInStock\": true\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7001/api/products/admin/update/14",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "products",
+                "admin",
+                "update",
+                "14"
+              ]
+            },
+            "description": "Allows admin to update an existing product product in a category. Must use the JWT Token from the admin login for authorization"
+          },
+          "response": []
+        },
+        {
+          "name": "Admin Mark An Existing Product As Deleted",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/products/admin/delete/5",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "products",
+                "admin",
+                "delete",
+                "5"
+              ]
+            },
+            "description": "Allows admin to mark a product as deleted. Must use the JWT Token from the admin login for authorization"
+          },
+          "response": []
+        },
+        {
+          "name": "Admin Restore A Product Previously Marked As Deleted",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/products/admin/restore/5",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "products",
+                "admin",
+                "restore",
+                "5"
+              ]
+            },
+            "description": "Allows admin to restore a product previously marked as deleted. Must use the JWT Token from the admin login for authorization"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Product By Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/products/6",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "products",
+                "6"
+              ]
+            },
+            "description": "Get a product by Id. No authorization needed"
+          },
+          "response": []
+        },
+        {
+          "name": "Get Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/products?page=3&pageSize=6&minStockQuantity=30&orderBy=name desc",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "3"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "6"
+                },
+                {
+                  "key": "minStockQuantity",
+                  "value": "30"
+                },
+                {
+                  "key": "orderBy",
+                  "value": "name desc"
+                }
+              ]
+            },
+            "description": "Get All Products (has pagination, sorting etc)"
+          },
+          "response": []
+        },
+        {
+          "name": "Admin Get Product By Id",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/products/admin/1",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "products",
+                "admin",
+                "1"
+              ]
+            },
+            "description": "Admin gets a product by Id. Must use the JWT token from the admin login for authorization"
+          },
+          "response": []
+        },
+        {
+          "name": "Admin Get Products",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/products/admin?page=1&pageSize=4&categoryName=movies&orderBy=name asc",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "products",
+                "admin"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "4"
+                },
+                {
+                  "key": "categoryName",
+                  "value": "movies"
+                },
+                {
+                  "key": "orderBy",
+                  "value": "name asc"
+                }
+              ]
+            },
+            "description": "Admin can retrieve all products can use with pagination, filtering etc. Must use the JWT token from the admin login for authorization"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sale Requests",
+      "item": [
+        {
+          "name": "Customer1 Create New Sale (Checkout)",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"ShoppingCart\": [\r\n        {\r\n            \"ProductId\": 4,\r\n            \"Quantity\": 2\r\n        },\r\n        {\r\n            \"ProductId\": 6,\r\n            \"Quantity\": 1\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7001/api/sales/checkout",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "sales",
+                "checkout"
+              ]
+            },
+            "description": "Login as Customer1. Use the JWT Token for authorization that is returned from the Customer1 login response"
+          },
+          "response": []
+        },
+        {
+          "name": "Customer 1 Get Sale",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/sales/1",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "sales",
+                "1"
+              ]
+            },
+            "description": "Login as Customer1. Use the JWT Token for authorization that is returned from the Customer1 login response"
+          },
+          "response": []
+        },
+        {
+          "name": "Customer1 Get All Sales with Pagination, Filtering and Sorting",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/sales?page=1&pageSize=6&status=pending&orderBy=createdAt asc",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "sales"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "6"
+                },
+                {
+                  "key": "status",
+                  "value": "pending"
+                },
+                {
+                  "key": "orderBy",
+                  "value": "createdAt asc"
+                }
+              ]
+            },
+            "description": "Login as Customer1. Use the JWT Token for authorization that is returned from the Customer1 login response"
+          },
+          "response": []
+        },
+        {
+          "name": "Customer1 Get Count Of All Their Sales",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/sales/count",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "sales",
+                "count"
+              ]
+            },
+            "description": "Login as Customer1. Use the JWT Token for authorization that is returned from the Customer1 login response"
+          },
+          "response": []
+        },
+        {
+          "name": "Customer1 Cancel Sale",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/sales/cancel/1003",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "sales",
+                "cancel",
+                "1003"
+              ]
+            },
+            "description": "Login as Customer1. Use the JWT Token for authorization that is returned from the Customer1 login response"
+          },
+          "response": []
+        },
+        {
+          "name": "Admin Get A Sale",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/sales/admin/2",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "sales",
+                "admin",
+                "2"
+              ]
+            },
+            "description": "Login as admin. Use the JWT Token for authorization that is returned from the admin login response"
+          },
+          "response": []
+        },
+        {
+          "name": "Admin Get All Customer Sales",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7001/api/sales/admin?page=1&pageSize=3&minTotalAmount=1000&orderBy=totalAmount desc",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "sales",
+                "admin"
+              ],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "3"
+                },
+                {
+                  "key": "minTotalAmount",
+                  "value": "1000"
+                },
+                {
+                  "key": "orderBy",
+                  "value": "totalAmount desc"
+                }
+              ]
+            },
+            "description": "Login as admin. Use the JWT Token for authorization that is returned from the admin login response"
+          },
+          "response": []
+        },
+        {
+          "name": "Admin Update A Sale's Status",
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"status\": 2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7001/api/sales/admin/update/4",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7001",
+              "path": [
+                "api",
+                "sales",
+                "admin",
+                "update",
+                "4"
+              ]
+            },
+            "description": "Login as admin. Use the JWT Token for authorization that is returned from the admin login response"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer"
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ]
+}

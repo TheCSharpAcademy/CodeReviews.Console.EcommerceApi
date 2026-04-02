@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="ECommerce.AvaloniaClient.TerrenceLGee.DisplayUpdatedCategoryView"
+			 xmlns:vm="using:ECommerce.AvaloniaClient.TerrenceLGee.ViewModels"
+			 x:DataType="vm:DisplayUpdatedCategoryViewModel">
+	<StackPanel>
+		<TextBlock Text="Updated Category"
+				   Classes="Header"/>
+		<Border Padding="15"
+				CornerRadius="5">
+			<StackPanel Spacing="10">
+				<WrapPanel>
+					<TextBlock Text="Name: "
+							   Classes="SubHeader"/>
+					<TextBlock Text="{Binding Category.Name}"
+							   Classes="SubHeader"/>
+				</WrapPanel>
+				<WrapPanel>
+					<TextBlock Text="Description: "
+							   Classes="SubHeader"/>
+					<TextBlock Text="{Binding Category.Description}"
+							   Classes="SubHeader"/>
+				</WrapPanel>
+				<WrapPanel>
+					<TextBlock Text="Created At: "
+							   Classes="SubHeader"/>
+					<TextBlock Text="{Binding Category.CreatedAt}"
+							   Classes="SubHeader"/>
+				</WrapPanel>
+				<WrapPanel>
+					<TextBlock Text="Updated At: "
+							   Classes="SubHeader"/>
+					<TextBlock Text="{Binding Category.UpdatedAt}"
+							   Classes="SubHeader"/>
+				</WrapPanel>
+			</StackPanel>
+		</Border>
+		<StackPanel>
+			<Button Content="Update Another Category"
+					Classes="Success"
+					Command="{Binding GoBackCommand}"
+					HorizontalAlignment="Center"
+					Margin="0,0,0,15"/>
+			<Button Content="Back To Category Page"
+					Classes="Secondary"
+					Command="{Binding GoBackToCategoryPageCommand}"
+					HorizontalAlignment="Center"
+					Margin="0,0,0,15"/>
+		</StackPanel>
+	</StackPanel>
+</UserControl>

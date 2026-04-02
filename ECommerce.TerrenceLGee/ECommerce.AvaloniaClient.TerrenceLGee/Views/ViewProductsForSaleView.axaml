@@ -1,0 +1,115 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="ECommerce.AvaloniaClient.TerrenceLGee.ViewProductsForSaleView"
+			 xmlns:vm="using:ECommerce.AvaloniaClient.TerrenceLGee.ViewModels"
+			 x:DataType="vm:ViewProductsForSaleViewModel">
+	<ScrollViewer>
+		<Grid RowDefinitions="Auto, Auto, Auto" 
+			  Margin="10">
+			<StackPanel Grid.Row="0">
+				<TextBlock Classes="SubHeader" 
+						   Text="Filter By Price Range"/>
+				<StackPanel Orientation="Horizontal" 
+							Spacing="10">
+					<TextBox Text="{Binding MinUnitPrice}" 
+							 Watermark="Min Unit Price..." 
+							 Width="150"/>
+					<TextBox Text="{Binding MaxUnitPrice}" 
+							 Watermark="Max Unit Price..." 
+							 Width="150"/>
+				</StackPanel>
+				<TextBlock Text="Filter By Stock Quantity Range" 
+						   Classes="SubHeader"/>
+				<StackPanel Orientation="Horizontal" 
+							Spacing="10">
+					<TextBox Text="{Binding MinStockQuantity}" 
+							 Watermark="Min Stock Quantity..." 
+							 Width="150"/>
+					<TextBox Text="{Binding MaxStockQuantity}" 
+							 Watermark="Max Stock Quantity..." 
+							 Width="150"/>
+				</StackPanel>
+				<TextBlock Text="Filter By Discount Percentage" 
+						   Classes="SubHeader"/>
+				<StackPanel Orientation="Horizontal" 
+							Spacing="10">
+					<TextBox Text="{Binding MinDiscountPercentage}" 
+							 Watermark="Min Discount Percentage..." 
+							 Width="150"/>
+					<TextBox Text="{Binding MaxDiscountPercentage}" 
+							 Watermark="Max Discount Percentage..." 
+							 Width="150"/>
+				</StackPanel>
+				<TextBlock Text="Filter on words/letters contained in the Product Description"
+						   Classes="SubHeader"/>
+				<StackPanel Orientation="Horizontal" 
+							Spacing="10">
+					<TextBox Text="{Binding Description}" 
+							 Watermark="Description Contains..." 
+							 Width="150"/>
+				</StackPanel>
+				<Button Content="Clear Filters" 
+						Command="{Binding ClearFiltersCommand}"/>
+			</StackPanel>
+			<StackPanel Grid.Row="1">
+				<TextBlock Text="Products (Select a product to see information and add to cart)" 
+						   Classes="Header"
+						   FontWeight="ExtraBold"/>
+				<ProgressBar IsIndeterminate="True" 
+							 IsVisible="{Binding IsLoading}"/>
+				<StackPanel>
+					<DataGrid ItemsSource="{Binding Products}"
+							  SelectedItem="{Binding SelectedProduct}"
+							  IsReadOnly="True">
+						<DataGrid.Columns>
+							<DataGridTextColumn Header="Name" 
+												Binding="{Binding Name}" 
+												Width="Auto"/>
+							<DataGridTextColumn Header="Description" 
+												Binding="{Binding Description}" 
+												Width="Auto"/>
+							<DataGridTextColumn Header="Unit Price" 
+												Binding="{Binding UnitPrice, StringFormat={}{0:C}}" 
+												Width="Auto"/>
+							<DataGridTextColumn Header="In Stock" 
+												Binding="{Binding IsInStock}" 
+												Width="Auto"/>
+						</DataGrid.Columns>
+					</DataGrid>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" 
+							HorizontalAlignment="Center" 
+							Spacing="10">
+					<Button Content="Previous" 
+							Command="{Binding PreviousPageCommand}" 
+							IsEnabled="{Binding HasPreviousPage}"/>
+					<TextBlock>
+						<Run Text="{Binding Page}"/>
+						<Run Text=" of "/>
+						<Run Text="{Binding TotalPages}"/>
+					</TextBlock>
+					<Button Content="Next" 
+							Command="{Binding NextPageCommand}" 
+							IsEnabled="{Binding HasNextPage}"/>
+				</StackPanel>
+				<StackPanel>
+					<Button Content="View Cart" 
+							Command="{Binding ViewCartCommand}" 
+							HorizontalAlignment="Center"/>
+					<Button Content="Checkout" 
+							Command="{Binding CheckoutCommand}" 
+							HorizontalAlignment="Center"/>
+				</StackPanel>
+				<StackPanel>
+					<Button Content="Back To Categories" 
+							Classes="Secondary"
+							Command="{Binding GoBackCommand}" 
+							HorizontalAlignment="Center"/>
+				</StackPanel>
+			</StackPanel>
+		</Grid>
+	</ScrollViewer>
+</UserControl>

@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="ECommerce.Api.TerrenceLGee/ECommerce.Api.TerrenceLGee.csproj" />
+  <Project Path="ECommerce.AvaloniaClient.TerrenceLGee/ECommerce.AvaloniaClient.TerrenceLGee.csproj" Id="86d67d6b-b718-41bf-ae73-4b1ced459e97" />
+  <Project Path="ECommerce.Contracts.TerrenceLGee/ECommerce.Contracts.TerrenceLGee.csproj" />
+  <Project Path="ECommerce.Entities.TerrenceLGee/ECommerce.Entities.TerrenceLGee.csproj" />
+  <Project Path="ECommerce.Shared.TerrenceLGee/ECommerce.Shared.TerrenceLGee.csproj" />
+</Solution>

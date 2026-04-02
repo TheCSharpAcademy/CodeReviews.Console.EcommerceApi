@@ -1,0 +1,80 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="ECommerce.AvaloniaClient.TerrenceLGee.UpdateAddressView"
+			 xmlns:vm="using:ECommerce.AvaloniaClient.TerrenceLGee.ViewModels"
+			 x:DataType="vm:UpdateAddressViewModel">
+
+	<ScrollViewer>
+		<StackPanel Spacing="10" Margin="10">
+			<StackPanel>
+				<TextBlock Text="Update Address"
+						   Classes="Header"/>
+			</StackPanel>
+			<TextBlock Text="Address Line 1" 
+					   Classes="Label"/>
+			<TextBox Text="{Binding AddressLine1}"/>
+			<TextBlock Classes="Error" 
+					   Text="{Binding AddressLine1Errors}"/>
+
+			<TextBlock Text="Address Line 2" 
+					   Classes="Label"/>
+			<TextBox Text="{Binding AddressLine2}"/>
+			<TextBlock Classes="Error" 
+					   Text="{Binding AddressLine2Errors}"/>
+
+			<TextBlock Text="City" 
+					   Classes="Label"/>
+			<TextBox Text="{Binding City}"/>
+			<TextBlock Classes="Error" 
+					   Text="{Binding CityErrors}"/>
+
+			<TextBlock Text="State" 
+					   Classes="Label"/>
+			<TextBox Text="{Binding State}"/>
+			<TextBlock Classes="Error" 
+					   Text="{Binding StateErrors}"/>
+
+			<TextBlock Text="Postal Code" 
+					   Classes="Label"/>
+			<TextBox Text="{Binding PostalCode}"/>
+			<TextBlock Classes="Error" 
+					   Text="{Binding PostalCodeErrors}"/>
+
+			<TextBlock Text="Country" 
+					   Classes="Label"/>
+			<TextBox Text="{Binding Country}"/>
+			<TextBlock Classes="Error" 
+					   Text="{Binding CountryErrors}"/>
+
+			<CheckBox IsChecked="{Binding IsBillingAddress}" 
+					  Content="Is Billing Address?"/>
+			<CheckBox IsChecked="{Binding IsShippingAddress}" 
+					  Content="Is Shipping Address?"/>
+
+			<StackPanel>
+				<Button Content="Update Address" 
+						Command="{Binding UpdateAddressCommand}"
+						HorizontalAlignment="Center" 
+						Margin="0,10,0,0"/>
+				<TextBlock Text="{Binding SuccessMessage}" 
+						   Foreground="Gold" 
+						   IsVisible="{Binding SuccessMessage}"
+						   HorizontalAlignment="Center"/>
+				<TextBlock Text="{Binding ErrorMessage}" 
+						   Classes="Error" 
+						   IsVisible="{Binding !!ErrorMessage}"
+						   HorizontalAlignment="Center"/>
+			</StackPanel>
+			<StackPanel>
+				<Button Content="Back" 
+						Command="{Binding GoBackCommand}"
+						Classes="Secondary"
+						HorizontalAlignment="Center" 
+						Margin="0,10,0,0"/>
+			</StackPanel>
+		</StackPanel>
+	</ScrollViewer>
+</UserControl>

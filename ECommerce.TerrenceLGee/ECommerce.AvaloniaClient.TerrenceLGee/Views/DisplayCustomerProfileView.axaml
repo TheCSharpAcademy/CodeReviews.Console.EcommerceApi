@@ -1,0 +1,176 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="ECommerce.AvaloniaClient.TerrenceLGee.DisplayCustomerProfileView"
+			 xmlns:vm="using:ECommerce.AvaloniaClient.TerrenceLGee.ViewModels"
+			 x:DataType="vm:DisplayCustomerProfileViewModel">
+	<ScrollViewer>
+		<Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto"
+			  Margin="10">
+			<StackPanel Grid.Row="0">
+				<WrapPanel>
+					<TextBlock Text="Profile For:  "
+							   Classes="Header"/>
+					<TextBlock Text="{Binding Profile.FirstName}"
+							   Classes="Header"/>
+					<TextBlock Text=" "
+							   Margin="0,0,0,15"/>
+					<TextBlock Text="{Binding Profile.LastName}"
+							   Classes="Header"/>
+				</WrapPanel>
+				<Border Padding="15"
+						CornerRadius="5">
+					<StackPanel Spacing="10">
+						<WrapPanel>
+							<TextBlock Text="Email Address: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Profile.EmailAddress}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Date Of Birth: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Profile.DateOfBirth}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Registration Date: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Profile.RegistrationDate}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+					</StackPanel>
+				</Border>
+			</StackPanel>
+			<StackPanel Grid.Row="1">
+				<TextBlock Text="Addresses On File"
+						   Classes="Header"/>
+				<ProgressBar IsIndeterminate="{Binding AddressIsLoading}"/>
+				<DataGrid ItemsSource="{Binding Addresses}"
+						  SelectedItem="{Binding SelectedAddress}"
+						  IsReadOnly="True">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Address Line 1"
+											Binding="{Binding AddressLine1}"
+											Width="Auto"/>
+						<DataGridTextColumn Header="Address Line 2"
+											Binding="{Binding AddressLine2}"
+											Width="Auto"/>
+						<DataGridTextColumn Header="City"
+											Binding="{Binding City}"
+											Width="Auto"/>
+						<DataGridTextColumn Header="State"
+											Binding="{Binding State}"
+											Width="Auto"/>
+						<DataGridTextColumn Header="Postal Code"
+											Binding="{Binding PostalCode}"
+											Width="Auto"/>
+						<DataGridTextColumn Header="Country"
+											Binding="{Binding Country}"
+											Width="Auto"/>
+						<DataGridTextColumn Header="Billing Address"
+											Binding="{Binding IsBillingAddress}"
+											Width="Auto"/>
+						<DataGridTextColumn Header="Shipping Address"
+											Binding="{Binding IsShippingAddress}"
+											Width="Auto"/>
+					</DataGrid.Columns>
+				</DataGrid>
+			</StackPanel>
+			<StackPanel Grid.Row="2"
+						Orientation="Horizontal"
+						HorizontalAlignment="Center"
+						Spacing="10"
+						Margin="0,0,0,10">
+				<Button Content="Previous"
+						Command="{Binding PreviousAddressPageCommand}"
+						IsEnabled="{Binding AddressHasPreviousPage}"/>
+				<TextBlock>
+					<Run Text="{Binding AddressPage}"/>
+					<Run Text=" of "/>
+					<Run Text="{Binding AddressTotalPages}"/>
+				</TextBlock>
+				<Button Content="Next"
+						Command="{Binding NextAddressPageCommand}"
+						IsEnabled="{Binding AddressHasNextPage}"/>
+			</StackPanel>
+			<StackPanel Grid.Row="3"
+						HorizontalAlignment="Center">
+				<Button Content="Add New Address"
+						Classes="Success"
+						Command="{Binding AddAddressCommand}" 
+						HorizontalAlignment="Left"/>
+			</StackPanel>
+			<StackPanel Grid.Row="4">
+				<StackPanel>
+					<TextBlock Text="Filter On Min/Max Total Amount Of Sales" Classes="SubHeader"/>
+					<StackPanel Orientation="Horizontal" 
+								Spacing="10">
+						<TextBox Text="{Binding MinTotalAmount}" 
+								 Watermark="Min Total Amount..." 
+								 Width="150"/>
+						<TextBox Text="{Binding MaxTotalAmount}" 
+								 Watermark="Max Total Amount..." 
+								 Width="150"/>
+					</StackPanel>
+					<TextBlock Text="Filter On Sale Status" Classes="SubHeader"/>
+					<StackPanel Orientation="Horizontal" 
+								Spacing="10">
+						<ComboBox Width="200" MaxDropDownHeight="300"
+								  ItemsSource="{Binding SaleStatuses}"
+								  SelectedValue="{Binding SelectedStatus}"
+								  PlaceholderText="Filter On Status"/>
+					</StackPanel>
+					<Button Content="Clear Filters" 
+							Command="{Binding ClearFiltersCommand}"/>
+				</StackPanel>
+				<TextBlock Text="All Orders (Select an order for more information)"
+						   Classes="Header"/>
+				<ProgressBar IsIndeterminate="{Binding OrderIsLoading}"/>
+				<DataGrid ItemsSource="{Binding Orders}"
+						  SelectedItem="{Binding SelectedOrder}"
+						  IsReadOnly="True">
+					<DataGrid.Columns>
+						<DataGridTextColumn Header="Order Id"
+											Binding="{Binding Id}"
+											Width="Auto"/>
+						<DataGridTextColumn Header="Items In Order"
+											Binding="{Binding SaleProductCount}"
+											Width="Auto"/>
+						<DataGridTextColumn Header="Subtotal "
+											Binding="{Binding TotalBaseAmount, StringFormat={}{0:C}}"
+											Width="Auto"/>
+						<DataGridTextColumn Header="Total Discount "
+											Binding="{Binding TotalDiscountAmount, StringFormat={}{0:C}}"
+											Width="Auto"/>
+						<DataGridTextColumn Header="Total"
+											Binding="{Binding TotalAmount, StringFormat={}{0:C}}"
+											Width="Auto"/>
+						<DataGridTextColumn Header="Status"
+											Binding="{Binding SaleStatus}"
+											Width="Auto"/>
+					</DataGrid.Columns>
+				</DataGrid>
+			</StackPanel>
+			<StackPanel Grid.Row="5"
+						Orientation="Horizontal"
+						HorizontalAlignment="Center"
+						Spacing="10"
+						Margin="0,0,0,10">
+				<Button Content="Previous"
+						Command="{Binding PreviousOrderPageCommand}"
+						IsEnabled="{Binding OrderHasPreviousPage}"/>
+				<TextBlock>
+					<Run Text="{Binding OrderPage}"/>
+					<Run Text=" of "/>
+					<Run Text="{Binding OrderTotalPages}"/>
+				</TextBlock>
+				<Button Content="Next"
+						Command="{Binding NextOrderPageCommand}"
+						IsEnabled="{Binding OrderHasNextPage}"/>
+			</StackPanel>
+		</Grid>
+	</ScrollViewer>
+</UserControl>

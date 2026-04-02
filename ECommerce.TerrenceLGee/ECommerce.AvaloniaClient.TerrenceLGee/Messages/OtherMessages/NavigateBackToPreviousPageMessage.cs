@@ -1,0 +1,3 @@
+﻿namespace ECommerce.AvaloniaClient.TerrenceLGee.Messages.OtherMessages;
+
+public record NavigateBackToPreviousPageMessage;

@@ -1,0 +1,172 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="ECommerce.AvaloniaClient.TerrenceLGee.App"
+             xmlns:vm="using:ECommerce.AvaloniaClient.TerrenceLGee.ViewModels"
+             xmlns:local="using:ECommerce.AvaloniaClient.TerrenceLGee"
+             RequestedThemeVariant="Default">
+             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+    <Application.DataTemplates>
+        <DataTemplate DataType="{x:Type vm:WelcomePageViewModel}">
+			<local:WelcomePageView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LoginViewModel}">
+			<local:LoginView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RegistrationViewModel}">
+			<local:RegistrationView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:PasswordResetViewModel}">
+			<local:PasswordResetView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:MainUserViewModel}">
+			<local:MainUserView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:HomeScreenViewModel}">
+			<local:HomeScreenView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AddCategoryViewModel}">
+			<local:AddCategoryView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ViewCategoriesForAdminViewModel}">
+			<local:ViewCategoriesForAdminView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplayAddedCategoryViewModel}">
+            <local:DisplayAddedCategoryView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CategoryOperationsViewModel}">
+			<local:CategoryOperationsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplayUpdatedCategoryViewModel}">
+			<local:DisplayUpdatedCategoryView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplayAdminCategoryDetailViewModel}">
+			<local:DisplayAdminCategoryDetailView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AdminChooseCategoryForUpdateViewModel}">
+			<local:AdminChooseCategoryForUpdateView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:UpdateCategoryViewModel}">
+			<local:UpdateCategoryView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ProductOperationsViewModel}">
+			<local:ProductOperationsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AddProductViewModel}">
+			<local:AddProductView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplayAddedProductViewModel}">
+			<local:DisplayAddedProductView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AdminChooseProductForUpdateViewModel}">
+			<local:AdminChooseProductForUpdateView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:UpdateProductViewModel}">
+			<local:UpdateProductView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplayUpdatedProductViewModel}">
+			<local:DisplayUpdatedProductView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplaySelectedProductFromAdminCategoryDetailViewModel}">
+			<local:DisplaySelectedProductFromAdminCategoryDetailView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ViewProductsForAdminViewModel}">
+			<local:ViewProductsForAdminView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplayAdminProductViewModel}">
+			<local:DisplayAdminProductView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplayCustomerProductViewModel}">
+			<local:DisplayCustomerProductView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DeleteProductViewModel}">
+            <local:DeleteProductView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:RestoreProductViewModel}">
+			<local:RestoreProductView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:AddAddressViewModel}">
+			<local:AddAddressView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplayCustomerAddressForAdminViewModel}">
+			<local:DisplayCustomerAddressForAdminView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplayAddedAddressViewModel}">
+			<local:DisplayAddedAddressView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:UpdateAddressViewModel}">
+			<local:UpdateAddressView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CustomerChooseAddressForUpdateViewModel}">
+			<local:CustomerChooseAddressForUpdateView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplayUpdatedAddressViewModel}">
+			<local:DisplayUpdatedAddressView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplayAddressViewModel}">
+			<local:DisplayAddressView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ViewCategoriesForSaleViewModel}">
+			<local:ViewCategoriesForSaleView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ViewProductsForSaleViewModel}">
+			<local:ViewProductsForSaleView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplayProductDetailForSaleViewModel}">
+			<local:DisplayProductDetailForSaleView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CheckoutViewModel}">
+			<local:CheckoutView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ViewCartViewModel}">
+			<local:ViewCartView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplayOrderDetailsViewModel}">
+			<local:DisplayOrderDetailsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplayCustomerOrderDetailViewModel}">
+			<local:DisplayCustomerOrderDetailView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplayCustomerProfileViewModel}">
+			<local:DisplayCustomerProfileView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:CustomerOperationsViewModel}">
+			<local:CustomerOperationsView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ViewCustomersForAdminViewModel}">
+			<local:ViewCustomersForAdminView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplayCustomerDetailsForAdminViewModel}">
+			<local:DisplayCustomerDetailsForAdminView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:DisplayCustomerOrderDetailForAdminViewModel}">
+			<local:DisplayCustomerOrderDetailForAdminView/>
+        </DataTemplate>
+    </Application.DataTemplates>
+
+    <Application.Resources>
+		<SolidColorBrush x:Key="PrimaryBrush" Color="#6200EE"/>
+        <SolidColorBrush x:Key="PrimaryHoverBrush" Color="#3700B3"/>
+        <SolidColorBrush x:Key="AccentBrush" Color="#03DAC6"/>
+
+        <SolidColorBrush x:Key="SurfaceBrush" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="SurfaceVariantBrush" Color="#2D2D2D"/>
+        <SolidColorBrush x:Key="SurfaceElevatedBrush" Color="#3A3A3A"/>
+
+        <SolidColorBrush x:Key="TextPrimaryBrush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="TextSecondaryBrush" Color="#B0B0B0"/>
+
+        <SolidColorBrush x:Key="DangerBrush" Color="#CF6679"/>
+        <SolidColorBrush x:Key="SuccessBrush" Color="#03DAC6"/>
+        <SolidColorBrush x:Key="WarningBrush" Color="#FFB74D"/>
+
+        <SolidColorBrush x:Key="BorderBrush" Color="#444444"/>
+    </Application.Resources>
+
+    <Application.Styles>
+    <FluentTheme />
+    <StyleInclude Source="avares://Avalonia.Controls.DataGrid/Themes/Fluent.xaml"/>
+    <StyleInclude Source="avares://MsBox.Avalonia.Markdown/Controls/MarkdownView.axaml"/>
+    <StyleInclude Source="avares://ECommerce.AvaloniaClient.TerrenceLGee/Styles/ControlStyles.axaml"/>
+</Application.Styles>
+</Application>

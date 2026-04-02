@@ -1,0 +1,162 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ECommerce.AvaloniaClient.TerrenceLGee.RegistrationView"
+             xmlns:vm="using:ECommerce.AvaloniaClient.TerrenceLGee.ViewModels"
+             x:DataType="vm:RegistrationViewModel">
+    <ScrollViewer>
+		<Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" 
+              Margin="10">
+            <StackPanel Grid.Row="0" 
+                        HorizontalAlignment="Center">
+                <TextBlock Text="Register New Account" 
+                           Classes="Header"/>
+            </StackPanel>
+            <StackPanel Grid.Row="1" 
+                        Spacing="5" 
+                        Margin="10">
+				<TextBlock Text="First Name" 
+                           Classes="Label"
+                           HorizontalAlignment="Center"/>
+                <TextBox Text="{Binding FirstName}" 
+                         HorizontalAlignment="Center" 
+                         Width="300"/>
+                <TextBlock Classes="Error" 
+                           Text="{Binding FirstNameErrors}"/>
+
+                <TextBlock Text="Last Name" 
+                           Classes="Label"
+                           HorizontalAlignment="Center"/>
+                <TextBox Text="{Binding LastName}" 
+                         HorizontalAlignment="Center" 
+                         Width="300"/>
+                <TextBlock Classes="Error" 
+                           Text="{Binding LastNameErrors}"/>
+
+                <TextBlock Text="Email Address" 
+                           Classes="Label"
+                           HorizontalAlignment="Center"/>
+                <TextBox Text="{Binding Email}" 
+                         HorizontalAlignment="Center" 
+                         Width="300"/>
+                <TextBlock Classes="Error" 
+                           Text="{Binding EmailErrors}"/>
+
+                <TextBlock Text="Date Of Birth" 
+                           Classes="Label"
+                           HorizontalAlignment="Center"/>
+                <DatePicker SelectedDate="{Binding SelectedBirthDate}" 
+                            HorizontalAlignment="Center"/>
+                <TextBlock Classes="Error" 
+                           Text="{Binding SelectedBirthDateErrors}"/>
+
+                <TextBlock Text="Password" 
+                           Classes="Label" 
+                           HorizontalAlignment="Center"/>
+                <TextBox Text="{Binding Password}" 
+                         HorizontalAlignment="Center" 
+                         PasswordChar="*"
+                         Width="300"/>
+                <TextBlock Classes="Error" 
+                           Text="{Binding PasswordErrors}"/>
+
+                <TextBlock Text="Confirm Password" 
+                           Classes="Label" 
+                           HorizontalAlignment="Center"/>
+                <TextBox Text="{Binding ConfirmPassword}" 
+                         HorizontalAlignment="Center" 
+                         PasswordChar="*"
+                         Width="300"/>
+                <TextBlock Classes="Error" 
+                           Text="{Binding ConfirmPasswordErrors}"/>
+
+                <TextBlock Text="Address Line 1" 
+                           Classes="Label" 
+                           HorizontalAlignment="Center"/>
+                <TextBox Text="{Binding AddressLine1}" 
+                         HorizontalAlignment="Center" 
+                         Width="300"/>
+                <TextBlock Classes="Error" 
+                           Text="{Binding AddressLine1Errors}"/>
+
+                <TextBlock Text="Address Line 2" 
+                           Classes="Label"
+                           HorizontalAlignment="Center"/>
+                <TextBox Text="{Binding AddressLine2}" 
+                         HorizontalAlignment="Center" 
+                         Width="300"/>
+                <TextBlock Classes="Error" 
+                           Text="{Binding AddressLine2Errors}"/>
+
+                <TextBlock Text="City" 
+                           Classes="Label" 
+                           HorizontalAlignment="Center"/>
+                <TextBox Text="{Binding City}" 
+                         HorizontalAlignment="Center" 
+                         Width="300"/>
+                <TextBlock Classes="Error" 
+                           Text="{Binding CityErrors}"/>
+
+                <TextBlock Text="State" 
+                           Classes="Label" 
+                           HorizontalAlignment="Center"/>
+                <TextBox Text="{Binding State}" 
+                         HorizontalAlignment="Center" 
+                         Width="300"/>
+                <TextBlock Classes="Error" 
+                           Text="{Binding StateErrors}"/>
+
+                <TextBlock Text="Postal Code" 
+                           Classes="Label" 
+                           HorizontalAlignment="Center"/>
+                <TextBox Text="{Binding PostalCode}" 
+                         HorizontalAlignment="Center" 
+                         Width="300"/>
+                <TextBlock Classes="Error" 
+                           Text="{Binding PostalCodeErrors}"/>
+
+                <TextBlock Text="Country" 
+                           Classes="Label" 
+                           HorizontalAlignment="Center"/>
+                <TextBox Text="{Binding Country}" 
+                         HorizontalAlignment="Center" 
+                         Width="300"/>
+                <TextBlock Classes="Error" 
+                           Text="{Binding CountryErrors}"/>
+
+                <CheckBox IsChecked="{Binding IsBillingAddress}" 
+                          Content="Billing Address?"/>
+                <CheckBox IsChecked="{Binding IsShippingAddress}" 
+                          Content="Shipping Address?"/>
+            </StackPanel>
+            <StackPanel Grid.Row="2">
+				<Image Source="/Assets/register.jpg" Height="300" Width="300"/>
+            </StackPanel>
+            <StackPanel Grid.Row="3" 
+                        HorizontalAlignment="Center" 
+                        Orientation="Vertical">
+				<Button Content="Register" 
+                        Command="{Binding RegisterCommand}" 
+                        HorizontalAlignment="Center" 
+                        Margin="0,10,0,0"/>
+                <Button Content="Back" 
+                        Classes="Secondary"
+                        Command="{Binding GoBackCommand}" 
+                        HorizontalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Grid.Row="4" 
+                        HorizontalAlignment="Center">
+				<TextBlock Text="{Binding SuccessMessage}" 
+                           Classes="Success" 
+                           IsVisible="{Binding !!SuccessMessage}"
+                           HorizontalAlignment="Center"/>
+                <TextBlock Classes="Error" 
+                           Text="{Binding ErrorMessage}" 
+                           IsVisible="{Binding !!ErrorMessage}"
+                           HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+</UserControl>

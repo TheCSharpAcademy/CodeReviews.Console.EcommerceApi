@@ -1,0 +1,126 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ECommerce.AvaloniaClient.TerrenceLGee.AddProductView"
+             xmlns:vm="using:ECommerce.AvaloniaClient.TerrenceLGee.ViewModels"
+             x:DataType="vm:AddProductViewModel">
+    <ScrollViewer>
+		<Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto" 
+              Margin="10">
+	  <StackPanel Grid.Row="0">
+		  <TextBlock Text="Select A Category To Add This Product To" 
+                     Classes="Header"/>
+          <ProgressBar IsIndeterminate="True" 
+                       IsVisible="{Binding IsLoading}"/>
+          <TextBlock Text="Filter By Category Description" 
+                     Classes="SubHeader"/>
+          <StackPanel Orientation="Horizontal">
+			  <TextBox Text="{Binding SearchByDescription}" 
+                       Watermark="Search By Category Description..."/>
+          </StackPanel>
+          <StackPanel Orientation="Horizontal" 
+                      Margin="10,10,10,10">
+			  <Button Content="Clear Filters" 
+                      Command="{Binding ClearFiltersCommand}"/>
+          </StackPanel> 
+      </StackPanel>
+      <DataGrid Grid.Row="1"
+                ItemsSource="{Binding Categories}"
+                SelectedItem="{Binding SelectedCategory}"
+                IsReadOnly="True">
+          <DataGrid.Columns>
+              <DataGridTextColumn Header="Name" 
+                                  Binding="{Binding Name}" 
+                                  Width="Auto"/>
+              <DataGridTextColumn Header="Description" 
+                                  Binding="{Binding Description}" 
+                                  Width="Auto"/>
+              <DataGridTextColumn Header="Created At" 
+                                  Binding="{Binding CreatedAt}" 
+                                  Width="Auto"/>
+              <DataGridTextColumn Header="Updated At" 
+                                  Binding="{Binding UpdatedAt}" 
+                                  Width="Auto"/>
+          </DataGrid.Columns>
+      </DataGrid>
+      <StackPanel Grid.Row="2" 
+                  Orientation="Horizontal" 
+                  HorizontalAlignment="Center" Spacing="10">
+		  <Button Content="Previous" 
+                  Command="{Binding PreviousPageCommand}" 
+                  IsEnabled="{Binding HasPreviousPage}"/>
+          <TextBlock>
+			  <Run Text="{Binding Page}"/>
+              <Run Text=" of "/>
+              <Run Text="{Binding TotalPages}"/>
+          </TextBlock>
+          <Button Content="Next" 
+                  Command="{Binding NextPageCommand}" 
+                  IsEnabled="{Binding HasNextPage}"/>
+      </StackPanel>
+      <StackPanel Grid.Row="3">
+		  <TextBlock Text="Name" Classes="Label"/>
+          <TextBox Text="{Binding Name}"/>
+          <TextBlock Classes="Error" 
+                     Text="{Binding NameErrors}"/>
+
+          <TextBlock Text="Description (optional)" 
+                     Classes="Label"/>
+          <TextBox Text="{Binding Description}"/>
+          <TextBlock Classes="Error" 
+                     Text="{Binding DescriptionErrors}"/>
+
+          <TextBlock Text="Stock Quantity" 
+                     Classes="Label"/>
+          <TextBox Text="{Binding StockQuantity}"/>
+          <TextBlock Classes="Error" 
+                     Text="{Binding StockQuantityErrors}"/>
+
+          <TextBlock Text="Unit Price" 
+                     Classes="Label"/>
+          <TextBox Text="{Binding UnitPrice}"/>
+          <TextBlock Classes="Error" 
+                     Text="{Binding UnitPriceErrors}"/>
+
+          <TextBlock Text="Discount Percentage" 
+                     Classes="Label"/>
+          <TextBox Text="{Binding DiscountPercentage}"/>
+          <TextBlock Classes="Error" 
+                     Text="{Binding DiscountPercentageErrors}"/>
+
+          <TextBlock Text="Image Url" 
+                     Classes="Label"/>
+          <TextBox Text="{Binding ImageUrl}"/>
+          <TextBlock Classes="Error" 
+                     Text="{Binding ImageUrlErrors}"/>
+
+          <CheckBox IsChecked="{Binding IsInStock}" 
+                    Content="In Stock?"/>
+          <CheckBox IsChecked="{Binding IsDeleted}" 
+                    Content="Deleted?"/>
+      </StackPanel>
+      <StackPanel Grid.Row="4">
+		  <Button Content="Add Product" 
+                  Command="{Binding AddProductCommand}" 
+                  HorizontalAlignment="Center"
+                  Classes="Success"
+                  Margin="0,10,0,0"/>
+          <Button Content="Back To Product Page" 
+                  Classes="Secondary"
+                  Command="{Binding GoBackCommand}" 
+                  HorizontalAlignment="Center" 
+                  Margin="0,10,0,0"/>
+          <TextBlock Text="{Binding SuccessMessage}" 
+                     Classes="Success" 
+                     IsVisible="{Binding !!SuccessMessage}"
+                     HorizontalAlignment="Center"/>
+          <TextBlock Text="{Binding ErrorMessage}" 
+                     Classes="Error" 
+                     IsVisible="{Binding !!ErrorMessage}"
+                     HorizontalAlignment="Center"/>
+      </StackPanel>
+  </Grid>
+    </ScrollViewer>
+</UserControl>

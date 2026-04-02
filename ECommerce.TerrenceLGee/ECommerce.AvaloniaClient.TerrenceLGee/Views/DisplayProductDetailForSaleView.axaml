@@ -1,0 +1,89 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+			 x:Class="ECommerce.AvaloniaClient.TerrenceLGee.DisplayProductDetailForSaleView"
+			 xmlns:asyncImageLoader="clr-namespace:AsyncImageLoader;assembly=AsyncImageLoader.Avalonia"
+			 xmlns:vm="using:ECommerce.AvaloniaClient.TerrenceLGee.ViewModels"
+			 x:DataType="vm:DisplayProductDetailForSaleViewModel">
+	<ScrollViewer>
+		<Grid RowDefinitions="Auto, Auto, Auto"
+			  Margin="10">
+			<StackPanel Grid.Row="0">
+				<TextBlock Text="{Binding Product.Name}"
+						   Classes="Header"/>
+				<Border Padding="15"
+						CornerRadius="5">
+					<StackPanel Spacing="10">
+						<StackPanel HorizontalAlignment="Center">
+							<Image asyncImageLoader:ImageLoader.Source="{Binding Product.ImageUrl}"
+								   Height="300"
+								   Width="300"/>
+						</StackPanel>
+						<WrapPanel>
+							<TextBlock Text="In Category: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Product.CategoryName}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Description: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Product.Description}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Quantity In Stock: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Product.StockQuantity}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Unit Price: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Product.UnitPrice, StringFormat={}{0:C}}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="Discount Percentage: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Product.DiscountPercentage}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+						<WrapPanel>
+							<TextBlock Text="In Stock?: "
+									   Classes="SubHeader"/>
+							<TextBlock Text="{Binding Product.IsInStock}"
+									   Classes="SubHeader"/>
+						</WrapPanel>
+					</StackPanel>
+				</Border>
+			</StackPanel>
+			<StackPanel Grid.Row="1">
+				<TextBlock Text="Enter quantity to purchase"
+						   Classes="Label"
+						   HorizontalAlignment="Center"/>
+				<NumericUpDown Value="{Binding Quantity}"
+							   Minimum="1"
+							   Maximum="{Binding MaxQuantity}"
+							   Width="150"/>
+			</StackPanel>
+			<StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="40" Margin="20">
+				<Button Content="View Cart"
+						Command="{Binding ViewCartCommand}"/>
+				<Button Content="Add To Cart"
+						Classes="Success"
+						Command="{Binding AddToCartCommand}"/>
+				<Button Content="Back To Products"
+						Classes="Secondary"
+						Command="{Binding GoBackToProductsCommand}"/>
+				<Button Content="Remove Item"
+						Classes="Danger"
+						Command="{Binding RemoveFromCartCommand}"/>
+				<Button Content="Checkout"
+						Command="{Binding CheckoutCommand}"/>
+			</StackPanel>
+		</Grid>
+	</ScrollViewer>
+</UserControl>

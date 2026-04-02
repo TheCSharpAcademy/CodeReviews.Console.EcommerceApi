@@ -1,0 +1,55 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ECommerce.AvaloniaClient.TerrenceLGee.AdminChooseCategoryForUpdateView"
+             xmlns:vm="using:ECommerce.AvaloniaClient.TerrenceLGee.ViewModels"
+             x:DataType="vm:AdminChooseCategoryForUpdateViewModel">
+  <StackPanel>
+	  <TextBlock Text="Choose A Category To Update" 
+                 Classes="Header"/>
+      <ProgressBar IsIndeterminate="True" 
+                   IsVisible="{Binding IsLoading}"/>
+      <DataGrid ItemsSource="{Binding Categories}"
+                SelectedItem="{Binding SelectedCategoryForUpdate}"
+                IsReadOnly="True">
+          <DataGrid.Columns>
+			  <DataGridTextColumn Header="Name" 
+                                  Binding="{Binding Name}" 
+                                  Width="Auto"/>
+              <DataGridTextColumn Header="Description" 
+                                  Binding="{Binding Description}" 
+                                  Width="Auto"/>
+              <DataGridTextColumn Header="Created At" 
+                                  Binding="{Binding CreatedAt}" 
+                                  Width="Auto"/>
+              <DataGridTextColumn Header="Updated At" 
+                                  Binding="{Binding UpdatedAt}" 
+                                  Width="Auto"/>
+          </DataGrid.Columns>
+      </DataGrid>
+      <StackPanel Orientation="Horizontal" 
+                  HorizontalAlignment="Center" 
+                  Spacing="10">
+		  <Button Content="Previous" 
+                  Command="{Binding PreviousPageCommand}" 
+                  IsEnabled="{Binding HasPreviousPage}"/>
+          <TextBlock>
+			  <Run Text="{Binding Page}"/>
+              <Run Text=" of "/>
+              <Run Text="{Binding TotalPages}"/>
+          </TextBlock>
+          <Button Content="Next" 
+                  Command="{Binding NextPageCommand}" 
+                  IsEnabled="{Binding HasNextPage}"/>
+      </StackPanel>
+      <StackPanel Orientation="Horizontal" 
+                  HorizontalAlignment="Center" 
+                  Spacing="10">
+		  <Button Content="Back" 
+                  Classes="Secondary"
+                  Command="{Binding GoBackCommand}"/>
+      </StackPanel>
+  </StackPanel>
+</UserControl>

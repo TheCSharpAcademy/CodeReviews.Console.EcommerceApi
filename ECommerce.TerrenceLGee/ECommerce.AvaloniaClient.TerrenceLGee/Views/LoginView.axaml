@@ -1,0 +1,61 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ECommerce.AvaloniaClient.TerrenceLGee.LoginView"
+             xmlns:vm="using:ECommerce.AvaloniaClient.TerrenceLGee.ViewModels"
+             x:DataType="vm:LoginViewModel">
+  <ScrollViewer>
+	  <Grid RowDefinitions="Auto, Auto, Auto, Auto" 
+            Margin="10">
+		  <StackPanel Grid.Row="0" 
+                      HorizontalAlignment="Center">
+			  <TextBlock Text="Login To Your Account" 
+                         Classes="Header"/>
+              <StackPanel Spacing="10" 
+                          Margin="10">
+				  <TextBlock Text="Email" 
+                             Classes="Label" 
+                             HorizontalAlignment="Center"/>
+                  <TextBox Text="{Binding Email}" 
+                           Width="260"/>
+                  <TextBlock Classes="Error" 
+                             Text="{Binding EmailErrors}"/>
+
+                  <TextBlock Text="Password" 
+                             Classes="Label" 
+                             HorizontalAlignment="Center"/>
+                  <TextBox Text="{Binding Password}" 
+                           PasswordChar="*"
+                           Width="260"/>
+                  <TextBlock Classes="Error" 
+                             Text="{Binding PasswordErrors}"/>
+              </StackPanel>
+          </StackPanel>
+          <StackPanel Grid.Row="1" 
+                      HorizontalAlignment="Center" 
+                      Orientation="Horizontal" 
+                      Spacing="20">
+			  <Button Content="Login" 
+                      Command="{Binding LoginCommand}"/>
+              <Button Content="Back" 
+                      Classes="Secondary"
+                      Command="{Binding GoBackCommand}"/>
+          </StackPanel>
+          <StackPanel Grid.Row="2">
+			  <Image Source="/Assets/login.jpg" Height="300" Width="300"/>
+          </StackPanel>
+          <StackPanel Grid.Row="3">
+			  <TextBlock Text="{Binding SuccessMessage}" 
+                         Classes="Success" 
+                         IsVisible="{Binding !!SuccessMessage}"
+                         HorizontalAlignment="Center"/>
+              <TextBlock Classes="Error" 
+                         Text="{Binding ErrorMessage}" 
+                         IsVisible="{Binding ErrorMessage}"
+                         HorizontalAlignment="Center"/>
+          </StackPanel>
+      </Grid>
+  </ScrollViewer>
+</UserControl>
