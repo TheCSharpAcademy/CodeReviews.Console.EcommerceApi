@@ -1,0 +1,886 @@
+{
+  "info": {
+    "_postman_id": "55790843-a96f-4c97-b21d-1b3b07b830a6",
+    "name": "ECommerce API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "31837703"
+  },
+  "item": [
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "Create",
+          "item": [
+            {
+              "name": "Valid Create Category",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Electronics\",\n  \"description\": \"Smartphones, laptops, and gadgets.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/{{apiVersion}}/category",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "{{apiVersion}}",
+                    "category"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Invalid Create Category",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"\",\n  \"description\": \"Smartphones, laptops, and gadgets.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/{{apiVersion}}/category",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "{{apiVersion}}",
+                    "category"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Update",
+          "item": [
+            {
+              "name": "Valid Update Category",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Electronics\",\n  \"description\": \"Smartphones, laptops, TVs\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/{{apiVersion}}/category/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "{{apiVersion}}",
+                    "category",
+                    "3"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Invalid Update Category",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"\",\n  \"description\": \"Smartphones, laptops, TVs\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/{{apiVersion}}/category/3",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "{{apiVersion}}",
+                    "category",
+                    "3"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Get All Categories",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Get All Categories: response is array or paginated object', function () {",
+                  "    const json = pm.response.json();",
+                  "    const isArray = Array.isArray(json);",
+                  "    const hasItemsArray = json && typeof json === 'object' && (Array.isArray(json.items) || Array.isArray(json.data) || Array.isArray(json.results));",
+                  "    pm.expect(isArray || hasItemsArray, 'array or object with items/data/results array').to.equal(true);",
+                  "})",
+                  "",
+                  "pm.test('Get All Categories: pagination fields are valid when present', function () {",
+                  "    const json = pm.response.json();",
+                  "    if (!json || typeof json !== 'object' || Array.isArray(json))",
+                  "        return;",
+                  "    const numFields = [",
+                  "        'pageNumber',",
+                  "        'pageSize',",
+                  "        'totalCount',",
+                  "        'total',",
+                  "        'count'",
+                  "    ];",
+                  "    numFields.forEach(f => {",
+                  "        if (Object.prototype.hasOwnProperty.call(json, f)) {",
+                  "            pm.expect(json[f], `${ f } should be a number`).to.be.a('number');",
+                  "        }",
+                  "    });",
+                  "})",
+                  "",
+                  "pm.test('Get All Categories: response is array or paginated object', function () {",
+                  "    const json = pm.response.json();",
+                  "    const isArray = Array.isArray(json);",
+                  "    const hasItemsArray = json && typeof json === 'object' && (Array.isArray(json.items) || Array.isArray(json.data) || Array.isArray(json.results));",
+                  "    pm.expect(isArray || hasItemsArray, 'array or object with items/data/results array').to.equal(true);",
+                  "})",
+                  "",
+                  "pm.test('Get All Categories: pagination fields are valid when present', function () {",
+                  "    const json = pm.response.json();",
+                  "    if (!json || typeof json !== 'object' || Array.isArray(json))",
+                  "        return;",
+                  "    const numFields = [",
+                  "        'pageNumber',",
+                  "        'pageSize',",
+                  "        'totalCount',",
+                  "        'total',",
+                  "        'count'",
+                  "    ];",
+                  "    numFields.forEach(f => {",
+                  "        if (Object.prototype.hasOwnProperty.call(json, f)) {",
+                  "            pm.expect(json[f], `${ f } should be a number`).to.be.a('number');",
+                  "        }",
+                  "    });",
+                  "})",
+                  "",
+                  "pm.test('Get All Categories: response is array or paginated object', function () {",
+                  "    const json = pm.response.json();",
+                  "    const isArray = Array.isArray(json);",
+                  "    const hasItemsArray = json && typeof json === 'object' && (Array.isArray(json.items) || Array.isArray(json.data) || Array.isArray(json.results));",
+                  "    pm.expect(isArray || hasItemsArray, 'array or object with items/data/results array').to.equal(true);",
+                  "})",
+                  "",
+                  "pm.test('Get All Categories: pagination fields are valid when present', function () {",
+                  "    const json = pm.response.json();",
+                  "    if (!json || typeof json !== 'object' || Array.isArray(json))",
+                  "        return;",
+                  "    const numFields = [",
+                  "        'pageNumber',",
+                  "        'pageSize',",
+                  "        'totalCount',",
+                  "        'total',",
+                  "        'count'",
+                  "    ];",
+                  "    numFields.forEach(f => {",
+                  "        if (Object.prototype.hasOwnProperty.call(json, f)) {",
+                  "            pm.expect(json[f], `${ f } should be a number`).to.be.a('number');",
+                  "        }",
+                  "    });",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/{{apiVersion}}/category",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "{{apiVersion}}",
+                "category"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/{{apiVersion}}/category/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "{{apiVersion}}",
+                "category",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Category",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Delete Category: status is 200 or 204', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([",
+                  "        200,",
+                  "        204",
+                  "    ]);",
+                  "})",
+                  "",
+                  "pm.test('Delete Category: status is 200 or 204', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([",
+                  "        200,",
+                  "        204",
+                  "    ]);",
+                  "})",
+                  "",
+                  "pm.test('Delete Category: status is 200 or 204', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([",
+                  "        200,",
+                  "        204",
+                  "    ]);",
+                  "})"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/{{apiVersion}}/category/2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "{{apiVersion}}",
+                "category",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Create",
+          "item": [
+            {
+              "name": "Valid Create Product",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Orange Juice\",\n    \"price\": 15,\n    \"quantity\": 55,\n    \"discription\": \"\",\n    \"imageUrl\": \"\",\n    \"categoryId\": 4\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/{{apiVersion}}/product",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "{{apiVersion}}",
+                    "product"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Invalid Create Product",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"\",\n    \"price\": 0,\n    \"quantity\": -5,\n    \"discription\": \"\",\n    \"imageUrl\": \"link\",\n    \"categoryId\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/{{apiVersion}}/product",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "{{apiVersion}}",
+                    "product"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Update",
+          "item": [
+            {
+              "name": "Valid Update Product",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"Orange Juice\",\n    \"price\": 15,\n    \"quantity\": 55,\n    \"discription\": \"\",\n    \"imageUrl\": \"\",\n    \"categoryId\": 4\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/{{apiVersion}}/product/5",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "{{apiVersion}}",
+                    "product",
+                    "5"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Invalid Update Product",
+              "request": {
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"name\": \"\",\n    \"price\": 0,\n    \"quantity\": -5,\n    \"discription\": \"\",\n    \"imageUrl\": \"link\",\n    \"categoryId\": 0\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/{{apiVersion}}/product/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "{{apiVersion}}",
+                    "product",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Get All Products",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('Get All Products: response is array or paginated object', function () {",
+                  "    const json = pm.response.json();",
+                  "    const isArray = Array.isArray(json);",
+                  "    const hasItemsArray = json && typeof json === 'object' && (Array.isArray(json.items) || Array.isArray(json.data) || Array.isArray(json.results));",
+                  "    pm.expect(isArray || hasItemsArray, 'array or object with items/data/results array').to.equal(true);",
+                  "})",
+                  "",
+                  "pm.test('Get All Products: pagination fields are valid when present', function () {",
+                  "    const json = pm.response.json();",
+                  "    if (!json || typeof json !== 'object' || Array.isArray(json))",
+                  "        return;",
+                  "    const numFields = [",
+                  "        'pageNumber',",
+                  "        'pageSize',",
+                  "        'totalCount',",
+                  "        'total',",
+                  "        'count'",
+                  "    ];",
+                  "    numFields.forEach(f => {",
+                  "        if (Object.prototype.hasOwnProperty.call(json, f)) {",
+                  "            pm.expect(json[f], `${ f } should be a number`).to.be.a('number');",
+                  "        }",
+                  "    });",
+                  "})",
+                  "",
+                  "pm.test('Get All Products: response is array or paginated object', function () {",
+                  "    const json = pm.response.json();",
+                  "    const isArray = Array.isArray(json);",
+                  "    const hasItemsArray = json && typeof json === 'object' && (Array.isArray(json.items) || Array.isArray(json.data) || Array.isArray(json.results));",
+                  "    pm.expect(isArray || hasItemsArray, 'array or object with items/data/results array').to.equal(true);",
+                  "})",
+                  "",
+                  "pm.test('Get All Products: pagination fields are valid when present', function () {",
+                  "    const json = pm.response.json();",
+                  "    if (!json || typeof json !== 'object' || Array.isArray(json))",
+                  "        return;",
+                  "    const numFields = [",
+                  "        'pageNumber',",
+                  "        'pageSize',",
+                  "        'totalCount',",
+                  "        'total',",
+                  "        'count'",
+                  "    ];",
+                  "    numFields.forEach(f => {",
+                  "        if (Object.prototype.hasOwnProperty.call(json, f)) {",
+                  "            pm.expect(json[f], `${ f } should be a number`).to.be.a('number');",
+                  "        }",
+                  "    });",
+                  "})"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/{{apiVersion}}/product?pageNumber=1&pageSize=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "{{apiVersion}}",
+                "product"
+              ],
+              "query": [
+                {
+                  "key": "pageNumber",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get a Product",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/{{apiVersion}}/product/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "{{apiVersion}}",
+                "product",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Product",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Delete Product: status is 200 or 204', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([",
+                  "        200,",
+                  "        204",
+                  "    ]);",
+                  "})",
+                  "",
+                  "pm.test('Delete Product: status is 200 or 204', function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([",
+                  "        200,",
+                  "        204",
+                  "    ]);",
+                  "})"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/{{apiVersion}}/product/3",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "{{apiVersion}}",
+                "product",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sales",
+      "item": [
+        {
+          "name": "Create",
+          "item": [
+            {
+              "name": "Valid Create Sale",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"items\": [\n        {\n            \"productId\": 1,\n            \"quantity\": 1\n        },\n        {\n            \"productId\": 2,\n            \"quantity\": 4\n        }\n    ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/{{apiVersion}}/sale",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "{{apiVersion}}",
+                    "sale"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "Invalid Create Sale",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n    \"items\": [\n        {\n            \"productId\": 0,\n            \"quantity\": 1\n        },\n        {\n            \"productId\": 2,\n            \"quantity\": 0\n        },\n        {\n            \"productId\": 3,\n            \"quantity\": -1\n        }\n    ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/{{apiVersion}}/sale",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "{{apiVersion}}",
+                    "sale"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "name": "Get All Sales",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "pm.test('Get All Sales: response is array or paginated object', function () {",
+                  "    const json = pm.response.json();",
+                  "    const isArray = Array.isArray(json);",
+                  "    const hasItemsArray = json && typeof json === 'object' && (Array.isArray(json.items) || Array.isArray(json.data) || Array.isArray(json.results));",
+                  "    pm.expect(isArray || hasItemsArray, 'array or object with items/data/results array').to.equal(true);",
+                  "})",
+                  "",
+                  "pm.test('Get All Sales: pagination fields are valid when present', function () {",
+                  "    const json = pm.response.json();",
+                  "    if (!json || typeof json !== 'object' || Array.isArray(json))",
+                  "        return;",
+                  "    const numFields = [",
+                  "        'pageNumber',",
+                  "        'pageSize',",
+                  "        'totalCount',",
+                  "        'total',",
+                  "        'count'",
+                  "    ];",
+                  "    numFields.forEach(f => {",
+                  "        if (Object.prototype.hasOwnProperty.call(json, f)) {",
+                  "            pm.expect(json[f], `${ f } should be a number`).to.be.a('number');",
+                  "        }",
+                  "    });",
+                  "})",
+                  "",
+                  "pm.test('Get All Sales: response is array or paginated object', function () {",
+                  "    const json = pm.response.json();",
+                  "    const isArray = Array.isArray(json);",
+                  "    const hasItemsArray = json && typeof json === 'object' && (Array.isArray(json.items) || Array.isArray(json.data) || Array.isArray(json.results));",
+                  "    pm.expect(isArray || hasItemsArray, 'array or object with items/data/results array').to.equal(true);",
+                  "})",
+                  "",
+                  "pm.test('Get All Sales: pagination fields are valid when present', function () {",
+                  "    const json = pm.response.json();",
+                  "    if (!json || typeof json !== 'object' || Array.isArray(json))",
+                  "        return;",
+                  "    const numFields = [",
+                  "        'pageNumber',",
+                  "        'pageSize',",
+                  "        'totalCount',",
+                  "        'total',",
+                  "        'count'",
+                  "    ];",
+                  "    numFields.forEach(f => {",
+                  "        if (Object.prototype.hasOwnProperty.call(json, f)) {",
+                  "            pm.expect(json[f], `${ f } should be a number`).to.be.a('number');",
+                  "        }",
+                  "    });",
+                  "})"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/{{apiVersion}}/sale?pageNumber=1&pageSize=2",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "{{apiVersion}}",
+                "sale"
+              ],
+              "query": [
+                {
+                  "key": "pageNumber",
+                  "value": "1"
+                },
+                {
+                  "key": "pageSize",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get a sale",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/{{apiVersion}}/sale/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "api",
+                "{{apiVersion}}",
+                "sale",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "requests": {},
+        "exec": [
+          "// -------- Baseline collection-level tests & helpers --------",
+          "// These tests run after every request in this collection.",
+          "",
+          "pm.test(\"Response time is under 2000ms\", function () {",
+          "  pm.expect(pm.response.responseTime).to.be.below(2000);",
+          "});",
+          "",
+          "pm.test(\"Status code is successful (2xx)\", function () {",
+          "  pm.expect(pm.response.code).to.be.within(200, 299);",
+          "});",
+          "",
+          "// Content-Type checks (only when response has a body)",
+          "pm.test(\"Content-Type is JSON when body is present\", function () {",
+          "  const hasBody = pm.response.text() && pm.response.text().trim().length > 0;",
+          "  if (!hasBody) return;",
+          "",
+          "  pm.response.to.have.header(\"Content-Type\");",
+          "  const ct = (pm.response.headers.get(\"Content-Type\") || \"\").toLowerCase();",
+          "  pm.expect(ct).to.include(\"application/json\");",
+          "});",
+          "",
+          "// Basic JSON parse check (only when body is present)",
+          "pm.test(\"Response body is valid JSON when present\", function () {",
+          "  const hasBody = pm.response.text() && pm.response.text().trim().length > 0;",
+          "  if (!hasBody) return;",
+          "",
+          "  pm.response.to.be.json;",
+          "});",
+          "",
+          "// Helper: get path id from the current request URL, if any.",
+          "function getLastPathId() {",
+          "  try {",
+          "    const url = pm.request.url;",
+          "    const segments = (url.path || []).filter(Boolean);",
+          "    const last = segments[segments.length - 1];",
+          "    if (last && /^\\d+$/.test(last)) return parseInt(last, 10);",
+          "    // handle templated ids like {{productId}}",
+          "    if (last && last.includes(\"{{\") && last.includes(\"}}\")) {",
+          "      const varName = last.replace(/\\{\\{|\\}\\}/g, \"\").trim();",
+          "      const v = pm.collectionVariables.get(varName) || pm.environment.get(varName) || pm.globals.get(varName);",
+          "      if (v && /^\\d+$/.test(String(v))) return parseInt(v, 10);",
+          "    }",
+          "  } catch (e) {}",
+          "  return null;",
+          "}",
+          "",
+          "// Helper: try to pull an id from common response shapes.",
+          "function extractId(json) {",
+          "  if (!json || typeof json !== \"object\") return null;",
+          "  if (typeof json.id === \"number\") return json.id;",
+          "  if (typeof json.productId === \"number\") return json.productId;",
+          "  if (typeof json.categoryId === \"number\") return json.categoryId;",
+          "  if (typeof json.saleId === \"number\") return json.saleId;",
+          "  if (json.data && typeof json.data === \"object\" && typeof json.data.id === \"number\") return json.data.id;",
+          "  return null;",
+          "}",
+          "",
+          "// Expose helpers to request-level tests (by attaching to globals)",
+          "// Note: Postman sandbox doesn't support true exports; attach to pm.",
+          "pm.collectionVariables.set(\"_lastPathId\", String(getLastPathId() ?? \"\"));",
+          "",
+          "// Also keep the last extracted id available for request-level scripts to use if desired.",
+          "try {",
+          "  const hasBody = pm.response.text() && pm.response.text().trim().length > 0;",
+          "  if (hasBody && pm.response.headers.get(\"Content-Type\")?.toLowerCase().includes(\"application/json\")) {",
+          "    const json = pm.response.json();",
+          "    const extracted = extractId(json);",
+          "    if (typeof extracted === \"number\") {",
+          "      pm.collectionVariables.set(\"_lastExtractedId\", String(extracted));",
+          "    }",
+          "  }",
+          "} catch (e) {",
+          "  // ignore",
+          "}",
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": ""
+    },
+    {
+      "key": "_lastPathId",
+      "value": ""
+    },
+    {
+      "key": "_lastExtractedId",
+      "value": ""
+    },
+    {
+      "key": "apiVersion",
+      "value": "",
+      "type": "default"
+    }
+  ]
+}
