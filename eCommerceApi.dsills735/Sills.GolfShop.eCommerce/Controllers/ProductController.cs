@@ -25,8 +25,17 @@ public class ProductController(IProductsService productsService) : ControllerBas
         
         return Ok(pagedProducts);
     }
+    /*
+     * [HttpGet]
+    public async Task<ActionResult<List<Product>>> GetAllProductsAsync([FromQuery] PaginationParameters param)
+    {
+        var pagedProducts = await _productsService
+            .GetPagedProductsAsync(param.PageNumber, param.PageSize);
 
-        [HttpGet("{id}")]
+        return Ok(pagedProducts);
+    }
+     */
+    [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProductById(int id)
         {
             var product = await _productService.GetProductByIdAsync(id);
