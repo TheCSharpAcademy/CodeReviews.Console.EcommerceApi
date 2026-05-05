@@ -1,4 +1,3 @@
 <Solution>
   <Project Path="Sills.GolfShop.eCommerce/Sills.GolfShop.eCommerceAPI.csproj" />
-  <Project Path="Sills.GolfShop.eCommerceFrontEnd/Sills.GolfShop.eCommerceFrontEnd.csproj" Id="25c2afe9-e825-4b56-8a5f-a4ed15c739aa" />
 </Solution>
