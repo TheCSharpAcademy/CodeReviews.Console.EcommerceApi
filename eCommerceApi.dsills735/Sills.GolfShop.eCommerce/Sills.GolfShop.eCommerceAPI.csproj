@@ -17,8 +17,4 @@
     <PackageReference Include="Spectre.Console" Version="0.55.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\Sills.GolfShop.eCommerceFrontEnd\Sills.GolfShop.eCommerceFrontEnd.csproj" />
-  </ItemGroup>
-
 </Project>

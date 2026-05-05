@@ -20,9 +20,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
-    var dbContext = app.Services.GetRequiredService<GolfShopDbContext>();
-    dbContext.Database.EnsureDeleted();
-    dbContext.Database.EnsureCreated();
+    using (var scope = app.Services.CreateScope())
+    {
+        var dbContext = scope.ServiceProvider.GetRequiredService<GolfShopDbContext>();
+        dbContext.Database.EnsureDeleted();
+        dbContext.Database.EnsureCreated();
+    }
 }
 
 app.MapControllers();

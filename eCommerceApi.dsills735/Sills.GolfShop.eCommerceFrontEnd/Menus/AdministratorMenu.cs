@@ -5,7 +5,7 @@ namespace Sills.GolfShop.eCommerceFrontEnd.Menus;
 
 internal class AdministratorMenu
 {
-    internal static void AdminMenu()
+    internal static async Task AdminMenuAsync()
     {
         bool running = true;
 
@@ -35,7 +35,7 @@ internal class AdministratorMenu
             {
                 case "Add a product":
                     ProductsController productsController = new ProductsController();
-                    productsController.AddProduct();
+                    await productsController.AddProduct();
                     break;
 
                 case "Update a product":

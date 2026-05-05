@@ -12,6 +12,7 @@ public interface IProductsService
     Task<Product> CreateProductAsync(Product product);
     Task UpdateProductAsync(int id, Product product);
     Task DeleteProductAsync(int id);
+    Task<List<Product>> GetPagedProductsAsync(int pageNumber, int pageSize);
 }
 public class ProductsService : IProductsService
 {
@@ -26,8 +27,8 @@ public class ProductsService : IProductsService
     {
         return await _context.Products
             .Where(p => p.DeletedAt == null)
-            .ToListAsync();
-    }
+           .ToListAsync();
+   }
 
     public async Task<Product> GetProductByIdAsync(int id)
     {
@@ -68,5 +69,15 @@ public class ProductsService : IProductsService
         }
         product.DeletedAt = DateTime.UtcNow;
         await _context.SaveChangesAsync();
+    }
+
+    public async Task<List<Product>> GetPagedProductsAsync(int pageNumber, int pageSize)
+    {
+        return await _context.Products
+            .Where(p => p.DeletedAt == null)
+            .OrderBy(p => p.Id)
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
     }
 }

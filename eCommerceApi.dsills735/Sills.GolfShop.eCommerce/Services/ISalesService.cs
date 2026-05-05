@@ -6,7 +6,7 @@ namespace Sills.GolfShop.eCommerceAPI.Services;
 
 public interface ISalesService
 {
-    //Task<List<Sales>> GetAllSalesAsync();
+    Task<List<Sales>> GetAllSalesAsync();
     Task<Sales> GetSaleByIdAsync(int id);
     Task<Sales> CreateSaleAsync(Sales sale);
     Task DeleteSaleAsync(int id);
@@ -22,12 +22,12 @@ public class SalesService : ISalesService
         _context = context;
     }
 
-    /*
+    
     public async Task<List<Sales>> GetAllSalesAsync()
     {
         return await _context.Sales.ToListAsync();
     }
-    */
+    
     public async Task<Sales> GetSaleByIdAsync(int id)
     {
         return await _context.Sales.FindAsync(id);

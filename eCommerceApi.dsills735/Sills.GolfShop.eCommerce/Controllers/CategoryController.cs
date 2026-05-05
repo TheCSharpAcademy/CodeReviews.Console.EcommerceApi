@@ -23,13 +23,10 @@ public class CategoryController(ICategoryService categoryService) : ControllerBa
                 _ => query.OrderBy(p => p.Name)
             };
 
-            var pagedCategories = await query
-                   .Where(c => c.DeletedAt == null)
-                   .Skip((param.PageNumber - 1) * param.PageSize)
-                   .Take(param.PageSize)
-                   .ToListAsync();
+            var pagedCategories = await _categoryService
+                .GetPagedCategoriesAsync(param.PageNumber, param.PageSize);
 
-            return Ok(pagedCategories);
+        return Ok(pagedCategories);
         }
 
         [HttpGet("{id}")]

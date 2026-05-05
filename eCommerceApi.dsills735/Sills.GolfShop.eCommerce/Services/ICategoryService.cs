@@ -13,7 +13,8 @@ namespace Sills.GolfShop.eCommerceAPI.Services;
         Task<Categories> CreateCategoryAsync(Categories category);
         Task UpdateCategoryAsync(int id, Categories category);
         Task DeleteCategoryAsync(int id);
-    }
+        Task <List<Categories>> GetPagedCategoriesAsync(int pageNumber, int pageSize);
+}
 
 public class CategoryService : ICategoryService
 {
@@ -67,6 +68,13 @@ public class CategoryService : ICategoryService
         await _context.SaveChangesAsync();
     }
 
+    public async Task<List<Categories>> GetPagedCategoriesAsync(int pageNumber, int pageSize)
+    {
+        return await _context.Categories
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+    }
 }
 
 
