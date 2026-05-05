@@ -23,8 +23,8 @@ public class CategoryController(ICategoryService categoryService) : ControllerBa
                 _ => query.OrderBy(p => p.Name)
             };
 
-            var pagedCategoriies = await _categoryService
-                .GetPagedCategoriesAsync(query, param.PageNumber, param.PageSize);
+            var pagedCategories = await _categoryService
+                .GetPagedCategoriesAsync(param.PageNumber, param.PageSize);
 
         return Ok(pagedCategories);
         }
