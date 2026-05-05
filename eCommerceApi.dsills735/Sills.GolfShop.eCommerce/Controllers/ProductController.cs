@@ -12,7 +12,7 @@ namespace Sills.GolfShop.eCommerceAPI.Controllers;
 public class ProductController(IProductsService productsService) : ControllerBase
 {
     private readonly IProductsService _productService = productsService;
-
+    /*
     [HttpGet]
     public async Task<ActionResult<List<Product>>> GetAllProducts([FromQuery]PaginationParameters param)
     {
@@ -24,17 +24,17 @@ public class ProductController(IProductsService productsService) : ControllerBas
             .ToList();
         
         return Ok(pagedProducts);
-    }
-    /*
-     * [HttpGet]
+    }*/
+    
+      [HttpGet]
     public async Task<ActionResult<List<Product>>> GetAllProductsAsync([FromQuery] PaginationParameters param)
     {
-        var pagedProducts = await _productsService
+        var pagedProducts = await _productService
             .GetPagedProductsAsync(param.PageNumber, param.PageSize);
 
         return Ok(pagedProducts);
     }
-     */
+     
     [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProductById(int id)
         {
