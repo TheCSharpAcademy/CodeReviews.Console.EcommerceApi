@@ -7,7 +7,7 @@ namespace Sills.GolfShop.eCommerceAPI.Services;
 
 public interface IProductsService
 {
-    //Task<List<Product>> GetAllProductsAsync();
+    Task<List<Product>> GetAllProductsAsync();
     Task<Product> GetProductByIdAsync(int id);
     Task<Product> CreateProductAsync(Product product);
     Task UpdateProductAsync(int id, Product product);
@@ -23,12 +23,12 @@ public class ProductsService : IProductsService
         _context = context;
     }
 
-    /*public async Task<List<Product>> GetAllProductsAsync()
+    public async Task<List<Product>> GetAllProductsAsync()
     {
         return await _context.Products
             .Where(p => p.DeletedAt == null)
-            .ToListAsync();
-   }*/
+           .ToListAsync();
+   }
 
     public async Task<Product> GetProductByIdAsync(int id)
     {
