@@ -16,7 +16,6 @@ public class SalesController(ISalesService salesService) : ControllerBase
     {
         var pagedSales = await _salesService
             .GetPagedSalesAsync(param.PageNumber, param.PageSize);
-
         return Ok(pagedSales);
     }
     [HttpGet("{id}")]
