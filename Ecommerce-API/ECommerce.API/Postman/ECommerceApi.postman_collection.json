@@ -1,0 +1,1740 @@
+{
+	"info": {
+		"_postman_id": "95317eb1-2d5f-447c-a306-88b644a584a3",
+		"name": "ECommerce API",
+		"description": "This API features 'Items' which are the products being sold, 'Tags' which are the description tags attached to items, and 'Sales' which are the recorded sales. Each category features Get, Post, and Delete requests. Any deletion requests are handled by the API and are turned into soft deletes to keep previous records viable, and to allow the object itself to be restored manually if it needs to be. All soft deleted objects are hidden from any Get requests, or any requests that query the database.\n\nThe base Url for the API is set to localhost port 7204, but can be changed based on individual needs.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Items",
+			"item": [
+				{
+					"name": "Get Items",
+					"id": "3796c0ee-a1d2-40a4-a603-afff495b6c1e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/api/Items",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"Items"
+							],
+							"query": [
+								{
+									"key": "PageNumber",
+									"value": "",
+									"description": "Specifies which page to return, defautls to the first page.",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "PageSize",
+									"value": "",
+									"description": "Defines how many items can be shown on one page, max is 50.",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "SearchTerm",
+									"value": "",
+									"description": "Filters results based on the search term.",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "Genre",
+									"value": "",
+									"description": "Filters results to only show items that match the given genre.",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Returns a paginated response of items taken from the database and then paginated and/or filtered according to the parameters passed from the query. If no pagination parameters are passed through the request will always default to the first page, with a page size of 10.\n\nThe search term parameter filters the results based on if the items name or artist fields contain the search term, however it does not support searching by tags. The genre parameter filters results to only contain items that match the parameter.\n\nReturns an expected 200 OK containing the paged response after a successful request, or else a 404 NotFound is expected if no results are returned."
+					},
+					"response": [
+						{
+							"id": "77a63230-08a0-4edd-8b4c-953ed8daed4e",
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Items",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Items"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": null,
+											"description": "Specifies which page to return, defautls to the first page.",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "PageSize",
+											"value": null,
+											"description": "Defines how many items can be shown on one page, max is 50.",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "SearchTerm",
+											"value": null,
+											"description": "Filters results based on the search term.",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "Genre",
+											"value": null,
+											"description": "Filters results to only show items that match the given genre.",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 200
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 09 Apr 2026 23:31:56 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"data\": [\n        {\n            \"itemId\": 1,\n            \"format\": \"Vinyl\",\n            \"type\": \"Album\",\n            \"name\": \"Good Kid, m.A.A.d City (10th Anniversary Edition)\",\n            \"artist\": \"Kendrick Lamar\",\n            \"price\": 38,\n            \"genre\": \"Hip-Hop\",\n            \"tags\": [\n                {\n                    \"tagName\": \"West Coast hip-hop\"\n                },\n                {\n                    \"tagName\": \"Conscious rap\"\n                }\n            ]\n        },\n        {\n            \"itemId\": 2,\n            \"format\": \"Vinyl\",\n            \"type\": \"Album\",\n            \"name\": \"The Miseducation of Lauryn Hill\",\n            \"artist\": \"Lauryn Hill\",\n            \"price\": 29.98,\n            \"genre\": \"Neo Soul\",\n            \"tags\": [\n                {\n                    \"tagName\": \"Female empowerment\"\n                },\n                {\n                    \"tagName\": \"Heartbreak\"\n                }\n            ]\n        }\n    ],\n    \"pageNumber\": 1,\n    \"pageSize\": 10,\n    \"totalRecords\": 2\n}"
+						},
+						{
+							"id": "0f53e687-1ab3-4819-9df5-e18fc5ae666e",
+							"name": "404 NotFound",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Items?SearchTerm=404 Not Found",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Items"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": null,
+											"description": "Specifies which page to return, defautls to the first page.",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "PageSize",
+											"value": null,
+											"description": "Defines how many items can be shown on one page, max is 50.",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "SearchTerm",
+											"value": "404 Not Found",
+											"description": "Filters results based on the search term.",
+											"type": "text"
+										},
+										{
+											"key": "Genre",
+											"value": "",
+											"description": "Filters results to only show items that match the given genre.",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 404
+								},
+								{
+									"key": "content-type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 09 Apr 2026 23:38:07 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc9110#section-15.5.5\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"traceId\": \"00-ce9d269cf9708bda6ce731ccd3f514a3-4c3c256d11a85800-00\"\n}"
+						},
+						{
+							"id": "44229407-ef6b-4c99-bae3-593fed5fa491",
+							"name": "Filtered response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Items?SearchTerm=Kendrick lamar",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Items"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": null,
+											"description": "Specifies which page to return, defautls to the first page.",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "PageSize",
+											"value": null,
+											"description": "Defines how many items can be shown on one page, max is 50.",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "SearchTerm",
+											"value": "Kendrick lamar",
+											"description": "Filters results based on the search term.",
+											"type": "text"
+										},
+										{
+											"key": "Genre",
+											"value": "",
+											"description": "Filters results to only show items that match the given genre.",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 200
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 09 Apr 2026 23:37:18 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"data\": [\n        {\n            \"itemId\": 1,\n            \"format\": \"Vinyl\",\n            \"type\": \"Album\",\n            \"name\": \"Good Kid, m.A.A.d City (10th Anniversary Edition)\",\n            \"artist\": \"Kendrick Lamar\",\n            \"price\": 38,\n            \"genre\": \"Hip-Hop\",\n            \"tags\": [\n                {\n                    \"tagName\": \"West Coast hip-hop\"\n                },\n                {\n                    \"tagName\": \"Conscious rap\"\n                }\n            ]\n        }\n    ],\n    \"pageNumber\": 1,\n    \"pageSize\": 10,\n    \"totalRecords\": 1\n}"
+						},
+						{
+							"id": "063173b4-628b-4602-92fc-2cb27e711b7e",
+							"name": "Paginated response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Items?PageNumber=2&PageSize=1",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Items"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": "2",
+											"description": "Specifies which page to return, defautls to the first page.",
+											"type": "text"
+										},
+										{
+											"key": "PageSize",
+											"value": "1",
+											"description": "Defines how many items can be shown on one page, max is 50.",
+											"type": "text"
+										},
+										{
+											"key": "SearchTerm",
+											"value": "",
+											"description": "Filters results based on the search term.",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "Genre",
+											"value": "",
+											"description": "Filters results to only show items that match the given genre.",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 200
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 09 Apr 2026 23:39:23 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"data\": [\n        {\n            \"itemId\": 2,\n            \"format\": \"Vinyl\",\n            \"type\": \"Album\",\n            \"name\": \"The Miseducation of Lauryn Hill\",\n            \"artist\": \"Lauryn Hill\",\n            \"price\": 29.98,\n            \"genre\": \"Neo Soul\",\n            \"tags\": [\n                {\n                    \"tagName\": \"Female empowerment\"\n                },\n                {\n                    \"tagName\": \"Heartbreak\"\n                }\n            ]\n        }\n    ],\n    \"pageNumber\": 2,\n    \"pageSize\": 1,\n    \"totalRecords\": 2\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Item By ID",
+					"id": "4ff80a25-4a50-4faa-a9ac-2a49504b7fef",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/api/Items/:id",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"Items",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Gets a specific item by an item ID. Expects a 200 OK containing the item, or a 404 NotFound response."
+					},
+					"response": [
+						{
+							"id": "de509c46-b4a1-4165-b26b-1daf677455f2",
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Items/:id",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Items",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 200
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 16 Apr 2026 07:54:48 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"itemId\": 0,\n    \"format\": \"Vinyl\",\n    \"type\": \"Album\",\n    \"name\": \"Good Kid, m.A.A.d City (10th Anniversary Edition)\",\n    \"artist\": \"Kendrick Lamar\",\n    \"price\": 38,\n    \"genre\": \"Hip-Hop\",\n    \"tags\": [\n        {\n            \"tagName\": \"West Coast hip-hop\"\n        },\n        {\n            \"tagName\": \"Conscious rap\"\n        }\n    ]\n}"
+						},
+						{
+							"id": "2bca7fe6-b00c-4748-b034-4cd2cab4c1c0",
+							"name": "404 NotFound",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Items/:id",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Items",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "999"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 404
+								},
+								{
+									"key": "content-type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Thu, 16 Apr 2026 07:55:07 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc9110#section-15.5.5\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"traceId\": \"00-8f0cd1cfe1d341dba36e132074e81f2f-b60512301a66d50e-00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Post Item",
+					"id": "88dbe39a-d005-4ada-9125-9a66395b4537",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"format\": \"Cd\",\r\n  \"type\": \"Album\",\r\n  \"name\": \"string\",\r\n  \"artist\": \"string\",\r\n  \"price\": 0,\r\n  \"genre\": \"string\",\r\n  \"tags\": [\r\n    {\r\n      \"tagName\": \"string\"\r\n    }\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseUrl}}/api/items",
+						"description": "Posts an item based on the JSON provided in the body.\n\n- Format can be: Cd, Vinyl, Digital.\n    \n- Type can be Album, Single, Mixtape.\n    \n- Name, Artist, and Genre are basic strings.\n    \n- Price is a decimal type, and supports decimals\n    \n- Tags is a list of tags, which are linked to items through a many to many relationship, and contains a TagName variable.\n    \n\nReturns an expected 201 Created after a successful creation, or a 400 BadRequest or 500 Internal Server Error status."
+					},
+					"response": [
+						{
+							"id": "e32303ad-eb0a-4574-bd87-3ed14d5cac86",
+							"name": "201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"format\": \"Cd\",\r\n  \"type\": \"Album\",\r\n  \"name\": \"The Romantic\",\r\n  \"artist\": \"Bruno Mars\",\r\n  \"price\": 14.98,\r\n  \"genre\": \"R&B\",\r\n  \"tags\": [\r\n    {\r\n      \"tagName\": \"Romantic\"\r\n    },\r\n    {\r\n        \"tagName\": \"Emotional\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BaseUrl}}/api/items"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 201
+								},
+								{
+									"key": "date",
+									"value": "Thu, 09 Apr 2026 23:57:40 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "content-length",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "bec668b8-150a-4562-a41c-584785f1df2f",
+							"name": "400 BadRequest",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"format\": \"Live concert\",\r\n  \"type\": \"Concert\",\r\n  \"name\": \"The Romantic\",\r\n  \"artist\": \"Bad Bunny\",\r\n  \"price\": 122.80,\r\n  \"genre\": \"Reggaeton\",\r\n  \"tags\": [\r\n    {\r\n      \"tagName\": \"Latin Trap\"\r\n    },\r\n    {\r\n        \"tagName\": \"Latin Pop\"\r\n    }\r\n  ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BaseUrl}}/api/items"
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 400
+								},
+								{
+									"key": "content-type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Fri, 10 Apr 2026 00:04:21 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc9110#section-15.5.1\",\n    \"title\": \"One or more validation errors occurred.\",\n    \"status\": 400,\n    \"errors\": {\n        \"itemDto\": [\n            \"The itemDto field is required.\"\n        ],\n        \"$.format\": [\n            \"The JSON value could not be converted to ECommerce.Shared.ItemFormat. Path: $.format | LineNumber: 1 | BytePositionInLine: 26.\"\n        ]\n    },\n    \"traceId\": \"00-6b4667926ecdb776119933530b730dde-1db86ba7c6490507-00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Item",
+					"id": "00294314-fb62-4daa-807b-cdef5f52a96b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/api/Items/:id",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"Items",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Soft deletes an item, marking it as deleted and hiding it from all get requests while keeping records viable. Takes an item ID integer to define which item to delete.\n\nReturns a 201 NoContent status code upon a successful deletion, or else a 404 NotFound or 500 Internal Server Error status upon an unsuccessful attempt."
+					},
+					"response": [
+						{
+							"id": "ebcd9e84-d6e1-4aba-9179-8e1a2a5a025b",
+							"name": "204 NoContent",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Items/:id",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Items",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 204
+								},
+								{
+									"key": "date",
+									"value": "Mon, 20 Apr 2026 10:42:08 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "399f1977-6902-4957-865c-128e4777f64d",
+							"name": "404 NotFound",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Items/:id",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Items",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "999"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 404
+								},
+								{
+									"key": "content-type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Mon, 20 Apr 2026 10:42:23 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc9110#section-15.5.5\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"traceId\": \"00-6d6b78edb93b0b207c91bf694cf3ce52-a21e5d2ba1388128-00\"\n}"
+						}
+					]
+				}
+			],
+			"id": "df95d7aa-d9a0-499a-9d86-233203865d48",
+			"description": "This folder stores the requests to the API involving the products of the E-Commerce site, featuring Post, Get, and Delete requests."
+		},
+		{
+			"name": "Tags",
+			"item": [
+				{
+					"name": "Get Tag",
+					"id": "0f8c0c81-d85c-47a3-a148-4eecbc07b44e",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/api/Tags",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"Tags"
+							],
+							"query": [
+								{
+									"key": "PageNumber",
+									"value": "",
+									"description": "Specifies which page to return, defautls to the first page.",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "PageSize",
+									"value": "",
+									"description": "Defines how many items can be shown on one page, max is 50.",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "SearchTerm",
+									"value": "",
+									"description": "Filters results based on the search term.",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Returns a paginated response of tags taken from the database and then paginated and/or filtered according to the parameters passed from the query. If no pagination parameters are passed through the request will always default to the first page, with a page size of 10.\n\nThe search term parameter filters the results based on if tag name contains the search term.\n\nExpects a return of 200 OK containing the paged response, or else 404 NotFound if no results we're returned."
+					},
+					"response": [
+						{
+							"id": "7046c183-1c3d-4b52-8100-40f87fc70139",
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Tags",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Tags"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": "",
+											"description": "Specifies which page to return, defautls to the first page.",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "PageSize",
+											"value": "",
+											"description": "Defines how many items can be shown on one page, max is 50.",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "SearchTerm",
+											"value": "",
+											"description": "Filters results based on the search term.",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 200
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Fri, 10 Apr 2026 00:15:12 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"data\": [\n        {\n            \"tagName\": \"Conscious rap\"\n        },\n        {\n            \"tagName\": \"Emotional\"\n        },\n        {\n            \"tagName\": \"Female empowerment\"\n        },\n        {\n            \"tagName\": \"Heartbreak\"\n        },\n        {\n            \"tagName\": \"Romantic\"\n        },\n        {\n            \"tagName\": \"West Coast hip-hop\"\n        }\n    ],\n    \"pageNumber\": 1,\n    \"pageSize\": 10,\n    \"totalRecords\": 6\n}"
+						},
+						{
+							"id": "fb9cf5df-7277-4f4b-a926-58a609731a57",
+							"name": "404 NotFound",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Tags?SearchTerm=404 NotFound",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Tags"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": "",
+											"description": "Specifies which page to return, defautls to the first page.",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "PageSize",
+											"value": "",
+											"description": "Defines how many items can be shown on one page, max is 50.",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "SearchTerm",
+											"value": "404 NotFound",
+											"description": "Filters results based on the search term.",
+											"type": "text"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 404
+								},
+								{
+									"key": "content-type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Fri, 10 Apr 2026 00:16:31 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc9110#section-15.5.5\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"traceId\": \"00-a3e47d2ade03b78de9c94146e7983f1e-fb1420600a7af10a-00\"\n}"
+						},
+						{
+							"id": "929208a1-7ca7-43dc-8efb-168fb5728199",
+							"name": "Filtered response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Tags?SearchTerm=romantic",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Tags"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": "",
+											"description": "Specifies which page to return, defautls to the first page.",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "PageSize",
+											"value": "",
+											"description": "Defines how many items can be shown on one page, max is 50.",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "SearchTerm",
+											"value": "romantic",
+											"description": "Filters results based on the search term.",
+											"type": "text"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 200
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Fri, 10 Apr 2026 00:18:08 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"data\": [\n        {\n            \"tagName\": \"Romantic\"\n        }\n    ],\n    \"pageNumber\": 1,\n    \"pageSize\": 10,\n    \"totalRecords\": 1\n}"
+						},
+						{
+							"id": "6bf97e42-890f-4ac8-9b4c-923e8ae8466e",
+							"name": "Paginated response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Tags?PageNumber=2&PageSize=2",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Tags"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": "2",
+											"description": "Specifies which page to return, defautls to the first page.",
+											"type": "text"
+										},
+										{
+											"key": "PageSize",
+											"value": "2",
+											"description": "Defines how many items can be shown on one page, max is 50.",
+											"type": "text"
+										},
+										{
+											"key": "SearchTerm",
+											"value": "",
+											"description": "Filters results based on the search term.",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 200
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Fri, 10 Apr 2026 00:19:10 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"data\": [\n        {\n            \"tagName\": \"Female empowerment\"\n        },\n        {\n            \"tagName\": \"Heartbreak\"\n        }\n    ],\n    \"pageNumber\": 2,\n    \"pageSize\": 2,\n    \"totalRecords\": 6\n}"
+						}
+					]
+				},
+				{
+					"name": "Post Tag",
+					"id": "a7b59901-dbda-4a05-9643-016abb1b10a1",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"tagName\": \"string\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseUrl}}/api/Tags",
+						"description": "Posts an item based on the JSON provided in the body.\n\n- Tag name is a string and represents the name given to the tag.\n    \n\nUpon a successful creation the request expects a return of a 201 Created status code, or possibly a 404 BadRequest."
+					},
+					"response": [
+						{
+							"id": "e1cffd7b-8214-4430-99ee-4c0a47fbbdb2",
+							"name": "201 Created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"tagName\": \"Test tag\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BaseUrl}}/api/Tags"
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 201
+								},
+								{
+									"key": "date",
+									"value": "Fri, 10 Apr 2026 00:25:30 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								},
+								{
+									"key": "content-length",
+									"value": "0"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "Delete Tag",
+					"id": "8b0d2fdc-a006-4866-958e-6bf0a8940dc5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/api/Tags/:id",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"Tags",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						},
+						"description": "Soft deletes a tag, hiding it from any Get requests while protecting it within the database and keeping past records viable.\n\nTakes an integer tag ID to determine which object to delete.\n\nExpects a 204 NoContent return upon a successful deletion request, or either a 404 NotFound, or 500 Internal Serverr Error status code upon an unsuccessful attempt."
+					},
+					"response": [
+						{
+							"id": "40e36275-1227-4764-a701-9e6b9c5dc266",
+							"name": "204 NoContent",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Tags/:id",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Tags",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "13"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 204
+								},
+								{
+									"key": "date",
+									"value": "Mon, 20 Apr 2026 11:02:55 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "4e407965-00d3-429f-b937-606730a74e31",
+							"name": "404 NotFound",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Tags/:id",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Tags",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "999"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 404
+								},
+								{
+									"key": "content-type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Mon, 20 Apr 2026 11:03:11 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc9110#section-15.5.5\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"traceId\": \"00-d2b8b0df0ddab0649ac8a20aac9cd83f-4e0370a2b8aa0df3-00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Tag ID",
+					"id": "f38e4fc0-6e1b-4be2-8e8e-f88e36905c19",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/api/tags/:name",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"tags",
+								":name"
+							],
+							"variable": [
+								{
+									"key": "name",
+									"value": "",
+									"description": "The name of the tag for which to get the ID"
+								}
+							]
+						},
+						"description": "Returns a tag's ID value after searching the database for the tag via the tag name, passed through as a parameter. Expects a 200 OK containing the ID value, or a 404 NotFound response status code."
+					},
+					"response": [
+						{
+							"id": "e4104432-9171-4fc9-996f-216d2e09b4bd",
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/tags/:name",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"tags",
+										":name"
+									],
+									"variable": [
+										{
+											"key": "name",
+											"value": "Heartbreak",
+											"description": "The name of the tag for which to get the ID"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 200
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Sat, 18 Apr 2026 15:43:23 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "4"
+						},
+						{
+							"id": "ab6ed250-2604-4435-a691-283653fe1bcd",
+							"name": "404 NotFound",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/tags/:name",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"tags",
+										":name"
+									],
+									"variable": [
+										{
+											"key": "name",
+											"value": "unknown value",
+											"description": "The name of the tag for which to get the ID"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 404
+								},
+								{
+									"key": "content-type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Sat, 18 Apr 2026 15:43:47 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc9110#section-15.5.5\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"traceId\": \"00-7b313b2048c3221dcd548b7e2ec28311-1badc791e401cf13-00\"\n}"
+						}
+					]
+				}
+			],
+			"id": "3716f07a-32c1-481e-9912-d6251ea9a220",
+			"description": "This folder contains API requests directed at the tags, including Get, Post, and Delete functions."
+		},
+		{
+			"name": "Sales",
+			"item": [
+				{
+					"name": "Get Sales",
+					"id": "607ef220-0c9c-4df9-b3d8-d53a33e4c3e5",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/api/Sales",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"Sales"
+							],
+							"query": [
+								{
+									"key": "PageNumber",
+									"value": "",
+									"description": "Specifies which page to return, defautls to the first page.",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "PageSize",
+									"value": "",
+									"description": "Defines how many items can be shown on one page, max is 50.",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Sends a Get request with the pagination parameters:\n\n- Page Number, determining what page you're requesting.\n    \n- Page Size, defines how many items to display per page, with 50 being the max.\n    \n\nThis request expects a returned status code of 200 OK, containing the paginated response of sales."
+					},
+					"response": [
+						{
+							"id": "66c42b55-36c3-4aa6-b77a-4985020bf991",
+							"name": "200 OK",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Sales",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Sales"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": "",
+											"description": "Specifies which page to return, defautls to the first page.",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "PageSize",
+											"value": "",
+											"description": "Defines how many items can be shown on one page, max is 50.",
+											"type": "text",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 200
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Sun, 12 Apr 2026 00:03:51 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"data\": [\n        {\n            \"saleId\": 6,\n            \"soldItems\": [\n                {\n                    \"quantity\": 1,\n                    \"item\": {\n                        \"itemId\": 1,\n                        \"format\": \"Vinyl\",\n                        \"type\": \"Album\",\n                        \"name\": \"Good Kid, m.A.A.d City (10th Anniversary Edition)\",\n                        \"artist\": \"Kendrick Lamar\",\n                        \"price\": 38,\n                        \"genre\": \"Hip-Hop\",\n                        \"tags\": [\n                            {\n                                \"tagName\": \"West Coast hip-hop\"\n                            },\n                            {\n                                \"tagName\": \"Conscious rap\"\n                            }\n                        ]\n                    }\n                }\n            ],\n            \"totalPrice\": 38\n        },\n        {\n            \"saleId\": 7,\n            \"soldItems\": [\n                {\n                    \"quantity\": 2,\n                    \"item\": {\n                        \"itemId\": 1,\n                        \"format\": \"Vinyl\",\n                        \"type\": \"Album\",\n                        \"name\": \"Good Kid, m.A.A.d City (10th Anniversary Edition)\",\n                        \"artist\": \"Kendrick Lamar\",\n                        \"price\": 38,\n                        \"genre\": \"Hip-Hop\",\n                        \"tags\": [\n                            {\n                                \"tagName\": \"West Coast hip-hop\"\n                            },\n                            {\n                                \"tagName\": \"Conscious rap\"\n                            }\n                        ]\n                    }\n                },\n                {\n                    \"quantity\": 1,\n                    \"item\": {\n                        \"itemId\": 2,\n                        \"format\": \"Vinyl\",\n                        \"type\": \"Album\",\n                        \"name\": \"The Miseducation of Lauryn Hill\",\n                        \"artist\": \"Lauryn Hill\",\n                        \"price\": 29.98,\n                        \"genre\": \"Neo Soul\",\n                        \"tags\": [\n                            {\n                                \"tagName\": \"Female empowerment\"\n                            },\n                            {\n                                \"tagName\": \"Heartbreak\"\n                            }\n                        ]\n                    }\n                }\n            ],\n            \"totalPrice\": 105.98\n        }\n    ],\n    \"pageNumber\": 1,\n    \"pageSize\": 10,\n    \"totalRecords\": 2\n}"
+						},
+						{
+							"id": "702a57ab-a2a3-4c07-9a6c-0b6116b8f3d0",
+							"name": "Paginated response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Sales?PageNumber=2&PageSize=1",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Sales"
+									],
+									"query": [
+										{
+											"key": "PageNumber",
+											"value": "2",
+											"description": "Specifies which page to return, defautls to the first page.",
+											"type": "text"
+										},
+										{
+											"key": "PageSize",
+											"value": "1",
+											"description": "Defines how many items can be shown on one page, max is 50.",
+											"type": "text"
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 200
+								},
+								{
+									"key": "content-type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Sun, 12 Apr 2026 00:04:15 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"data\": [\n        {\n            \"saleId\": 7,\n            \"soldItems\": [\n                {\n                    \"quantity\": 2,\n                    \"item\": {\n                        \"itemId\": 1,\n                        \"format\": \"Vinyl\",\n                        \"type\": \"Album\",\n                        \"name\": \"Good Kid, m.A.A.d City (10th Anniversary Edition)\",\n                        \"artist\": \"Kendrick Lamar\",\n                        \"price\": 38,\n                        \"genre\": \"Hip-Hop\",\n                        \"tags\": [\n                            {\n                                \"tagName\": \"West Coast hip-hop\"\n                            },\n                            {\n                                \"tagName\": \"Conscious rap\"\n                            }\n                        ]\n                    }\n                },\n                {\n                    \"quantity\": 1,\n                    \"item\": {\n                        \"itemId\": 2,\n                        \"format\": \"Vinyl\",\n                        \"type\": \"Album\",\n                        \"name\": \"The Miseducation of Lauryn Hill\",\n                        \"artist\": \"Lauryn Hill\",\n                        \"price\": 29.98,\n                        \"genre\": \"Neo Soul\",\n                        \"tags\": [\n                            {\n                                \"tagName\": \"Female empowerment\"\n                            },\n                            {\n                                \"tagName\": \"Heartbreak\"\n                            }\n                        ]\n                    }\n                }\n            ],\n            \"totalPrice\": 105.98\n        }\n    ],\n    \"pageNumber\": 2,\n    \"pageSize\": 1,\n    \"totalRecords\": 2\n}"
+						}
+					]
+				},
+				{
+					"name": "Post Sale",
+					"id": "551b6458-b1fc-45e8-bdb4-59132d2c4698",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"itemId\": 0,\r\n    \"quantity\": 0\r\n  }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseUrl}}/api/Sales",
+						"description": "This request sends a Post request to the API. The JSON body accepts a list of a CreateSaleItemDto model, which includes the itemId and quantity properties. The itemId property represents the item's ID value within the database, and the quantity property represents the quantity of that item being bought, which allows for multiple purchases of one item within the same sale.\n\nThe json uses a list to allow the passing through of multiple individual items to be stored within one sale record.\n\nThis request expects a returned status code of 204 NoContent after a successful post request, or a 404 NotFound when the item's ID is not found within the database, or has been deleted."
+					},
+					"response": [
+						{
+							"id": "1a05439f-33c3-45b2-b244-09dc622c22a5",
+							"name": "204 NoContent",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"itemId\": 1,\r\n    \"quantity\": 2\r\n  },\r\n  {\r\n    \"itemId\": 2,\r\n    \"quantity\": 1\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BaseUrl}}/api/Sales"
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 204
+								},
+								{
+									"key": "date",
+									"value": "Sun, 12 Apr 2026 00:15:57 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "74975254-996b-42c2-9e92-5a5de31d5682",
+							"name": "404 NotFound",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "[\r\n  {\r\n    \"itemId\": 0,\r\n    \"quantity\": 0\r\n  }\r\n]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BaseUrl}}/api/Sales"
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 404
+								},
+								{
+									"key": "content-type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Sun, 12 Apr 2026 00:16:53 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc9110#section-15.5.5\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"traceId\": \"00-f19ffa5ce3b0f11099c088c8785af36c-b255750a4335c961-00\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Sale",
+					"id": "42d72fd9-44b0-4b32-8f15-555dd63e993a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/api/Sales?saleId=999",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"api",
+								"Sales"
+							],
+							"query": [
+								{
+									"key": "saleId",
+									"value": "999",
+									"description": "Dictates which item will be deleted"
+								}
+							]
+						},
+						"description": "Sends a Delete request to the API using the sale ID passed through the parameters. All deletions are soft deletes for record viability preservation.\n\nThis request expects a returned status code of 204 NoContent after a successful deletion, or a 404 NotFound if the ID is not in the database, or has already been deleted."
+					},
+					"response": [
+						{
+							"id": "1732ce3c-c762-4b1b-b719-bd61f00eee9c",
+							"name": "204 NoContent",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Sales?saleId=9",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Sales"
+									],
+									"query": [
+										{
+											"key": "saleId",
+											"value": "9",
+											"description": "Dictates which item will be deleted"
+										}
+									]
+								}
+							},
+							"status": "No Content",
+							"code": 204,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 204
+								},
+								{
+									"key": "date",
+									"value": "Sun, 12 Apr 2026 00:21:12 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": null
+						},
+						{
+							"id": "700c3b64-7b77-4719-957a-90712ebaaa25",
+							"name": "404 NotFound",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{BaseUrl}}/api/Sales?saleId=999",
+									"host": [
+										"{{BaseUrl}}"
+									],
+									"path": [
+										"api",
+										"Sales"
+									],
+									"query": [
+										{
+											"key": "saleId",
+											"value": "999",
+											"description": "Dictates which item will be deleted"
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": null,
+							"header": [
+								{
+									"key": ":status",
+									"value": 404
+								},
+								{
+									"key": "content-type",
+									"value": "application/problem+json; charset=utf-8"
+								},
+								{
+									"key": "date",
+									"value": "Sun, 12 Apr 2026 00:22:29 GMT"
+								},
+								{
+									"key": "server",
+									"value": "Kestrel"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n    \"type\": \"https://tools.ietf.org/html/rfc9110#section-15.5.5\",\n    \"title\": \"Not Found\",\n    \"status\": 404,\n    \"traceId\": \"00-38c7136fd6bc7934c58979fb00285b21-12953d64324a3541-00\"\n}"
+						}
+					]
+				}
+			],
+			"id": "762e118d-bb66-43d8-98ca-841ce19e4c3d",
+			"description": "This folder contains all the API requests pertaining to the E-Commerce site's sales, including Get, Post, and Delete requests."
+		}
+	]
+}
