@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="EcommerceAPI.Ledana/EcommerceAPI.Ledana.csproj" />
+  <Project Path="ECommerceUI.Ledana/ECommerceUI.Ledana.csproj" Id="ecd86b48-963c-4ab0-acdb-ffc491d260a5" />
+</Solution>
