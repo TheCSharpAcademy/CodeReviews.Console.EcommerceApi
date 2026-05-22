@@ -1,98 +1,192 @@
-🛍️ EcommerceAPI.Ledana
-An ASP.NET Core Web API for managing e-commerce operations — including product listings, categories, orders, and user management. This project demonstrates clean architecture principles, Entity Framework Core integration, and RESTful API design for scalable backend development.
+# 🛒 E-Commerce API
 
-🚀 Features
-Product Management: CRUD operations for products, categories, and inventory
+A backend e-commerce application built with **ASP.NET Core Web API** following **Clean Architecture** principles.
+The project focuses on scalable backend development, relational database design, and RESTful API practices using modern .NET technologies.
 
-Order Processing: Create, update, and track customer orders
+---
 
-User Authentication: Secure login and registration using JWT tokens
+# 🚀 Features
 
-Database Integration: Built with Entity Framework Core and SQL Server
+* RESTful ASP.NET Core Web API
+* Clean Architecture structure
+* CRUD operations for Products, Categories, and Sales
+* Many-to-many relationship handling
+* Entity Framework Core with SQL Server
+* DTOs and AutoMapper mapping
+* Authentication & Authorization
+* Server-side Pagination
+* Filtering & Sorting
+* Dependency Injection
+* Async/Await operations
+* Model Validation
+* Global Exception Handling
+* Console Client consuming API endpoints using HttpClient
+* Git & Version Control workflow
 
-DTOs and AutoMapper: Clean data transfer between layers
+---
 
-Error Handling & Logging: Structured responses and middleware-based logging
+# 🛠 Tech Stack
 
-Swagger Documentation: Interactive API testing and documentation
+## Backend
 
-🧱 Project Structure
-Folder	Description
-EcommerceAPI.Ledana	Core API project containing controllers, models, and services
-ECommerceUI.Ledana	Frontend/UI layer (if applicable) for interacting with the API
-EcommerceAPI.Ledana.slnx	Solution file for Visual Studio setup
+* C#
+* ASP.NET Core Web API
+* Entity Framework Core
+* SQL Server
+* LINQ
+* HttpClient
 
+## Architecture & Concepts
 
-⚙️ Technologies Used
-ASP.NET Core 8.0
+* Clean Architecture
+* Repository & Service Patterns
+* SOLID Principles
+* RESTful APIs
+* DTOs
+* Dependency Injection
+* Async Programming
 
-Entity Framework Core
+## Tools
 
-SQL Server
+* Git
+* GitHub
+* Swagger/OpenAPI
+* Visual Studio
 
-AutoMapper
+---
 
-Swagger / Swashbuckle
+# 📂 Project Structure
 
-JWT Authentication
+```bash
+EcommerceAPI.Ledana
+│
+├── EcommerceAPI.API           # API layer / Controllers
+├── EcommerceAPI.Application   # Business logic & services
+├── EcommerceAPI.Domain        # Entities & domain models
+├── EcommerceAPI.Infrastructure# Database & repository implementations
+├── EcommerceAPI.ConsoleClient # Console application consuming the API
+```
 
-🧩 Getting Started
-Prerequisites
-Visual Studio 2022 or VS Code
+---
 
-.NET SDK 8.0+
+# 🔐 Authentication & Authorization
 
-SQL Server (local or remote instance)
+The API includes authentication and authorization mechanisms to secure endpoints and control user access.
 
-Installation
-Clone the repository:
+Examples:
 
-bash
+* Protected endpoints
+* Role-based authorization
+* User authentication flow
+
+---
+
+# 📦 Main Functionalities
+
+## Products
+
+* Create products
+* Update products
+* Delete products
+* Retrieve products
+* Pagination, filtering & sorting
+
+## Categories
+
+* Category management
+* Product-category relationships
+
+## Sales
+
+* Sales tracking
+* Product-sale relationships
+* Transaction handling
+
+---
+
+# 🗄 Database
+
+The application uses **SQL Server** with **Entity Framework Core** migrations.
+
+Features include:
+
+* Relational database design
+* Many-to-many relationships
+* Fluent API configurations
+* Code-first migrations
+
+---
+
+# 🔄 API Consumption
+
+A separate console client application consumes the API using:
+
+* HttpClient
+* JSON serialization/deserialization
+* Asynchronous HTTP requests
+
+This demonstrates a decoupled client-server architecture.
+
+---
+
+# ▶️ Getting Started
+
+## Clone the Repository
+
+```bash
 git clone https://github.com/Ledana/EcommerceAPI.Ledana.git
-Navigate to the project folder:
+```
 
-bash
+## Navigate to the Project
+
+```bash
 cd EcommerceAPI.Ledana
-Restore dependencies:
+```
 
-bash
-dotnet restore
-Update the connection string in appsettings.json:
+## Update Database
 
-json
-"ConnectionStrings": {
-  "DefaultConnection": "Server=YOUR_SERVER;Database=EcommerceDB;Trusted_Connection=True;"
-}
-Apply migrations:
+```bash
+update-database
+```
 
-bash
-dotnet ef database update
-Run the project:
+## Run the API
 
-bash
+```bash
 dotnet run
-🧪 API Documentation
-Once running, open Swagger UI at:
-👉 https://localhost:5001/swagger
+```
 
-You can test endpoints for:
+---
 
-/api/products
+# 📘 Learning Goals
 
-/api/orders
+This project was built to strengthen knowledge in:
 
-/api/users
+* ASP.NET Core Web API development
+* Clean Architecture
+* EF Core & SQL Server
+* Authentication & Authorization
+* REST API design
+* Layered application structure
+* Backend best practices
 
-🤝 Contributing
-Contributions are welcome!
+---
 
-Fork the repository
+# 📌 Future Improvements
 
-Create a new branch (feature/your-feature)
+* ASP.NET Core MVC frontend
+* Docker containerization
+* Azure deployment
+* Integration testing
+* Refresh tokens
+* Logging & monitoring
+* Unit & integration test coverage
 
-Commit your changes
+---
 
-Submit a pull request
+# 👩‍💻 Author
 
-📄 License
-This project is licensed under the MIT License — feel free to use and modify it.
+## [Ledana Gjoka GitHub](https://github.com/Ledana)
+
+Junior Backend .NET Developer passionate about backend development, clean code, and scalable application design.
+
+Repository: [EcommerceAPI.Ledana](https://github.com/Ledana/EcommerceAPI.Ledana.git)
