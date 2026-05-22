@@ -13,7 +13,6 @@ The project focuses on scalable backend development, relational database design,
 * Many-to-many relationship handling
 * Entity Framework Core with SQL Server
 * DTOs and AutoMapper mapping
-* Authentication & Authorization
 * Server-side Pagination
 * Filtering & Sorting
 * Dependency Injection
@@ -55,32 +54,6 @@ The project focuses on scalable backend development, relational database design,
 
 ---
 
-# 📂 Project Structure
-
-```bash
-EcommerceAPI.Ledana
-│
-├── EcommerceAPI.API           # API layer / Controllers
-├── EcommerceAPI.Application   # Business logic & services
-├── EcommerceAPI.Domain        # Entities & domain models
-├── EcommerceAPI.Infrastructure# Database & repository implementations
-├── EcommerceAPI.ConsoleClient # Console application consuming the API
-```
-
----
-
-# 🔐 Authentication & Authorization
-
-The API includes authentication and authorization mechanisms to secure endpoints and control user access.
-
-Examples:
-
-* Protected endpoints
-* Role-based authorization
-* User authentication flow
-
----
-
 # 📦 Main Functionalities
 
 ## Products
@@ -100,7 +73,6 @@ Examples:
 
 * Sales tracking
 * Product-sale relationships
-* Transaction handling
 
 ---
 
