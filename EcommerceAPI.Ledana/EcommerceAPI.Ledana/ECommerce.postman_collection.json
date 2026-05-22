@@ -1,0 +1,526 @@
+{
+  "info": {
+    "_postman_id": "15e3ecd5-e397-4636-9b58-4fc3c10693e2",
+    "name": "ECommerce",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "54339121",
+    "_collection_link": "https://go.postman.co/collection/54339121-15e3ecd5-e397-4636-9b58-4fc3c10693e2?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "GetProducts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7077/api/product",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "product"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetProductById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7077/api/product/15",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "product",
+                "15"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PostProduct",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"name\": \"ColorFull Keyboard\",\r\n\"price\": 45.99,\r\n\"stock\": 100,\r\n\"categoryId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7077/api/product",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "product"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "UpdateProduct",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n\"name\": \"Colorfull Keyboard\",\r\n\"stock\": 99,\r\n\"categoryId\": 1\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7077/api/product/20",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "product",
+                "20"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DeleteProduct",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7077/api/product/19",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "product",
+                "19"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetProductsByCategoryNameAndSortByNameInAscendingOrder",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7077/api/product?category=Video and Cameras&sort_by=name&",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "product"
+              ],
+              "query": [
+                {
+                  "key": "category",
+                  "value": "Video and Cameras"
+                },
+                {
+                  "key": "sort_by",
+                  "value": "name"
+                },
+                {
+                  "key": "",
+                  "value": null
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetProductsWithPagination",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": ""
+            },
+            "url": {
+              "raw": "https://localhost:7077/api/product?page_size=3&page_number=2",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "product"
+              ],
+              "query": [
+                {
+                  "key": "page_size",
+                  "value": "3"
+                },
+                {
+                  "key": "page_number",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "GetCategories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7077/api/category",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "category"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetCategoryById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7077/api/category/6",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "category",
+                "6"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PostCategory",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"food\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7077/api/category",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "category"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "UpdateCategory",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Super Food\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7077/api/category/7",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "category",
+                "7"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "DeleteCategory",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"Super Food\"\r\n}"
+            },
+            "url": {
+              "raw": "https://localhost:7077/api/category/8",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "category",
+                "8"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sales",
+      "item": [
+        {
+          "name": "GetSales",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7077/api/sale",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "sale"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetSaleById",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7077/api/sale/10",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "sale",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "PostSale",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"date\": \"2026-05-15T12:00:00\",\r\n    \"saleProducts\":\r\n    [\r\n        {\r\n        \"ProductsId\": 4,\r\n        \"Quantity\": 2,\r\n        \"Discount\": 0.10\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "https://localhost:7077/api/sale",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "sale"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetSalesWithPagination",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7077/api/sale?page_size=3&page_number=2",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "sale"
+              ],
+              "query": [
+                {
+                  "key": "page_size",
+                  "value": "3"
+                },
+                {
+                  "key": "page_number",
+                  "value": "2"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetSalesFilteredWithProductName",
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "https://localhost:7077/api/sale?product_name=CPU",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "sale"
+              ],
+              "query": [
+                {
+                  "key": "product_name",
+                  "value": "CPU"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "GetSalesSortedByTotalPrice",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"date\": \"2026-05-15T12:00:00\",\r\n    \"saleProducts\":\r\n    [\r\n        {\r\n        \"ProductsId\": 4,\r\n        \"Quantity\": 2,\r\n        \"Discount\": 0.10,\r\n        \"UnitPriceAtSale\": 599.99\r\n        }\r\n    ]\r\n}"
+            },
+            "url": {
+              "raw": "https://localhost:7077/api/sale?sort_by=total_price",
+              "protocol": "https",
+              "host": [
+                "localhost"
+              ],
+              "port": "7077",
+              "path": [
+                "api",
+                "sale"
+              ],
+              "query": [
+                {
+                  "key": "sort_by",
+                  "value": "total_price"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
