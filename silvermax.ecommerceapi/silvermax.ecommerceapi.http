@@ -1,0 +1,6 @@
+@silvermax.ecommerceapi_HostAddress = http://localhost:5068
+
+GET {{silvermax.ecommerceapi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
