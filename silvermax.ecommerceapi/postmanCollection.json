@@ -1,0 +1,309 @@
+{
+  "info": {
+    "_postman_id": "9a09ac14-ea58-4a89-9e7d-aabb69adf7f1",
+    "name": "EcommercAPI",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-08-21T11:26:28.000Z",
+    "updatedAt": "2026-08-21T11:26:28.000Z",
+    "lastUpdatedBy": "54318787",
+    "uid": "54318787-9a09ac14-ea58-4a89-9e7d-aabb69adf7f1"
+  },
+  "item": [
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "Ecommerce",
+          "item": [
+            {
+              "name": "create-client",
+              "item": [
+                {
+                  "name": "create-client",
+                  "id": "015dc9ed-f12d-43d8-befe-ceafd8abeb17",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"Martha\",\n  \"email\": \"martha@email.com\",\n  \"phoneNumber\": \"01747891729\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/Ecommerce/create-client",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "Ecommerce",
+                        "create-client"
+                      ]
+                    }
+                  },
+                  "response": [],
+                  "createdAt": "2026-08-21T11:26:29.000Z",
+                  "updatedAt": "2026-08-21T11:26:29.000Z",
+                  "uid": "54318787-015dc9ed-f12d-43d8-befe-ceafd8abeb17"
+                }
+              ],
+              "id": "dab47e91-88f1-4750-83ef-a76584b94e8c",
+              "createdAt": "2026-08-21T11:26:29.000Z",
+              "updatedAt": "2026-08-21T11:26:29.000Z",
+              "uid": "54318787-dab47e91-88f1-4750-83ef-a76584b94e8c"
+            },
+            {
+              "name": "add-category",
+              "item": [
+                {
+                  "name": "add-category",
+                  "id": "7bf241e6-9213-4cd1-9ef3-4891b54718a2",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"hardware\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/Ecommerce/add-category",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "Ecommerce",
+                        "add-category"
+                      ]
+                    }
+                  },
+                  "response": [],
+                  "createdAt": "2026-08-21T11:26:29.000Z",
+                  "updatedAt": "2026-08-21T11:26:29.000Z",
+                  "uid": "54318787-7bf241e6-9213-4cd1-9ef3-4891b54718a2"
+                }
+              ],
+              "id": "e593d20a-bc22-4417-867b-9f60c39439e3",
+              "createdAt": "2026-08-21T11:26:29.000Z",
+              "updatedAt": "2026-08-21T11:26:29.000Z",
+              "uid": "54318787-e593d20a-bc22-4417-867b-9f60c39439e3"
+            },
+            {
+              "name": "add-product",
+              "item": [
+                {
+                  "name": "add-product",
+                  "id": "877bda41-afd2-4845-92bd-eee67f5b9c9c",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"Samsung Galaxy book 5 pro 360\",\n  \"description\": \"Laptop computer\",\n  \"price\": 1600,\n  \"imgUrl\": \"\",\n  \"category\": \"hardware\"\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/Ecommerce/add-product",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "Ecommerce",
+                        "add-product"
+                      ]
+                    }
+                  },
+                  "response": [],
+                  "createdAt": "2026-08-21T11:26:29.000Z",
+                  "updatedAt": "2026-08-21T11:26:29.000Z",
+                  "uid": "54318787-877bda41-afd2-4845-92bd-eee67f5b9c9c"
+                }
+              ],
+              "id": "c7db37ea-ede2-4751-b974-2d6ef8f4299d",
+              "createdAt": "2026-08-21T11:26:29.000Z",
+              "updatedAt": "2026-08-21T11:26:29.000Z",
+              "uid": "54318787-c7db37ea-ede2-4751-b974-2d6ef8f4299d"
+            },
+            {
+              "name": "place-order",
+              "item": [
+                {
+                  "name": "place-order",
+                  "id": "feac6a68-ab7a-422a-ae78-ff612e4b17a8",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"clientId\": \"5BAF1002-A4CD-40C2-AAC8-DF917D4C8B53\",\n  \"items\": [\n    {\n      \"productId\": \"9150f042-3ae0-470b-8c47-8292662a12a6\",\n      \"quantity\": 3\n    }\n  ]\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/Ecommerce/place-order",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "Ecommerce",
+                        "place-order"
+                      ]
+                    }
+                  },
+                  "response": [],
+                  "createdAt": "2026-08-21T11:26:29.000Z",
+                  "updatedAt": "2026-08-21T11:26:29.000Z",
+                  "uid": "54318787-feac6a68-ab7a-422a-ae78-ff612e4b17a8"
+                }
+              ],
+              "id": "d929c1eb-8f97-4c75-a108-8c1a296efecd",
+              "createdAt": "2026-08-21T11:26:29.000Z",
+              "updatedAt": "2026-08-21T11:26:29.000Z",
+              "uid": "54318787-d929c1eb-8f97-4c75-a108-8c1a296efecd"
+            },
+            {
+              "name": "orders",
+              "item": [
+                {
+                  "name": "GetOrders",
+                  "id": "24acf6ed-c03a-4a58-992b-6f1b398169e3",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/Ecommerce/orders?Pagenumber=2&PageSize=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "Ecommerce",
+                        "orders"
+                      ],
+                      "query": [
+                        {
+                          "key": "Pagenumber",
+                          "value": "2"
+                        },
+                        {
+                          "key": "PageSize",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [],
+                  "createdAt": "2026-08-21T11:26:29.000Z",
+                  "updatedAt": "2026-08-21T11:26:29.000Z",
+                  "uid": "54318787-24acf6ed-c03a-4a58-992b-6f1b398169e3"
+                }
+              ],
+              "id": "8410ba3f-bf5f-4e7f-b64c-927284f33b00",
+              "createdAt": "2026-08-21T11:26:29.000Z",
+              "updatedAt": "2026-08-21T11:26:29.000Z",
+              "uid": "54318787-8410ba3f-bf5f-4e7f-b64c-927284f33b00"
+            },
+            {
+              "name": "products",
+              "item": [
+                {
+                  "name": "GetProducts",
+                  "id": "5fb09dfb-3066-434c-a89a-03159d16b475",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/Ecommerce/products?Pagenumber=1&PageSize=10",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "Ecommerce",
+                        "products"
+                      ],
+                      "query": [
+                        {
+                          "key": "Pagenumber",
+                          "value": "1"
+                        },
+                        {
+                          "key": "PageSize",
+                          "value": "10"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [],
+                  "createdAt": "2026-08-21T11:26:29.000Z",
+                  "updatedAt": "2026-08-21T11:26:29.000Z",
+                  "uid": "54318787-5fb09dfb-3066-434c-a89a-03159d16b475"
+                }
+              ],
+              "id": "2bd6a404-4065-4dd3-a941-d09244d7b65f",
+              "createdAt": "2026-08-21T11:26:29.000Z",
+              "updatedAt": "2026-08-21T11:26:29.000Z",
+              "uid": "54318787-2bd6a404-4065-4dd3-a941-d09244d7b65f"
+            }
+          ],
+          "id": "e5047266-9e2f-4742-973e-13d3896b0ee1",
+          "createdAt": "2026-08-21T11:26:29.000Z",
+          "updatedAt": "2026-08-21T11:26:29.000Z",
+          "uid": "54318787-e5047266-9e2f-4742-973e-13d3896b0ee1"
+        }
+      ],
+      "id": "126d536e-aec7-4db7-aa6a-9c0330fbcd73",
+      "createdAt": "2026-08-21T11:26:29.000Z",
+      "updatedAt": "2026-08-21T11:26:29.000Z",
+      "uid": "54318787-126d536e-aec7-4db7-aa6a-9c0330fbcd73"
+    }
+  ],
+  "auth": {
+    "type": "apikey"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://localhost:7023",
+      "type": "string"
+    }
+  ]
+}
