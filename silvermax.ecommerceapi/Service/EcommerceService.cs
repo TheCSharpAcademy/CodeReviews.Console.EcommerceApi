@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using silvermax.ecommerceapi.Data;
 using silvermax.ecommerceapi.Dtos;
 using silvermax.ecommerceapi.Models;
+using silvermax.ecommerceapi.Pagination;
+using System.Security.Cryptography;
 
 namespace silvermax.ecommerceapi.Service;
 
@@ -81,6 +83,40 @@ public class EcommerceService(
         await db.SaveChangesAsync(ct);
 
         return newClient;
+    }
+
+    public async Task<PagedList<OrderResponse>> GetOrders(PageParameters pageParameters, CancellationToken ct)
+    {
+        var query = db.Orders
+            .OrderByDescending(o => o.Moment)
+            .Select(o => new OrderResponse(
+                o.OrderId,
+                o.Moment,
+                o.OrderStatus,
+                o.Total,
+                o.ClientId,
+                o.Client.Name,
+                o.OrderItems
+                    .Select(oi => new OrderItemResponse(oi.ProductId, oi.Product.Name, oi.Quantity, oi.Product.Price))
+                    .ToList()
+                ));
+
+        return await PagedList<OrderResponse>.CreateAsync(query, pageParameters.Pagenumber, pageParameters.PageSize);
+    }
+
+    public async Task<PagedList<ProductResponseDto>> GetProducts(PageParameters pageParameters, CancellationToken ct)
+    {
+        var query = db.Products
+            .Select(p => new ProductResponseDto(
+                p.ProductId,
+                p.Name,
+                p.Description,
+                p.Price,
+                p.ImgUrl,
+                p.Category.CategoryId,
+                p.Category.Name));
+
+        return await PagedList<ProductResponseDto>.CreateAsync(query, pageParameters.Pagenumber, pageParameters.PageSize);
     }
 
     public async Task<PlaceOrderResponseDto> PlaceOrder(PlaceOrderDto dto, CancellationToken ct)

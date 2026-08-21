@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using silvermax.ecommerceapi.Dtos;
 using silvermax.ecommerceapi.Models;
+using silvermax.ecommerceapi.Pagination;
 using silvermax.ecommerceapi.Service;
 
 namespace silvermax.ecommerceapi.Controllers;
@@ -56,5 +57,21 @@ public class EcommerceController(IEcommerceService ecommerceService) : Controlle
             return Conflict("This client already exists");
 
         return Ok(result);
+    }
+
+    [HttpGet("orders")]
+    public async Task<IActionResult> GetOrders([FromQuery] PageParameters pageParameters, CancellationToken ct)
+    {
+        var pagedOrders = await ecommerceService.GetOrders(pageParameters, ct);
+
+        return Ok(pagedOrders);
+    }
+
+    [HttpGet("products")]
+    public async Task<IActionResult> GetProducts([FromQuery] PageParameters pageParameters, CancellationToken ct)
+    {
+        var pagedProducts = await ecommerceService.GetProducts(pageParameters, ct);
+
+        return Ok(pagedProducts);
     }
 }
